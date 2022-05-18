@@ -1,4 +1,4 @@
-import { classNames } from "~/helpers/style-helpers";
+import { classNames } from "~/lib/matador/helpers/style-helpers";
 
 type StatProps = React.PropsWithChildren<{
   onClick?: () => void;

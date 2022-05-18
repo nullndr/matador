@@ -1,6 +1,6 @@
 import { Queue } from "bullmq";
 import Redis from "ioredis";
-import { redis } from "~/helpers/redis-helpers.server";
+import { redis } from "~/lib/matador/helpers/redis-helpers.server";
 
 export type RedisInfo = {
   [sectionTitle: string]: {

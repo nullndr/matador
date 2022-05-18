@@ -1,6 +1,6 @@
-import { LoaderFunction, NavLink, useLoaderData } from "remix";
-import { assertNever, invariant } from "~/helpers/application-helpers";
-import { Card } from "~/lib/matador/components";
+import { LoaderFunction } from "@remix-run/node";
+import { NavLink, useLoaderData } from "@remix-run/react";
+import { Card } from "~/components/Matador";
 import { BullJob, getQueueJob } from "~/lib/matador/index.server";
 
 type LoaderData = {
@@ -42,7 +42,10 @@ export const loader: LoaderFunction = async ({
 
 export default function JobDetail() {
   const loaderData = useLoaderData<LoaderData>();
-  invariant("timestamp" in loaderData.job);
+  if (!("timestamp" in loaderData.job)) {
+    throw new Error();
+  }
+
   let bgColor: "gray" | "white" = "white";
 
   const getBgColor = (color: "gray" | "white") => {
@@ -54,9 +57,6 @@ export default function JobDetail() {
       case "white": {
         bgColor = "gray";
         return "bg-gray-50";
-      }
-      default: {
-        assertNever(color);
       }
     }
   };

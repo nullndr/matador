@@ -1,5 +1,6 @@
-import { LoaderFunction, useLoaderData } from "remix";
-import { Card } from "~/lib/matador/components";
+import { LoaderFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { Card } from "~/components/Matador";
 import { getRedisClients } from "~/lib/matador/index.server";
 
 type LoaderData = string;

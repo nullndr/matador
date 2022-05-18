@@ -1,6 +1,7 @@
+import { LoaderFunction } from "@remix-run/node";
+import { NavLink, useLoaderData } from "@remix-run/react";
 import React from "react";
-import { LoaderFunction, NavLink, useLoaderData } from "remix";
-import { JobStatus, Stat, Table } from "~/lib/matador/components";
+import { JobStatus, Stat, Table } from "~/components/Matador";
 import { getRepeatableQueueJobs, Job } from "~/lib/matador/index.server";
 
 type LoaderData = {

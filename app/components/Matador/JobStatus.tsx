@@ -1,5 +1,5 @@
-import { classNames } from "~/helpers/style-helpers";
-import { BullJob } from "../index.server";
+import { classNames } from "~/lib/matador/helpers/style-helpers";
+import { BullJob } from "~/lib/matador/index.server";
 
 type JobStatusProps = {
   job: BullJob;

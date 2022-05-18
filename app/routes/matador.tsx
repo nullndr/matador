@@ -1,6 +1,7 @@
-import { LinksFunction, NavLink, Outlet, useCatch } from "remix";
-import { SideBar } from "~/lib/matador/components";
-import { classNames } from "~/helpers/style-helpers";
+import { LinksFunction } from "@remix-run/node";
+import { NavLink, Outlet, useCatch } from "@remix-run/react";
+import { SideBar } from "~/components/Matador";
+import { classNames } from "~/lib/matador/helpers/style-helpers";
 
 const navigation = [
   { name: "Queues", href: "./queues" },

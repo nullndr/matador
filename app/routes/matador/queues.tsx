@@ -1,6 +1,7 @@
-import { LoaderFunction, NavLink, useLoaderData } from "remix";
-import { Link } from "~/components/ui/Link";
-import { Stat } from "~/lib/matador/components";
+import { LoaderFunction } from "@remix-run/node";
+import { NavLink, useLoaderData } from "@remix-run/react";
+import { Stat } from "~/components/Matador";
+import { Link } from "~/components/Matador/ui/Link";
 import { getQueues, getRedisInfo, RedisInfo } from "~/lib/matador/index.server";
 
 type LoaderData = { queues: string[]; serverInfo: RedisInfo };
