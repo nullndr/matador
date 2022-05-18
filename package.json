@@ -30,19 +30,22 @@
     "@remix-run/node": "1.4.3",
     "@remix-run/react": "1.4.3",
     "@remix-run/serve": "1.4.3",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "bullmq": "1.82.2",
     "ioredis": "5.0.5",
-    "bullmq": "1.82.2"
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@headlessui/react": "^1.6.1",
     "@remix-run/dev": "1.4.3",
     "@remix-run/eslint-config": "1.4.3",
     "@types/react": "17.0.45",
     "@types/react-dom": "17.0.17",
+    "concurrently": "7.1.0",
+    "cross-env": "^7.0.3",
     "eslint": "8.15.0",
-    "typescript": "4.6.4",
-    "@headlessui/react": "1.6.1",
-    "concurrently": "7.1.0"
+    "postcss": "8.4.13",
+    "tailwindcss": "3.0.24",
+    "typescript": "4.6.4"
   }
 }
