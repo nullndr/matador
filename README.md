@@ -1,3 +1,5 @@
+![matador](./assets/matador.png)
+
 # Matador
 
 Matador is a little interface that help you to monitor your [BullMQ](https://docs.bullmq.io/) queues.
