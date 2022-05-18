@@ -4,6 +4,14 @@
 
 Matador is [Remix.run](https://remix.run) stack that help you to monitor your [BullMQ](https://docs.bullmq.io/) queues.
 
+# Installation
+
+Start your new Matador Remix project with
+
+```bash
+$ nxp create-remix@latest --template nullndr/matador
+```
+
 # TODO
 
 - [ ] allow actions on jobs like resume, pause, delete ecc.
