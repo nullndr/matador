@@ -12,6 +12,10 @@ Start your new Matador Remix project with
 $ nxp create-remix@latest --template nullndr/matador
 ```
 
+# Redis
+
+Matador needs **Redis 6** at least to work.
+
 # TODO
 
 - [ ] allow actions on jobs like resume, pause, delete ecc.
