@@ -1,4 +1,4 @@
-![matador](./assets/matador.png)
+![matador](./public/assets/matador.png)
 
 # Matador
 
