@@ -1,0 +1,11 @@
+{
+  "name": "remix.init",
+  "private": true,
+  "license": "MIT",
+  "main": "index.js",
+  "dependencies": {
+    "sort-package-json": "^1.55.0",
+    "inquirer": "^8.2.2",
+    "@architect/utils": "^3.1.0"
+  }
+}
