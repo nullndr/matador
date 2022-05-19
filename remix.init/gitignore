@@ -1,4 +1,6 @@
 node_modules
 
-/server/index.js
+/.cache
+/build
 /public/build
+.env
