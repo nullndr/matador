@@ -22,7 +22,7 @@ export const loader: LoaderFunction = async ({
 
 type DashboardProps = {};
 
-export default function Dashboard({}: DashboardProps) {
+export default function Dashboard({ }: DashboardProps) {
   const loaderData = useLoaderData<LoaderData>();
   return (
     <>
@@ -69,33 +69,40 @@ export default function Dashboard({}: DashboardProps) {
         </div>
       </div>
       <h1 className="text-3xl font-bold leading-tight text-gray-900 py-6">
-        Queues
+        BullMQ Queues
       </h1>
       <div className="mx-auto">
-        <ul
-          role="list"
-          className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {loaderData.queues.map((queue) => (
-            <li
-              key={queue}
-              className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200"
+        {
+          loaderData.queues.length === 0
+            ?
+            <p>No Data</p>
+            :
+            <ul
+              role="list"
+              className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
             >
-              <Link
-                to={`../${encodeURI(queue)}`}
-                className="text-indigo-600 hover:text-indigo-900"
-              >
-                <div className="w-full flex items-center justify-between p-6 space-x-6">
-                  <div className="flex-1 truncate">
-                    <div className="flex items-center space-x-3">
-                      <h3 className="text-sm font-medium truncate">{queue}</h3>
+              {loaderData.queues.map((queue) => (
+                <li
+                  key={queue}
+                  className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200"
+                >
+                  <Link
+                    to={`../${encodeURI(queue)}`}
+                    className="text-indigo-600 hover:text-indigo-900"
+                  >
+                    <div className="w-full flex items-center justify-between p-6 space-x-6">
+                      <div className="flex-1 truncate">
+                        <div className="flex items-center space-x-3">
+                          <h3 className="text-sm font-medium truncate">{queue}</h3>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+        }
+
       </div>
     </>
   );

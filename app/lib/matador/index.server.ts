@@ -141,7 +141,7 @@ const getRedisKeys = async (redis: Redis, pattern: string) => {
     0,
     "MATCH",
     pattern,
-    "COUNT",
+    "COUNT", 
     1000,
     "TYPE",
     "hash"
