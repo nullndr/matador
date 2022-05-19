@@ -30,8 +30,9 @@ export const Navlink = ({ icon, color, label, href } : NavlinkProps) => {
                                 (theme.colorScheme === 'dark' ? `${theme.colors.dark[7]} !important` :  `white !important`),
                             '&:hover': {
                             backgroundColor:
-                                theme.colorScheme === 'dark' ? `${theme.colors.dark[4]} !important` : theme.colors.gray[0],
+                                theme.colorScheme === 'dark' ? `${theme.colors.dark[4]} !important` : `${theme.colors.gray[2]} !important`,
                             },
+                            marginBottom: '2%'
                         })}
                     >
                             <Group>

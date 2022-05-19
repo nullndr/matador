@@ -1,6 +1,7 @@
+import { Grid, Title, Card as MantineCard, Center, Text, Divider } from "@mantine/core";
 import { LoaderFunction } from "@remix-run/node";
 import { NavLink, useLoaderData } from "@remix-run/react";
-import { Stat } from "~/components/Matador";
+import { StatCard } from "~/components/Matador/stat-card";
 import { Link } from "~/components/Matador/ui/Link";
 import { getQueues, getRedisInfo, RedisInfo } from "~/lib/matador/index.server";
 
@@ -26,84 +27,73 @@ export default function Dashboard({ }: DashboardProps) {
   const loaderData = useLoaderData<LoaderData>();
   return (
     <>
-      <div className="mx-auto">
-        <div className="px-4 sm:px-0">
-          <div className={`grid gap-5 grid-cols-3`}>
-            <NavLink to="../redis">
-              <Stat key="redisVersion">
-                <div className="text-base font-normal text-gray-900">
-                  {"Redis version"}
-                </div>
-                <div className="mt-1 flex justify-between items-baseline md:block lg:flex">
-                  <div className="flex items-baseline text-2xl font-semibold text-indigo-600">
-                    {loaderData.serverInfo.Server.redis_version}
-                  </div>
-                </div>
-              </Stat>
-            </NavLink>
-            <NavLink to="../redis">
-              <Stat key="redisMode">
-                <div className="text-base font-normal text-gray-900">
-                  {"Mode"}
-                </div>
-                <div className="mt-1 flex justify-between items-baseline md:block lg:flex">
-                  <div className="flex items-baseline text-2xl font-semibold text-indigo-600">
-                    {loaderData.serverInfo.Server.redis_mode}
-                  </div>
-                </div>
-              </Stat>
-            </NavLink>
-            <NavLink to="../clients">
-              <Stat key="connectedClients">
-                <div className="text-base font-normal text-gray-900">
-                  {"Connected clients"}
-                </div>
-                <div className="mt-1 flex justify-between items-baseline md:block lg:flex">
-                  <div className="flex items-baseline text-2xl font-semibold text-indigo-600">
-                    {loaderData.serverInfo.Clients.connected_clients}
-                  </div>
-                </div>
-              </Stat>
-            </NavLink>
-          </div>
-        </div>
-      </div>
-      <h1 className="text-3xl font-bold leading-tight text-gray-900 py-6">
-        BullMQ Queues
-      </h1>
-      <div className="mx-auto">
-        {
-          loaderData.queues.length === 0
-            ?
-            <p>No Data</p>
-            :
-            <ul
-              role="list"
-              className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-            >
-              {loaderData.queues.map((queue) => (
-                <li
-                  key={queue}
-                  className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200"
-                >
-                  <Link
-                    to={`../${encodeURI(queue)}`}
-                    className="text-indigo-600 hover:text-indigo-900"
-                  >
-                    <div className="w-full flex items-center justify-between p-6 space-x-6">
-                      <div className="flex-1 truncate">
-                        <div className="flex items-center space-x-3">
-                          <h3 className="text-sm font-medium truncate">{queue}</h3>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-        }
+      
+      <Grid columns={24} mt='sm' mb='lg'>
+        <Grid.Col sm={24} xs={24} md={8} lg={8} xl={8}>
+          <NavLink to="../redis">
+            <StatCard
+              title="Redis version"
+              value={loaderData.serverInfo.Server.redis_version}
+              color='red'
+            />
+          </NavLink>
+        </Grid.Col>
+        <Grid.Col sm={24} xs={24} md={8} lg={8} xl={8}>
+          <NavLink to="../redis">
+            <StatCard 
+              title="Redis Mode" 
+              value={loaderData.serverInfo.Server.redis_mode} 
+              color='grape' 
+            />
+          </NavLink>
+        </Grid.Col>
+        <Grid.Col sm={24} xs={24} md={8} lg={8} xl={8}>
+          <NavLink to="../clients">
+            <StatCard 
+              title="Connected Clients" 
+              value={loaderData.serverInfo.Clients.connected_clients} 
+              color='green' 
+            />
+          </NavLink>
+        </Grid.Col>
+      </Grid>
 
-      </div>
+      <Title mb='sm' order={2} sx={(theme) => ({
+        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+      })}>
+        Queues
+      </Title>
+
+      <Divider mb='md' />
+
+      {
+        loaderData.queues.length === 0
+        ?
+        <Center>
+          <Title order={3} sx={(theme) => ({
+            color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+          })}>No BullMQ Queues</Title>
+        </Center>
+        :
+        <Grid columns={24} mt='sm'>
+        {loaderData.queues.map(queue => (
+          <Grid.Col sm={24} xs={24} md={8} lg={8} xl={8}>
+            <Link to={`../${encodeURI(queue)}`}>
+              <MantineCard
+                radius='md'
+                withBorder={true}
+                shadow='xl'
+              >
+                <Title order={5}>{queue}</Title>
+              </MantineCard>
+            </Link>
+          </Grid.Col>
+        ))}
+      </Grid>
+
+      }
+
+      
     </>
   );
 }

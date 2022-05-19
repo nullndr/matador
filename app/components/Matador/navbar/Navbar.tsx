@@ -14,25 +14,31 @@ import {
     Image,
     Grid,
     Center,
-    Divider
+    Divider,
+    Title,
+    ColorScheme
 } from '@mantine/core';
 
 import { TiWeatherSunny } from 'react-icons/ti';
 import { BiMoon } from 'react-icons/bi'
-import { Navlink, NavlinkProps } from './index';
+import { Navlink, NavbarProps } from './index';
+import { NavLink } from 'react-router-dom';
 
-type NavBarProps = React.PropsWithChildren<{
-    srcLogo: string,
-    links: NavlinkProps[],
-    footerText: string | React.ReactNode
-}>
 
-export const NavBar = ( { srcLogo, links, footerText, children } : NavBarProps) => {
+export const NavBar = ( { srcLogo, links, footerText, children } : NavbarProps) => {
 
     const theme = useMantineTheme();
-    const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+    const { toggleColorScheme } = useMantineColorScheme();
     const [opened, setOpened] = useState<boolean>(false);
 
+    const onClickThemeButton = () => {
+        
+        //FIXME move to constant file 
+        const changeThemeTo : ColorScheme = theme.colorScheme === 'dark' ? 'light' : 'dark';
+        toggleColorScheme(changeThemeTo);
+        localStorage.setItem('theme', changeThemeTo);
+        
+    }
     return (
         <AppShell
             styles={{
@@ -57,34 +63,38 @@ export const NavBar = ( { srcLogo, links, footerText, children } : NavBarProps) 
                     <Navbar.Section style={{ marginBottom: '5%' }}>
                         <Grid columns={12} justify='space-between'>
                             <Grid.Col span={6} >
-                                <Image 
-                                    src={srcLogo} 
-                                    alt='logo'
-                                    width={50}
-                                />
+                                <NavLink to='./'>
+                                    <Image 
+                                        src={srcLogo} 
+                                        alt='logo'
+                                        width={70}
+                                    />
+                                </NavLink>
                             
                             </Grid.Col>
                             <Grid.Col span={6}>
                                 <Group position='right'>
-                                    <ActionIcon variant="default" onClick={() => toggleColorScheme()} size={30}>
-                                        
-                                        {colorScheme === 'dark' ? <TiWeatherSunny size={16} /> : <BiMoon size={16} />}
-
+                                    <ActionIcon variant="default" onClick={onClickThemeButton} size={44}>
+                                        {theme.colorScheme === 'dark' ? <TiWeatherSunny size={24} /> : <BiMoon size={24} />}
                                     </ActionIcon>
                                 </Group>
                             
                             </Grid.Col>
                         </Grid>
                     </Navbar.Section>
-                    <Divider />
-                    {/* Lnks  */}
+                    <Divider sx={{ marginBottom: '2%' }} />
+                    
                     <Navbar.Section grow component={ScrollArea} mx="-xs" px="xs">
-                        {links.map(el => <Navlink {...el} />)}
+                        {links.map(el => <Navlink key={el.href} {...el} />)}
                     </Navbar.Section>
                     <Divider />
-                    {/* Footer with information */}
+                    
                     <Navbar.Section>
-                        <p>{footerText}</p>
+                        <Title order={5} sx={(theme) => ({
+                            color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+                        })}>
+                            { footerText }
+                        </Title>
                     </Navbar.Section>
                     
                 </Navbar>
