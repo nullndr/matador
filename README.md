@@ -12,7 +12,9 @@ $ nxp create-remix@latest --template nullndr/matador
 
 # What's in the stack
 
-- Matador
+- Matador interface built with [MantineUI](https://mantine.dev/)
+- A little [utility](https://github.com/nullndr/Matador/tree/main/app/queues) that helps you build your queues
+- Styling with [Tailwind](https://tailwindcss.com/)
 - Code formatting with [Prettier](https://prettier.io)
 - Static Types with [TypeScript](https://typescriptlang.org)
 
@@ -41,3 +43,7 @@ To run type checking across the whole project, run `npm run typecheck`.
 We use [Prettier](https://prettier.io/) for auto-formatting in this project.
 It's recommended to install an editor plugin (like the [VSCode Prettier plugin](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)) to get auto-formatting on save.
 There's also a `npm run format` script you can run to format all files in the project.
+
+# What if I already have a project with BullMQ?
+
+We're planning to give you a simple script that will copy only the route and it's library.
