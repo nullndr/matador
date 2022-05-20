@@ -19,8 +19,6 @@ export default function MatadorLayout() {
 
 export function CatchBoundary() {
 
-  // FIXME migrate to mantine
-
   const caught = useCatch();
   return (
     <>
