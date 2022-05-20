@@ -9,7 +9,9 @@
   "scripts": {
     "dev": "concurrently -p \"[{name}]\" -n \"tailwind,remix\" -c \"yellow.bold,red.bold\" \"npm:dev:css\" \"npm:dev:remix\"",
     "dev:remix": "cross-env NODE_ENV=development remix dev",
-    "dev:css": "tailwindcss -o ./app/styles.css --watch"
+    "dev:css": "tailwindcss -o ./app/styles.css --watch",
+    "format": "prettier --write .",
+    "typecheck": "tsc -b && tsc -b cypress"
   },
   "repository": {
     "type": "git",
@@ -42,10 +44,11 @@
     "@types/react": "17.0.45",
     "@types/react-dom": "17.0.17",
     "concurrently": "7.1.0",
-    "cross-env": "^7.0.3",
+    "cross-env": "7.0.3",
     "eslint": "8.15.0",
     "postcss": "8.4.13",
     "tailwindcss": "3.0.24",
-    "typescript": "4.6.4"
+    "typescript": "4.6.4",
+    "prettier": "2.6.2"
   }
 }
