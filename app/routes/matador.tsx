@@ -14,7 +14,6 @@ export const links: LinksFunction = () => {
 };
 
 export default function MatadorLayout() {
-    
   return <App />;
 }
 
