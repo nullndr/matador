@@ -9,7 +9,7 @@ export const JobsTable = ({ jobs, queueName }: JobsTableProps) => {
             <thead>
                 <tr>
                 {["Name", "Id", "Timestamp", "Status"].map(el => (
-                    <th>{el}</th>
+                    <th key={el}>{el}</th>
                 ))}
                 </tr>
           </thead>

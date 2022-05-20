@@ -1,7 +1,7 @@
 import { Grid, Title, Card as MantineCard, Center, Text, Divider } from "@mantine/core";
 import { LoaderFunction } from "@remix-run/node";
 import { NavLink, useLoaderData } from "@remix-run/react";
-import { StatCard } from "~/components/Matador/stat-card";
+import { StatCard } from "../../components/Matador/stat-card";
 import { Link } from "~/components/Matador/ui/Link";
 import { getQueues, getRedisInfo, RedisInfo } from "~/lib/matador/index.server";
 
