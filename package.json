@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "concurrently -p \"[{name}]\" -n \"tailwind,remix\" -c \"yellow.bold,red.bold\" \"npm:dev:css\" \"npm:dev:remix\"",
     "dev:remix": "cross-env NODE_ENV=development remix dev",
-    "dev:css": "tailwindcss -o ./app/styles.css --watch",
+    "dev:css": "tailwindcss -o ./app/styles/tailwind.css --watch",
     "format": "prettier --write .",
     "typecheck": "tsc -b && tsc -b cypress"
   },
