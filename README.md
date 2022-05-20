@@ -1,27 +1,43 @@
+# Remix Matador stack
+
 ![matador](./public/assets/matador.png)
 
-# Matador
+A bold interface that helps you monitor your [BullMQ](https://docs.bullmq.io/) queues.
 
-Matador is [Remix.run](https://remix.run) stack that help you to monitor your [BullMQ](https://docs.bullmq.io/) queues.
+Learn more about [Remix Stacks](https://remix.run/stacks).
 
-# Installation
-
-Start your new Matador Remix project with
-
-```bash
+```sh
 $ nxp create-remix@latest --template nullndr/matador
 ```
 
-# Redis
+# What's in the stack
 
-Matador needs **Redis 6** at least to work.
+- Matador
+- Code formatting with [Prettier](https://prettier.io)
+- Static Types with [TypeScript](https://typescriptlang.org)
 
-# TODO
+# Development
 
-- [ ] allow actions on jobs like resume, pause, delete ecc.
+- Start dev server:
 
-# Contribution
+  ```sh
+  $ npm run dev
+  ```
 
-All contributions to Matador are accepted, the followings are the most needed:
+# Connecting to your Redis server
 
-- [ ] re-style of the interface
+Matador needs a **Redis 6 instance** at least to work.
+
+Set your redis connection string as the `REDIS_URL` env variable in your `.env` file.
+
+# Type Checking
+
+This project uses TypeScript.
+It's recommended to get TypeScript set up for your editor to get a really great in-editor experience with type checking and auto-complete.
+To run type checking across the whole project, run `npm run typecheck`.
+
+# Formatting
+
+We use [Prettier](https://prettier.io/) for auto-formatting in this project.
+It's recommended to install an editor plugin (like the [VSCode Prettier plugin](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)) to get auto-formatting on save.
+There's also a `npm run format` script you can run to format all files in the project.
