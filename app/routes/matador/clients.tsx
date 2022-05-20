@@ -1,7 +1,7 @@
 import { Title, Card, Grid, Box, Divider, Table, Tooltip } from "@mantine/core";
 import { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { Dot } from "~/components/Matador/dot";
+import { Dot } from "~/lib/matador/components/dot";
 
 import { getRedisClients } from "~/lib/matador/index.server";
 

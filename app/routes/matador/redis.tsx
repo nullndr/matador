@@ -1,8 +1,7 @@
 import { Divider, Grid, Title } from "@mantine/core";
 import { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { Card } from "~/components/Matador";
-import { StatCard } from "~/components/Matador/stat-card";
+import { StatCard } from "~/lib/matador/components/stat-card";
 import { getRedisInfo, RedisInfo } from "~/lib/matador/index.server";
 
 type LoaderData = RedisInfo;

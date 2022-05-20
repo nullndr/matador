@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { BiInfoCircle } from "react-icons/bi";
 import { BsArrowsAngleContract } from "react-icons/bs";
 import { DiRedis } from "react-icons/di";
-import { NavBar, NavlinkProps } from "~/components/Matador/navbar";
+import { NavBar, NavlinkProps } from "~/lib/matador/components/navbar";
 
 const navigation : NavlinkProps[] = [
     { label: "Queues", href: "./queues", color: 'red', icon: <DiRedis size={20} /> },

@@ -2,8 +2,8 @@ import { Divider, Grid, Title } from "@mantine/core";
 import { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import React from "react";
-import { JobsTable } from "~/components/Matador/jobs-table";
-import { StatCard } from "~/components/Matador/stat-card";
+import { JobsTable } from "~/lib/matador/components/jobs-table";
+import { StatCard } from "~/lib/matador/components/stat-card";
 import { getRepeatableQueueJobs, Job } from "~/lib/matador/index.server";
 
 type LoaderData = {
