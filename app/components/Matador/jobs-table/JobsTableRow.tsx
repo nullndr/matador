@@ -6,13 +6,17 @@ import { JobsTableRowProps } from "./JobsTableRowProps";
 
 type JobStatus = 'completed' | 'repeated' | 'children' | 'failed';
 
-export const JobsTableRow = ({ job, queueName } : JobsTableRowProps) => {
+export const JobsTableRow = ({ job, queueName, repeatJob = false } : JobsTableRowProps) => {
 
     const status = getStatus(job);
 
     const buildLink = () : string => {
         if(!job.id) {
             return '#';
+        }
+
+        if(repeatJob) {
+            return `../${encodeURI(queueName)}/${encodeURI(`${job.id}`)}`;
         }
 
         let baseUri = `../${encodeURI(queueName)}/`;

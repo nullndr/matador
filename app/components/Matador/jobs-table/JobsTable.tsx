@@ -2,7 +2,7 @@ import { Table } from "@mantine/core";
 import { JobsTableProps } from "./index";
 import { JobsTableRow } from "./JobsTableRow";
 
-export const JobsTable = ({ jobs, queueName }: JobsTableProps) => {
+export const JobsTable = ({ jobs, queueName, repeatJobs = false }: JobsTableProps) => {
 
     return (
         <Table>
@@ -16,7 +16,7 @@ export const JobsTable = ({ jobs, queueName }: JobsTableProps) => {
           <tbody>
             {
                 jobs.map(el => (
-                    <JobsTableRow job={el} key={el.id} queueName={queueName} />
+                    <JobsTableRow job={el} key={el.id} queueName={queueName} repeatJob={repeatJobs} />
                 ))
             }
           </tbody>
