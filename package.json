@@ -1,17 +1,16 @@
 {
   "name": "matador",
-  "version": "1.0.0",
   "description": "A little Remix.run route for BullMQ queues",
-  "main": "index.js",
-  "directories": {
-    "lib": "lib"
-  },
   "scripts": {
+    "start": "cross-env NODE_ENV=production node ./build/index.js",
+    "build": "npm run build:css && npm run build:remix",
+    "build:remix": "cross-env NODE_ENV=production remix build",
+    "build:css": "tailwindcss -o ./app/styles/tailwind.css",
     "dev": "concurrently -p \"[{name}]\" -n \"tailwind,remix\" -c \"yellow.bold,red.bold\" \"npm:dev:css\" \"npm:dev:remix\"",
     "dev:remix": "cross-env NODE_ENV=development remix dev",
     "dev:css": "tailwindcss -o ./app/styles.css --watch",
     "format": "prettier --write .",
-    "typecheck": "tsc -b && tsc -b cypress"
+    "typecheck": "tsc -b"
   },
   "repository": {
     "type": "git",
@@ -23,7 +22,6 @@
     "matador"
   ],
   "author": "Andrea <andrea@yaaaw.it>",
-  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/nullndr/Matador/issues"
   },
@@ -38,7 +36,7 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
-    "@headlessui/react": "^1.6.1",
+    "@headlessui/react": "1.6.1",
     "@remix-run/dev": "1.4.3",
     "@remix-run/eslint-config": "1.4.3",
     "@types/react": "17.0.45",
