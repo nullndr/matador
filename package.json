@@ -5,7 +5,7 @@
     "start": "cross-env NODE_ENV=production node ./build/index.js",
     "build": "npm run build:css && npm run build:remix",
     "build:remix": "cross-env NODE_ENV=production remix build",
-    "build:css": "tailwindcss -o ./app/styles.css",
+    "build:css": "tailwindcss -o ./app/styles/tailwind.css",
     "dev": "concurrently -p \"[{name}]\" -n \"tailwind,remix\" -c \"yellow.bold,red.bold\" \"npm:dev:css\" \"npm:dev:remix\"",
     "dev:remix": "cross-env NODE_ENV=development remix dev",
     "dev:css": "tailwindcss -o ./app/styles.css --watch",
