@@ -18,7 +18,7 @@ export const StatCard = ({ title, value, color } : StatCardProps) => {
         >
             <Grid justify='center' align='center'>
                 <Grid.Col span={6}> {/* FIXME title text overflow */}
-                    <Title  order={4}>{ title }</Title>
+                    <Title sx={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }} order={4}>{ title }</Title>
                 </Grid.Col>
                 <Grid.Col span={6}>
                     <Group position='right' >

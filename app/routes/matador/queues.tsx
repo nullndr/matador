@@ -76,8 +76,8 @@ export default function Dashboard({ }: DashboardProps) {
         </Center>
         :
         <Grid columns={24} mt='sm'>
-        {loaderData.queues.map(queue => (
-          <Grid.Col sm={24} xs={24} md={8} lg={8} xl={8}>
+        {loaderData.queues.map((queue, index) => (
+          <Grid.Col key={index} sm={24} xs={24} md={8} lg={8} xl={8}>
             <Link to={`../${encodeURI(queue)}`}>
               <MantineCard
                 radius='md'

@@ -27,7 +27,6 @@ export const JobsTableRow = ({ job, queueName, repeatJob = false } : JobsTableRo
             baseUri += job.id;
         }
 
-        console.log(baseUri);
         return baseUri;
     }
 
