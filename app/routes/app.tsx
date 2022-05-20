@@ -5,6 +5,7 @@ import { BiInfoCircle } from "react-icons/bi";
 import { BsArrowsAngleContract } from "react-icons/bs";
 import { DiRedis } from "react-icons/di";
 import { NavBar, NavlinkProps } from "~/lib/matador/components/navbar";
+import { themeKeyLocalStorage } from '~/lib/matador/constants';
 
 const navigation : NavlinkProps[] = [
     { label: "Queues", href: "./queues", color: 'red', icon: <DiRedis size={20} /> },
@@ -21,7 +22,7 @@ export const App = () => {
 
         
         if (typeof window !== 'undefined') {
-            const theme = localStorage.getItem('theme') as ColorScheme;
+            const theme = localStorage.getItem(themeKeyLocalStorage) as ColorScheme;
 
             setColorScheme(theme ?? 'light')
         }

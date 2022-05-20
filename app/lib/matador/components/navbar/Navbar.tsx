@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { 
     AppShell, 
     useMantineTheme, 
@@ -23,6 +23,7 @@ import { TiWeatherSunny } from 'react-icons/ti';
 import { BiMoon } from 'react-icons/bi'
 import { Navlink, NavbarProps } from './index';
 import { NavLink } from 'react-router-dom';
+import { themeKeyLocalStorage } from '~/lib/matador/constants';
 
 
 export const NavBar = ( { srcLogo, links, footerText, children } : NavbarProps) => {
@@ -33,10 +34,10 @@ export const NavBar = ( { srcLogo, links, footerText, children } : NavbarProps) 
 
     const onClickThemeButton = () => {
         
-        //FIXME move to constant file 
         const changeThemeTo : ColorScheme = theme.colorScheme === 'dark' ? 'light' : 'dark';
         toggleColorScheme(changeThemeTo);
-        localStorage.setItem('theme', changeThemeTo);
+        
+        localStorage.setItem(themeKeyLocalStorage, changeThemeTo);
         
     }
     return (
