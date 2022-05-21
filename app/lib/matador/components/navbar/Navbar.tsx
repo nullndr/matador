@@ -41,7 +41,7 @@ export const NavBar = ({
   srcLogo,
   links,
   footerText,
-  children,
+  children
 }: NavbarProps) => {
   const theme = useMantineTheme();
   const { toggleColorScheme } = useMantineColorScheme();

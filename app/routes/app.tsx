@@ -10,6 +10,7 @@ import { BsArrowsAngleContract } from "react-icons/bs";
 import { DiRedis } from "react-icons/di";
 import { NavBar, NavbarItem } from "~/lib/matador/components/navbar";
 import { themeKeyLocalStorage } from "~/lib/matador/constants";
+import { getMatadorVersion } from "~/lib/matador/index.server";
 
 const navigation: NavbarItem[] = [
   {
@@ -54,7 +55,7 @@ export const App = () => {
         <NavBar
           links={navigation}
           srcLogo="/assets/matador.png"
-          footerText="Matador v1.0.0"
+          footerText={`Matador ${getMatadorVersion()}`}
         >
           <Outlet />
         </NavBar>

@@ -3,7 +3,6 @@ import {
   Title,
   Card as MantineCard,
   Center,
-  Text,
   Divider,
 } from "@mantine/core";
 import { LoaderFunction } from "@remix-run/node";
