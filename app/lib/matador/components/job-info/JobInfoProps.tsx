@@ -1,7 +1,9 @@
 import { MantineColor } from "@mantine/core";
 
-export interface JobInfoProps {
+interface JobInfoProps {
     infoName: string,
     infoValue: string,
     color?: MantineColor
 }
+
+export default JobInfoProps;

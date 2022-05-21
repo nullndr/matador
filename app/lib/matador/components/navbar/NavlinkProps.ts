@@ -1,6 +1,6 @@
 import { MantineColor } from "@mantine/core";
 
-export interface NavlinkProps {
+interface NavlinkProps {
     icon: React.ReactNode,
     color: MantineColor,
     label: string,
@@ -9,3 +9,5 @@ export interface NavlinkProps {
 }
 
 
+
+export default NavlinkProps;

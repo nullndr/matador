@@ -1,9 +1,7 @@
 import { Card, Textarea } from '@mantine/core';
-import { JobResultProps } from './index'
+import JobResultProps from './JobResultProps';
 
-// FIXME heigh textarea
-
-export const JobResult = ({ label, description, value}: JobResultProps) => {
+const JobResult = ({ label, description, value}: JobResultProps) => {
     return (
         <>
             <Card
@@ -12,12 +10,8 @@ export const JobResult = ({ label, description, value}: JobResultProps) => {
                 shadow='xl'
                 mb='md'
                 sx={{
-                    minHeight: 200,
-                    div: {
-                        height: '100%',
-                        textarea: {
-                            height: '100%',
-                        }
+                    textarea: {
+                        minHeight: 130,
                     }
                 }}
             >
@@ -28,17 +22,12 @@ export const JobResult = ({ label, description, value}: JobResultProps) => {
                     variant="filled"
                     size="md"
                     value={value}
-                    sx={{
-                        height: '100%',
-                        div: {
-                            height: '100%',
-                            textarea: {
-                                height: '100%',
-                            }
-                        }
-                    }}
+                    
                 />
             </Card>
         </>
     );
 }
+
+
+export default JobResult;

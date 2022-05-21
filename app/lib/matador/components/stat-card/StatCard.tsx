@@ -1,4 +1,4 @@
-import { StatCardProps } from './index';
+
 import {
     Badge,
     Card, 
@@ -7,6 +7,8 @@ import {
     Group,
     Title
 } from '@mantine/core';
+
+import StatCardProps from './StatCardProps';
 
 export const StatCard = ({ title, value, color } : StatCardProps) => {
 

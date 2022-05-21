@@ -1,7 +1,9 @@
 import { MantineColor } from "@mantine/core";
 
-export interface StatCardProps {
+interface StatCardProps {
     title: string,
     value: string | number,
     color: MantineColor
 }
+
+export default StatCardProps;

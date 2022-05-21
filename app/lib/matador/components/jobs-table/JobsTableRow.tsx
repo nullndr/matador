@@ -1,12 +1,12 @@
 import { Badge, MantineColor, Text } from "@mantine/core";
 import { NavLink } from "@remix-run/react";
-import { jobIdForGroup } from "bullmq";
 import { BullJob } from "~/lib/matador/index.server";
-import { JobsTableRowProps } from "./JobsTableRowProps";
+import { getStatusColor } from "../../helpers/ui-helpers";
+import { JobStatus } from "../../types/JobStatus";
+import JobsTableRowProps from "./JobsTableRowProps";
 
-type JobStatus = 'completed' | 'repeated' | 'children' | 'failed';
 
-export const JobsTableRow = ({ job, queueName, repeatJob = false } : JobsTableRowProps) => {
+const JobsTableRow = ({ job, queueName, repeatJob = false } : JobsTableRowProps) => {
 
     const status = getStatus(job);
 
@@ -78,21 +78,4 @@ const getStatus = (job: BullJob) : JobStatus => {
     return 'completed';  
 }
 
-const getStatusColor = (status: JobStatus) : MantineColor  => {
-
-    
-    if(status === 'failed') {
-        return 'red';
-    }
-
-    if(status === 'children') {
-        return 'blue';
-    }
-
-    if(status === 'repeated') {
-        return 'indigo';
-    }
-
-    return 'green';
-}
-
+export default JobsTableRow;

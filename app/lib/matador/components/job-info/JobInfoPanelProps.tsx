@@ -1,4 +1,4 @@
-export interface JobInfoPanelProps {
+interface JobInfoPanelProps {
     id: string,
     queueName: string,
     jobName: string,
@@ -7,3 +7,5 @@ export interface JobInfoPanelProps {
     finishedOn?: Date,
     attemptsMade?: number
 }
+
+export default JobInfoPanelProps;

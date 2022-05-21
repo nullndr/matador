@@ -1,9 +1,9 @@
-import { Title, Divider, Card, Grid, JsonInput, Text } from '@mantine/core';
-import { JobResultPanelProps, JobResult } from './index';
+import { Title, Divider } from '@mantine/core';
+import JobResult  from './JobResult';
+import JobResultPanelProps from './JobResultPanelProps';
 
 export const JobResultPanel = ({ returnvalue, failedReason, stacktrace }: JobResultPanelProps) => {
 
-    console.log(returnvalue, failedReason, stacktrace)
     return (
         <>
             <Title mb='sm' order={3} sx={(theme) => ({

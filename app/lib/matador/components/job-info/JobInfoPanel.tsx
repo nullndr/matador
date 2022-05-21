@@ -1,5 +1,6 @@
 import { Divider, Grid, Title } from "@mantine/core";
-import { JobInfoPanelProps, JobInfo } from "./index";
+import JobInfo from "./JobInfo";
+import JobInfoPanelProps from "./JobInfoPanelProps";
 
 export const JobInfoPanel = ({queueName, id, jobName, timestamp, processedOn, finishedOn, attemptsMade }: JobInfoPanelProps) => {
 

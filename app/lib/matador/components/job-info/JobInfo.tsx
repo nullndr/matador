@@ -1,8 +1,9 @@
 import { Grid, MantineColor } from '@mantine/core';
 import { StatCard } from '../stat-card';
-import { JobInfoProps } from './index';
+import JobInfoProps from './JobInfoProps';
 
-export const JobInfo = ({ infoName, infoValue, color } : JobInfoProps) => {
+
+const JobInfo = ({ infoName, infoValue, color } : JobInfoProps) => {
 
     const colors : MantineColor[] = ['blue', 'grape', 'indigo', 'green', 'red', 'cyan', 'orange']
 
@@ -16,3 +17,5 @@ export const JobInfo = ({ infoName, infoValue, color } : JobInfoProps) => {
         </Grid.Col>
     );
 }
+
+export default JobInfo;

@@ -19,9 +19,11 @@ import {
 
 import { TiWeatherSunny } from 'react-icons/ti';
 import { BiMoon } from 'react-icons/bi'
-import { Navlink, NavbarProps } from './index';
 import { NavLink } from 'react-router-dom';
 import { themeKeyLocalStorage } from '~/lib/matador/constants';
+import { NavbarProps } from './NavbarProps';
+import Navlink from './Navlink';
+
 
 
 export const NavBar = ({ srcLogo, links, footerText, children }: NavbarProps) => {
@@ -61,7 +63,16 @@ export const NavBar = ({ srcLogo, links, footerText, children }: NavbarProps) =>
 
                 >
                     <Navbar.Section grow component={ScrollArea} mx="-xs" px="xs">
-                        {links.map(el => <Navlink key={el.href} {...el} onClick={() => setOpened((o) => !o)} />)}
+                        {links.map(el => (
+                            <Navlink 
+                                key={el.href} 
+                                label={el.label}
+                                href={el.href}
+                                icon={el.icon}
+                                color={el.color}
+                                onClick={() => setOpened((o) => !o)} 
+                            />
+                        ))}
                     </Navbar.Section>
                     <Divider />
 

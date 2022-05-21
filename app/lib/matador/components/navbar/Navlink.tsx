@@ -1,10 +1,11 @@
 import React from 'react';
 import { UnstyledButton, ThemeIcon, Group, Text, MantineColor } from '@mantine/core';
 import { NavLink } from 'react-router-dom';
-import { NavlinkProps } from './index';
+import NavlinkProps from './NavlinkProps';
 
 
-export const Navlink = ({ icon, color, label, href, onClick } : NavlinkProps) => {
+
+const Navlink = ({ icon, color, label, href, onClick } : NavlinkProps) => {
 
 
     return (
@@ -48,3 +49,5 @@ export const Navlink = ({ icon, color, label, href, onClick } : NavlinkProps) =>
             />
     );
 }
+
+export default Navlink;

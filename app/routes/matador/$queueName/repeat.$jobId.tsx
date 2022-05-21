@@ -1,10 +1,11 @@
 import { Divider, Grid, Title } from "@mantine/core";
 import { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import React from "react";
+import React, { useState } from "react";
 import { JobsTable } from "~/lib/matador/components/jobs-table";
 import { StatCard } from "~/lib/matador/components/stat-card";
-import { getRepeatableQueueJobs, Job } from "~/lib/matador/index.server";
+import { BullJob, getRepeatableQueueJobs, Job } from "~/lib/matador/index.server";
+import { JobStatus, JobStatuses } from "~/lib/matador/types/JobStatus";
 
 type LoaderData = {
   queueName: string;
@@ -45,7 +46,30 @@ export default function QueueDetail({}: QueueDetailProps) {
   );
   const childrenJobs = loaderData.jobs.filter((job) => "parentKey" in job);
   const failedJobs = loaderData.jobs.filter((job) => "failedReason" in job);
-  const [currentJobs, setCurrentJobs] = React.useState(loaderData.jobs);
+  const [currentJobs, setCurrentJobs] = useState(loaderData.jobs);
+  const [statusesSelected, setStatusesSelected] = useState<JobStatus[]>(JobStatuses as JobStatus[]);
+
+  const onFilterStatuses = (statuses: JobStatus[]) => {
+    setStatusesSelected(statuses);
+
+    const jobs: BullJob[] = [];
+
+    statuses.forEach(el => {
+        if(el === 'children') {
+          jobs.push(...childrenJobs)
+        }
+
+        if(el === 'completed') {
+          jobs.push(...completedJobs)
+        }
+
+        if(el === 'failed') {
+          jobs.push(...failedJobs)
+        }
+    });
+
+    setCurrentJobs(jobs);
+  }
 
   return (
     <>
@@ -83,6 +107,8 @@ export default function QueueDetail({}: QueueDetailProps) {
         <JobsTable 
           jobs={currentJobs} 
           queueName={loaderData.queueName}
+          onStatusesSelected={onFilterStatuses}
+          statusSelected={statusesSelected}
           repeatJobs
         />
       </Grid>

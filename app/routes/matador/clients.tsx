@@ -49,8 +49,6 @@ export default function Clients() {
     return infoNeeded.reduce((a, v) => ({ ...a, [v.key]: v.value }), {})
   });
 
-  console.log(loaderData)
-
   return (
     <>
       <Title mb='sm' order={2} sx={(theme) => ({
