@@ -7,7 +7,7 @@ A bold interface that helps you monitor your [BullMQ](https://docs.bullmq.io/) q
 Learn more about [Remix Stacks](https://remix.run/stacks).
 
 ```sh
-$ nxp create-remix@latest --template nullndr/matador
+$ npx create-remix@latest --template nullndr/matador
 ```
 
 # What's in the stack
