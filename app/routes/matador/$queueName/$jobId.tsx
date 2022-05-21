@@ -48,7 +48,6 @@ export default function JobDetail() {
     throw new Error();
   }
 
-
   return (
     <>
       <JobInfoPanel
@@ -72,8 +71,6 @@ export default function JobDetail() {
         failedReason={loaderData.job.failedReason}
         stacktrace={loaderData.job.stacktrace}
       />
-
-
     </>
   );
 }

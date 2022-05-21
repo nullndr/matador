@@ -1,21 +1,18 @@
 import { MantineColor } from "@mantine/core";
 import { JobStatus } from "../types/JobStatus";
 
-export const getStatusColor = (status: JobStatus) : MantineColor  => {
+export const getStatusColor = (status: JobStatus): MantineColor => {
+  if (status === "failed") {
+    return "red";
+  }
 
-    
-    if(status === 'failed') {
-        return 'red';
-    }
+  if (status === "children") {
+    return "blue";
+  }
 
-    if(status === 'children') {
-        return 'blue';
-    }
+  if (status === "repeated") {
+    return "indigo";
+  }
 
-    if(status === 'repeated') {
-        return 'indigo';
-    }
-
-    return 'green';
-}
-
+  return "green";
+};

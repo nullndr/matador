@@ -1,6 +1,6 @@
 interface JobStatusHeaderProps {
-    isFiltered: boolean,
-    onFilterClick: () => void
+  isFiltered: boolean;
+  onFilterClick: () => void;
 }
 
 export default JobStatusHeaderProps;

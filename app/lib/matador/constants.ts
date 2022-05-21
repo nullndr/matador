@@ -1,1 +1,1 @@
-export const themeKeyLocalStorage = 'matador_theme';
+export const themeKeyLocalStorage = "matador_theme";

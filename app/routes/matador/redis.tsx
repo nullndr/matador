@@ -23,36 +23,38 @@ export const loader: LoaderFunction = async ({
 export default function RedisInfo() {
   const loaderData = useLoaderData<LoaderData>();
 
-
   return (
     <>
-      {
-        Object.keys(loaderData).map((section, index) => (
-          <React.Fragment key={index}>
-            <Title mb='sm' order={2} sx={(theme) => ({
-              color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
-            })}>
-              {section}
-            </Title>
+      {Object.keys(loaderData).map((section, index) => (
+        <React.Fragment key={index}>
+          <Title
+            mb="sm"
+            order={2}
+            sx={(theme) => ({
+              color:
+                theme.colorScheme === "dark"
+                  ? theme.colors.dark[0]
+                  : theme.black,
+            })}
+          >
+            {section}
+          </Title>
 
-            <Divider mb='md' />
+          <Divider mb="md" />
 
-            <Grid columns={24} mb='md'>
-              {
-                Object.keys(loaderData[section]).map((key, index) => (
-                  <Grid.Col key={key} sm={24} xs={24} md={8} lg={6} xl={6}>
-                    <StatCard 
-                      title={key} 
-                      value={loaderData[section][key]} 
-                      color={index % 2 == 0 ? 'blue' : 'green'}
-                    />
-                  </Grid.Col>
-                ))
-              }
-            </Grid>
-          </React.Fragment>
-        ))
-      }
+          <Grid columns={24} mb="md">
+            {Object.keys(loaderData[section]).map((key, index) => (
+              <Grid.Col key={key} sm={24} xs={24} md={8} lg={6} xl={6}>
+                <StatCard
+                  title={key}
+                  value={loaderData[section][key]}
+                  color={index % 2 == 0 ? "blue" : "green"}
+                />
+              </Grid.Col>
+            ))}
+          </Grid>
+        </React.Fragment>
+      ))}
     </>
   );
 }

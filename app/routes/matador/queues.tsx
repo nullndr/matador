@@ -1,4 +1,11 @@
-import { Grid, Title, Card as MantineCard, Center, Text, Divider } from "@mantine/core";
+import {
+  Grid,
+  Title,
+  Card as MantineCard,
+  Center,
+  Text,
+  Divider,
+} from "@mantine/core";
 import { LoaderFunction } from "@remix-run/node";
 import { NavLink, useLoaderData } from "@remix-run/react";
 import { StatCard } from "../../lib/matador/components/stat-card";
@@ -23,77 +30,80 @@ export const loader: LoaderFunction = async ({
 
 type DashboardProps = {};
 
-export default function Dashboard({ }: DashboardProps) {
+export default function Dashboard({}: DashboardProps) {
   const loaderData = useLoaderData<LoaderData>();
   return (
     <>
-      
-      <Grid columns={24} mt='sm' mb='lg'>
+      <Grid columns={24} mt="sm" mb="lg">
         <Grid.Col sm={24} xs={24} md={8} lg={8} xl={8}>
           <NavLink to="../redis">
             <StatCard
               title="Redis version"
               value={loaderData.serverInfo.Server.redis_version}
-              color='red'
+              color="red"
             />
           </NavLink>
         </Grid.Col>
         <Grid.Col sm={24} xs={24} md={8} lg={8} xl={8}>
           <NavLink to="../redis">
-            <StatCard 
-              title="Redis Mode" 
-              value={loaderData.serverInfo.Server.redis_mode} 
-              color='grape' 
+            <StatCard
+              title="Redis Mode"
+              value={loaderData.serverInfo.Server.redis_mode}
+              color="grape"
             />
           </NavLink>
         </Grid.Col>
         <Grid.Col sm={24} xs={24} md={8} lg={8} xl={8}>
           <NavLink to="../clients">
-            <StatCard 
-              title="Connected Clients" 
-              value={loaderData.serverInfo.Clients.connected_clients} 
-              color='green' 
+            <StatCard
+              title="Connected Clients"
+              value={loaderData.serverInfo.Clients.connected_clients}
+              color="green"
             />
           </NavLink>
         </Grid.Col>
       </Grid>
 
-      <Title mb='sm' order={2} sx={(theme) => ({
-        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
-      })}>
+      <Title
+        mb="sm"
+        order={2}
+        sx={(theme) => ({
+          color:
+            theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
+        })}
+      >
         Queues
       </Title>
 
-      <Divider mb='md' />
+      <Divider mb="md" />
 
-      {
-        loaderData.queues.length === 0
-        ?
+      {loaderData.queues.length === 0 ? (
         <Center>
-          <Title order={3} sx={(theme) => ({
-            color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
-          })}>No BullMQ Queues</Title>
+          <Title
+            order={3}
+            sx={(theme) => ({
+              color:
+                theme.colorScheme === "dark"
+                  ? theme.colors.dark[0]
+                  : theme.black,
+            })}
+          >
+            No BullMQ Queues
+          </Title>
         </Center>
-        :
-        <Grid columns={24} mt='sm'>
-        {loaderData.queues.map((queue, index) => (
-          <Grid.Col key={index} sm={24} xs={24} md={8} lg={8} xl={8}>
-            <Link to={`../${encodeURI(queue)}`}>
-              <MantineCard
-                radius='md'
-                withBorder={true}
-                shadow='xl'
-              >
-                <Title order={5}>{queue}</Title>
-              </MantineCard>
-            </Link>
-          </Grid.Col>
-        ))}
-      </Grid>
-
-      }
-
-      
+      ) : (
+        <Grid columns={24} mt="sm">
+          {loaderData.queues.map((queue, index) => (
+            <Grid.Col key={index} sm={24} xs={24} md={8} lg={8} xl={8}>
+              <Link to={`../${encodeURI(queue)}`}>
+                <MantineCard radius="md" withBorder={true} shadow="xl">
+                  <Title order={5}>{queue}</Title>
+                </MantineCard>
+              </Link>
+            </Grid.Col>
+          ))}
+        </Grid>
+      )}
     </>
   );
 }

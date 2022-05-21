@@ -2,7 +2,6 @@ import { LinksFunction } from "@remix-run/node";
 import { useCatch } from "@remix-run/react";
 import { App } from "./app";
 
-
 export const links: LinksFunction = () => {
   return [
     {
@@ -18,7 +17,6 @@ export default function MatadorLayout() {
 }
 
 export function CatchBoundary() {
-
   const caught = useCatch();
   return (
     <>

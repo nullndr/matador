@@ -8,9 +8,8 @@ import { getRedisClients } from "~/lib/matador/index.server";
 type LoaderData = string;
 
 type ClientInfo = {
-  [name: string]: string
-}
-
+  [name: string]: string;
+};
 
 export const loader: LoaderFunction = async ({
   request,
@@ -28,36 +27,41 @@ export const loader: LoaderFunction = async ({
 export default function Clients() {
   const loaderData = useLoaderData<LoaderData>();
 
-  const clients = loaderData.split('\n').filter(el => el !== '');
+  const clients = loaderData.split("\n").filter((el) => el !== "");
 
-  const infoNeeded : ClientInfo[] = clients.map(el => {
-    const splitted = el.split(' ')
+  const infoNeeded: ClientInfo[] = clients.map((el) => {
+    const splitted = el.split(" ");
 
-    const mappedInfos = splitted.map(el => {
-        const i = el.split('=');
+    const mappedInfos = splitted.map((el) => {
+      const i = el.split("=");
 
-        return {
-            key: i[0],
-            value: i[1]
-        }
-    })
+      return {
+        key: i[0],
+        value: i[1],
+      };
+    });
 
-    const regex = /\b(name|id|addr|user)\b/
+    const regex = /\b(name|id|addr|user)\b/;
 
-    const infoNeeded = mappedInfos.filter(el => regex.test(el.key))
+    const infoNeeded = mappedInfos.filter((el) => regex.test(el.key));
 
-    return infoNeeded.reduce((a, v) => ({ ...a, [v.key]: v.value }), {})
+    return infoNeeded.reduce((a, v) => ({ ...a, [v.key]: v.value }), {});
   });
 
   return (
     <>
-      <Title mb='sm' order={2} sx={(theme) => ({
-        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
-      })}>
+      <Title
+        mb="sm"
+        order={2}
+        sx={(theme) => ({
+          color:
+            theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
+        })}
+      >
         Redis clients
       </Title>
-      <Divider mb='lg' />
-      
+      <Divider mb="lg" />
+
       <Card>
         <Table horizontalSpacing="xl">
           <thead>
@@ -70,26 +74,21 @@ export default function Clients() {
             </tr>
           </thead>
           <tbody>
-            {
-              infoNeeded.map((el, index) => (
-                <tr key={index}>
-
-                  <td>
-                    <Tooltip label="Active">
-                      <Dot />
-                    </Tooltip>
-                  </td>
-                  {Object.keys(el).map(key => (
-                    <td>{ el[key] }</td>
-                  ))}
-                </tr>
-              ))
-            }
+            {infoNeeded.map((el, index) => (
+              <tr key={index}>
+                <td>
+                  <Tooltip label="Active">
+                    <Dot />
+                  </Tooltip>
+                </td>
+                {Object.keys(el).map((key) => (
+                  <td>{el[key]}</td>
+                ))}
+              </tr>
+            ))}
           </tbody>
         </Table>
-
       </Card>
-      
     </>
   );
 }

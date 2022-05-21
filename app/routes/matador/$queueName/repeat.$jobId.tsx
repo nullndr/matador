@@ -4,7 +4,11 @@ import { useLoaderData } from "@remix-run/react";
 import React, { useState } from "react";
 import { JobsTable } from "~/lib/matador/components/jobs-table";
 import { StatCard } from "~/lib/matador/components/stat-card";
-import { BullJob, getRepeatableQueueJobs, Job } from "~/lib/matador/index.server";
+import {
+  BullJob,
+  getRepeatableQueueJobs,
+  Job,
+} from "~/lib/matador/index.server";
 import { JobStatus, JobStatuses } from "~/lib/matador/types/JobStatus";
 
 type LoaderData = {
@@ -47,65 +51,68 @@ export default function QueueDetail({}: QueueDetailProps) {
   const childrenJobs = loaderData.jobs.filter((job) => "parentKey" in job);
   const failedJobs = loaderData.jobs.filter((job) => "failedReason" in job);
   const [currentJobs, setCurrentJobs] = useState(loaderData.jobs);
-  const [statusesSelected, setStatusesSelected] = useState<JobStatus[]>(JobStatuses as JobStatus[]);
+  const [statusesSelected, setStatusesSelected] = useState<JobStatus[]>(
+    JobStatuses as JobStatus[]
+  );
 
   const onFilterStatuses = (statuses: JobStatus[]) => {
     setStatusesSelected(statuses);
 
     const jobs: BullJob[] = [];
 
-    statuses.forEach(el => {
-        if(el === 'children') {
-          jobs.push(...childrenJobs)
-        }
+    statuses.forEach((el) => {
+      if (el === "children") {
+        jobs.push(...childrenJobs);
+      }
 
-        if(el === 'completed') {
-          jobs.push(...completedJobs)
-        }
+      if (el === "completed") {
+        jobs.push(...completedJobs);
+      }
 
-        if(el === 'failed') {
-          jobs.push(...failedJobs)
-        }
+      if (el === "failed") {
+        jobs.push(...failedJobs);
+      }
     });
 
     setCurrentJobs(jobs);
-  }
+  };
 
   return (
     <>
-      <Title mb='sm' order={2} sx={(theme) => ({
-        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
-      })}>
+      <Title
+        mb="sm"
+        order={2}
+        sx={(theme) => ({
+          color:
+            theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
+        })}
+      >
         {`Jobs in "${loaderData.queueName}" Queue`}
       </Title>
-      <Divider mb='md' />
-      <Grid columns={24} mb='md'>
+      <Divider mb="md" />
+      <Grid columns={24} mb="md">
         <Grid.Col sm={24} xs={24} md={8} lg={8} xl={8}>
-          <StatCard 
+          <StatCard
             title="Completed jobs"
             value={completedJobs.length}
-            color='green'
+            color="green"
           />
         </Grid.Col>
         <Grid.Col sm={24} xs={24} md={8} lg={8} xl={8}>
-          <StatCard 
+          <StatCard
             title="Children jobs"
             value={childrenJobs.length}
-            color='grape'
+            color="grape"
           />
         </Grid.Col>
         <Grid.Col sm={24} xs={24} md={8} lg={8} xl={8}>
-          <StatCard 
-            title="Failed jobs"
-            value={failedJobs.length}
-            color='red'
-          />
+          <StatCard title="Failed jobs" value={failedJobs.length} color="red" />
         </Grid.Col>
       </Grid>
 
       <Grid>
-        <JobsTable 
-          jobs={currentJobs} 
+        <JobsTable
+          jobs={currentJobs}
           queueName={loaderData.queueName}
           onStatusesSelected={onFilterStatuses}
           statusSelected={statusesSelected}

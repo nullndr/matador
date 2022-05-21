@@ -1,1 +1,1 @@
-export * from './JobResultPanel';
+export * from "./JobResultPanel";

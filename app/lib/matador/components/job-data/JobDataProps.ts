@@ -1,6 +1,6 @@
 interface JobDataProps {
-    title: string,
-    json: any
+  title: string;
+  json: any;
 }
 
 export default JobDataProps;

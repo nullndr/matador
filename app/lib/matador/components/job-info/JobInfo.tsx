@@ -1,21 +1,27 @@
-import { Grid, MantineColor } from '@mantine/core';
-import { StatCard } from '../stat-card';
-import JobInfoProps from './JobInfoProps';
+import { Grid, MantineColor } from "@mantine/core";
+import { StatCard } from "../stat-card";
+import JobInfoProps from "./JobInfoProps";
 
+const JobInfo = ({ infoName, infoValue, color }: JobInfoProps) => {
+  const colors: MantineColor[] = [
+    "blue",
+    "grape",
+    "indigo",
+    "green",
+    "red",
+    "cyan",
+    "orange",
+  ];
 
-const JobInfo = ({ infoName, infoValue, color } : JobInfoProps) => {
-
-    const colors : MantineColor[] = ['blue', 'grape', 'indigo', 'green', 'red', 'cyan', 'orange']
-
-    return (
-        <Grid.Col span={12}>
-            <StatCard
-                title={infoName}
-                value={infoValue}
-                color={color ?? colors[Math.floor(Math.random()*colors.length)]}
-            />
-        </Grid.Col>
-    );
-}
+  return (
+    <Grid.Col span={12}>
+      <StatCard
+        title={infoName}
+        value={infoValue}
+        color={color ?? colors[Math.floor(Math.random() * colors.length)]}
+      />
+    </Grid.Col>
+  );
+};
 
 export default JobInfo;
