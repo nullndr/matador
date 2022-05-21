@@ -1,10 +1,19 @@
 import { Table } from "@mantine/core";
-import JobsTableProps from "./JobsTableProps";
 import JobsTableRow from "./JobsTableRow";
 import { useState } from "react";
 import JobStatusHeader from "./JobStatusHeader";
 import JobStatusFilterModal from "./JobStatusFilterModal";
 import { JobStatuses } from "../../types/JobStatus";
+import { BullJob } from "~/lib/matador/index.server";
+import { JobStatus } from "../../types/JobStatus";
+
+export interface JobsTableProps {
+  jobs: BullJob[];
+  queueName: string;
+  repeatJobs?: boolean;
+  statusSelected: JobStatus[];
+  onStatusesSelected: (statuse: JobStatus[]) => void;
+}
 
 export const JobsTable = ({
   jobs,

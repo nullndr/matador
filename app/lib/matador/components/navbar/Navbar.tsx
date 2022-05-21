@@ -15,14 +15,27 @@ import {
   Divider,
   Title,
   ColorScheme,
+  MantineColor,
 } from "@mantine/core";
 
 import { TiWeatherSunny } from "react-icons/ti";
 import { BiMoon } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import { themeKeyLocalStorage } from "~/lib/matador/constants";
-import { NavbarProps } from "./NavbarProps";
 import Navlink from "./Navlink";
+
+export type NavbarProps = React.PropsWithChildren<{
+  srcLogo: string;
+  links: NavbarItem[];
+  footerText: string;
+}>;
+
+export interface NavbarItem {
+  icon: React.ReactNode;
+  color: MantineColor;
+  label: string;
+  href: string;
+}
 
 export const NavBar = ({
   srcLogo,

@@ -1,9 +1,14 @@
-import { Badge, MantineColor, Text } from "@mantine/core";
+import { Badge, Text } from "@mantine/core";
 import { NavLink } from "@remix-run/react";
 import { BullJob } from "~/lib/matador/index.server";
 import { getStatusColor } from "../../helpers/ui-helpers";
 import { JobStatus } from "../../types/JobStatus";
-import JobsTableRowProps from "./JobsTableRowProps";
+
+export interface JobsTableRowProps {
+  job: BullJob;
+  queueName: string;
+  repeatJob: boolean;
+}
 
 const JobsTableRow = ({
   job,

@@ -1,6 +1,11 @@
 import { Title, Divider } from "@mantine/core";
 import JobResult from "./JobResult";
-import JobResultPanelProps from "./JobResultPanelProps";
+
+export interface JobResultPanelProps {
+  returnvalue: any | undefined;
+  failedReason: string | undefined;
+  stacktrace: string[] | undefined;
+}
 
 export const JobResultPanel = ({
   returnvalue,

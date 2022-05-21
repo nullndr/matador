@@ -1,6 +1,15 @@
 import { Divider, Grid, Title } from "@mantine/core";
 import JobInfo from "./JobInfo";
-import JobInfoPanelProps from "./JobInfoPanelProps";
+
+interface JobInfoPanelProps {
+  id: string;
+  queueName: string;
+  jobName: string;
+  timestamp: Date;
+  processedOn?: Date;
+  finishedOn?: Date;
+  attemptsMade?: number;
+}
 
 export const JobInfoPanel = ({
   queueName,

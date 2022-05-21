@@ -1,7 +1,12 @@
 import { Divider, Title } from "@mantine/core";
 import { NavLink } from "react-router-dom";
 import { JobData } from "./JobData";
-import JobDataPanelProps from "./JobDataPanelProps";
+
+interface JobDataPanelProps {
+  parent?: any;
+  opts?: any;
+  data?: any;
+}
 
 export const JobDataPanel = ({ parent, data, opts }: JobDataPanelProps) => {
   const parentLink =

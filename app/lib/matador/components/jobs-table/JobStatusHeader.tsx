@@ -1,6 +1,10 @@
 import { ActionIcon, Grid } from "@mantine/core";
 import { BiFilter } from "react-icons/bi";
-import JobStatusHeaderProps from "./JobsStatusHeaderProps";
+
+export interface JobStatusHeaderProps {
+  isFiltered: boolean;
+  onFilterClick: () => void;
+}
 
 const JobStatusHeader = ({
   isFiltered,

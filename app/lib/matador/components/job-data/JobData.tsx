@@ -1,5 +1,9 @@
 import { Card, Grid, JsonInput, Text } from "@mantine/core";
-import JobDataProps from "./JobDataProps";
+
+interface JobDataProps {
+  title: string;
+  json: any;
+}
 
 export const JobData = ({ title, json }: JobDataProps) => {
   return (

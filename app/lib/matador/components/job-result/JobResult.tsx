@@ -1,5 +1,10 @@
 import { Card, Textarea } from "@mantine/core";
-import JobResultProps from "./JobResultProps";
+
+export interface JobResultProps {
+  label: string;
+  description: string;
+  value: string;
+}
 
 const JobResult = ({ label, description, value }: JobResultProps) => {
   return (

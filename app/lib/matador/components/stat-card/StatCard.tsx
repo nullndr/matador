@@ -1,6 +1,11 @@
-import { Badge, Card, Center, Grid, Group, Title } from "@mantine/core";
+import { Badge, Card, Grid, Group, Title } from "@mantine/core";
+import { MantineColor } from "@mantine/core";
 
-import StatCardProps from "./StatCardProps";
+export interface StatCardProps {
+  title: string;
+  value: string | number;
+  color: MantineColor;
+}
 
 export const StatCard = ({ title, value, color }: StatCardProps) => {
   return (

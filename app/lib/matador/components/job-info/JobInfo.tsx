@@ -1,6 +1,11 @@
 import { Grid, MantineColor } from "@mantine/core";
 import { StatCard } from "../stat-card";
-import JobInfoProps from "./JobInfoProps";
+
+interface JobInfoProps {
+  infoName: string;
+  infoValue: string;
+  color?: MantineColor;
+}
 
 const JobInfo = ({ infoName, infoValue, color }: JobInfoProps) => {
   const colors: MantineColor[] = [

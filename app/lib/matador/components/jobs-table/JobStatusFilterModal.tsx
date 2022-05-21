@@ -3,7 +3,14 @@ import { useState } from "react";
 import { getStatusColor } from "../../helpers/ui-helpers";
 import { toFirstLetterUpperCase } from "../../helpers/utils";
 import { JobStatus, JobStatuses } from "../../types/JobStatus";
-import JobStatusFilterModalProps from "./JobStatusFilterModalProps";
+
+export interface JobStatusFilterModalProps {
+  opened: boolean;
+  repeatedJobs: boolean;
+  onClose: () => void;
+  selected: JobStatus[];
+  onApply: (selected: JobStatus[]) => void;
+}
 
 const JobStatusFilterModal = ({
   opened,
