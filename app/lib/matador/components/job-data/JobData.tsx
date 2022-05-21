@@ -17,6 +17,7 @@ export const JobData = ({ title, json }: JobDataProps) => {
                 </Grid.Col>
                 <Grid.Col style={{ minHeight: 200 }} span={18}>
                     <JsonInput
+                        readOnly
                         size="lg"
                         sx={{
                             height: '100%',

@@ -37,7 +37,7 @@ const JobsTableRow = ({ job, queueName, repeatJob = false } : JobsTableRowProps)
                 <NavLink
                     to={buildLink()}
                 >
-                    <Text variant="link" component="a">{job.name}</Text>
+                    <Text variant="link">{job.name}</Text>
                 </NavLink>
             </td>
             <td>{ job.id }</td>

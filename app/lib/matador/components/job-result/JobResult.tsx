@@ -22,7 +22,7 @@ const JobResult = ({ label, description, value}: JobResultProps) => {
                     variant="filled"
                     size="md"
                     value={value}
-                    
+                    readOnly
                 />
             </Card>
         </>
