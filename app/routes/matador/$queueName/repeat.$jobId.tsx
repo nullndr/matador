@@ -47,8 +47,6 @@ export default function QueueDetail({}: QueueDetailProps) {
   const failedJobs = loaderData.jobs.filter((job) => "failedReason" in job);
   const [currentJobs, setCurrentJobs] = React.useState(loaderData.jobs);
 
-  // FIXME add status filter to table
-
   return (
     <>
       <Title mb='sm' order={2} sx={(theme) => ({

@@ -4,7 +4,8 @@ export interface NavlinkProps {
     icon: React.ReactNode,
     color: MantineColor,
     label: string,
-    href: string
+    href: string,
+    onClick: () => void
 }
 
 

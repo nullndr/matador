@@ -1,19 +1,17 @@
 import { useState } from 'react';
-import { 
-    AppShell, 
-    useMantineTheme, 
-    Navbar, 
-    Header, 
-    MediaQuery, 
-    Burger, 
-    ScrollArea, 
-    Box, 
-    Group, 
-    ActionIcon, 
+import {
+    AppShell,
+    useMantineTheme,
+    Navbar,
+    Header,
+    MediaQuery,
+    Burger,
+    ScrollArea,
+    Group,
+    ActionIcon,
     useMantineColorScheme,
     Image,
     Grid,
-    Center,
     Divider,
     Title,
     ColorScheme
@@ -26,19 +24,19 @@ import { NavLink } from 'react-router-dom';
 import { themeKeyLocalStorage } from '~/lib/matador/constants';
 
 
-export const NavBar = ( { srcLogo, links, footerText, children } : NavbarProps) => {
+export const NavBar = ({ srcLogo, links, footerText, children }: NavbarProps) => {
 
     const theme = useMantineTheme();
     const { toggleColorScheme } = useMantineColorScheme();
     const [opened, setOpened] = useState<boolean>(false);
 
     const onClickThemeButton = () => {
-        
-        const changeThemeTo : ColorScheme = theme.colorScheme === 'dark' ? 'light' : 'dark';
+
+        const changeThemeTo: ColorScheme = theme.colorScheme === 'dark' ? 'light' : 'dark';
         toggleColorScheme(changeThemeTo);
-        
+
         localStorage.setItem(themeKeyLocalStorage, changeThemeTo);
-        
+
     }
     return (
         <AppShell
@@ -53,74 +51,71 @@ export const NavBar = ( { srcLogo, links, footerText, children } : NavbarProps) 
             navbar={
                 <Navbar
                     p='md'
-                    hiddenBreakpoint="sm" 
-                    hidden={!opened} 
-                    width={{ 
-                        sm: 200, 
+                    hiddenBreakpoint="sm"
+                    hidden={!opened}
+                    width={{
+                        sm: 200,
                         lg: 300,
 
                     }}
+
                 >
-                    <Navbar.Section style={{ marginBottom: '5%' }}>
-                        <Grid columns={12} justify='space-between'>
-                            <Grid.Col span={6} >
-                                <NavLink to='./'>
-                                    <Image 
-                                        src={srcLogo} 
-                                        alt='logo'
-                                        width={70}
-                                    />
-                                </NavLink>
-                            
-                            </Grid.Col>
-                            <Grid.Col span={6}>
-                                <Group position='right'>
-                                    <ActionIcon variant="default" onClick={onClickThemeButton} size={44}>
-                                        {theme.colorScheme === 'dark' ? <TiWeatherSunny size={24} /> : <BiMoon size={24} />}
-                                    </ActionIcon>
-                                </Group>
-                            
-                            </Grid.Col>
-                        </Grid>
-                    </Navbar.Section>
-                    <Divider sx={{ marginBottom: '2%' }} />
-                    
                     <Navbar.Section grow component={ScrollArea} mx="-xs" px="xs">
-                        {links.map(el => <Navlink key={el.href} {...el} />)}
+                        {links.map(el => <Navlink key={el.href} {...el} onClick={() => setOpened((o) => !o)} />)}
                     </Navbar.Section>
                     <Divider />
-                    
+
                     <Navbar.Section>
                         <Title order={5} sx={(theme) => ({
                             color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
                         })}>
-                            { footerText }
+                            {footerText}
                         </Title>
                     </Navbar.Section>
-                    
+
                 </Navbar>
             }
 
+            header={
+                <Header height={70} p='xs'>
+                    <Grid justify='space-between'>
+                        <Grid.Col span={2} >
+                            <Grid>
+                                <MediaQuery largerThan='sm' styles={{ display: 'none' }}>
+                                    <Grid.Col span={12}>
+                                        <Burger
+                                            opened={opened}
+                                            onClick={() => setOpened((o) => !o)}
+                                            size="sm"
+                                            color={theme.colors.gray[6]}
+                                            mr="xl"
+                                        />
+                                    </Grid.Col>
+                                </MediaQuery>
+                                <MediaQuery smallerThan='sm' styles={{ display: 'none' }}>
+                                    <Grid.Col span={12}>
+                                        <NavLink to='./'>
+                                            <Image
+                                                src={srcLogo}
+                                                alt='logo'
+                                                width={70}
+                                            />
+                                        </NavLink>
+                                    </Grid.Col>
+                                </MediaQuery>
+                            </Grid>
+                        </Grid.Col>
+                        <Grid.Col span={5}>
+                            <Group position='right'>
+                                <ActionIcon variant="default" onClick={onClickThemeButton} size={44}>
+                                    {theme.colorScheme === 'dark' ? <TiWeatherSunny size={24} /> : <BiMoon size={24} />}
+                                </ActionIcon>
+                            </Group>
 
-            // FIXME when to small show header with burger 
-            // header={
-            //     <Header height={70} p='md'>
-            //         <div>
-            //             <MediaQuery largerThan='sm' styles={{ display: 'none' }}>
-
-            //             <Burger
-            //                 opened={opened}
-            //                 onClick={() => setOpened((o) => !o)}
-            //                 size="sm"
-            //                 color={theme.colors.gray[6]}
-            //                 mr="xl"
-            //             />
-
-            //             </MediaQuery>
-            //         </div>
-
-            //     </Header>
-            // }
+                        </Grid.Col>
+                    </Grid>
+                </Header>
+            }
         >
             {children}
         </AppShell>

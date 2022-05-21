@@ -1,6 +1,7 @@
 import { Divider, Grid, Title } from "@mantine/core";
 import { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import React from "react";
 import { StatCard } from "~/lib/matador/components/stat-card";
 import { getRedisInfo, RedisInfo } from "~/lib/matador/index.server";
 
@@ -26,8 +27,8 @@ export default function RedisInfo() {
   return (
     <>
       {
-        Object.keys(loaderData).map(section => (
-          <>
+        Object.keys(loaderData).map((section, index) => (
+          <React.Fragment key={index}>
             <Title mb='sm' order={2} sx={(theme) => ({
               color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
             })}>
@@ -49,7 +50,7 @@ export default function RedisInfo() {
                 ))
               }
             </Grid>
-          </>
+          </React.Fragment>
         ))
       }
     </>

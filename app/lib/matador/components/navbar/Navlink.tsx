@@ -4,15 +4,13 @@ import { NavLink } from 'react-router-dom';
 import { NavlinkProps } from './index';
 
 
-export const Navlink = ({ icon, color, label, href } : NavlinkProps) => {
+export const Navlink = ({ icon, color, label, href, onClick } : NavlinkProps) => {
 
-
-    
 
     return (
         <NavLink 
             to={href}
-            
+            onClick={onClick}
             children={({ isActive }) => {
                 return (
 

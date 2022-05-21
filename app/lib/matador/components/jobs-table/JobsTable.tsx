@@ -4,6 +4,8 @@ import { JobsTableRow } from "./JobsTableRow";
 
 export const JobsTable = ({ jobs, queueName, repeatJobs = false }: JobsTableProps) => {
 
+        
+    // FIXME add status filter to table
     return (
         <Table>
             <thead>
