@@ -1,8 +1,8 @@
-interface DotProps {
+export interface DotProps {
   color?: string;
 }
 
-export const Dot = ({ color }: DotProps) => {
+const Dot = ({ color }: DotProps) => {
   return (
     <span
       style={{
@@ -15,3 +15,6 @@ export const Dot = ({ color }: DotProps) => {
     ></span>
   );
 };
+
+
+export default Dot;

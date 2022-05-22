@@ -2,7 +2,7 @@ import { Divider, Title } from "@mantine/core";
 import { NavLink } from "react-router-dom";
 import { JobData } from "./JobData";
 
-interface JobDataPanelProps {
+export interface JobDataPanelProps {
   parent?: any;
   opts?: any;
   data?: any;

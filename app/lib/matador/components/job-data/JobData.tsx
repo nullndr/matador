@@ -1,6 +1,6 @@
 import { Card, Grid, JsonInput, Text } from "@mantine/core";
 
-interface JobDataProps {
+export interface JobDataProps {
   title: string;
   json: any;
 }

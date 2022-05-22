@@ -1,7 +1,7 @@
 import { Grid, MantineColor } from "@mantine/core";
 import { StatCard } from "../stat-card";
 
-interface JobInfoProps {
+export interface JobInfoProps {
   infoName: string;
   infoValue: string;
   color?: MantineColor;

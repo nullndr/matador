@@ -1,7 +1,7 @@
 import { Divider, Grid, Title } from "@mantine/core";
 import JobInfo from "./JobInfo";
 
-interface JobInfoPanelProps {
+export interface JobInfoPanelProps {
   id: string;
   queueName: string;
   jobName: string;
