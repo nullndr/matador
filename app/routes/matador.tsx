@@ -1,13 +1,17 @@
-import { LinksFunction } from "@remix-run/node";
-import { NavLink, Outlet, useCatch } from "@remix-run/react";
-import { SideBar } from "~/components/Matador";
-import { classNames } from "~/lib/matador/helpers/style-helpers";
-
-const navigation = [
-  { name: "Queues", href: "./queues" },
-  { name: "Redis", href: "./redis" },
-  { name: "Clients", href: "./clients" },
-];
+import {
+  ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider,
+} from "@mantine/core";
+import { LinksFunction, LoaderFunction } from "@remix-run/node";
+import { Outlet, useCatch, useLoaderData } from "@remix-run/react";
+import { useEffect, useState } from "react";
+import { BiInfoCircle } from "react-icons/bi";
+import { BsArrowsAngleContract } from "react-icons/bs";
+import { DiRedis } from "react-icons/di";
+import { NavBar, NavbarItem } from "~/lib/matador/components/navbar";
+import { themeKeyLocalStorage } from "~/lib/matador/constants";
+import { getMatadorVersion } from "~/lib/matador/index.server";
 
 export const links: LinksFunction = () => {
   return [
@@ -19,33 +23,61 @@ export const links: LinksFunction = () => {
   ];
 };
 
+const navigation: NavbarItem[] = [
+  {
+    label: "Queues",
+    href: "./queues",
+    color: "red",
+    icon: <DiRedis size={20} />,
+  },
+  {
+    label: "Redis",
+    href: "./redis",
+    color: "blue",
+    icon: <BiInfoCircle size={20} />,
+  },
+  {
+    label: "Clients",
+    href: "./clients",
+    color: "green",
+    icon: <BsArrowsAngleContract size={20} />,
+  },
+];
+
+export type LoaderData = string | undefined;
+
+export const loader: LoaderFunction = (): LoaderData => {
+  return getMatadorVersion();
+};
+
 export default function MatadorLayout() {
+  const loaderData = useLoaderData();
+  const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
+  const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const theme = localStorage.getItem(themeKeyLocalStorage) as ColorScheme;
+
+      setColorScheme(theme ?? "light");
+    }
+  }, [colorScheme]);
   return (
-    <>
-      <SideBar srcImage="/assets/matador.png" name="Matador">
-        {navigation.map((item) => (
-          <NavLink
-            key={item.name}
-            to={item.href}
-            className={({ isActive }) =>
-              classNames(
-                isActive
-                  ? "bg-gray-900 text-white"
-                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                "group flex items-center px-2 py-2 text-base font-medium rounded-md"
-              )
-            }
-          >
-            {item.name}
-          </NavLink>
-        ))}
-      </SideBar>
-      <div className="md:pl-64">
-        <div className="py-6 px-4 sm:px-6 md:px-8">
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}
+    >
+      <MantineProvider theme={{ colorScheme: colorScheme }}>
+        <NavBar
+          links={navigation}
+          srcLogo="/assets/matador.png"
+          footerText={`Matador ${loaderData}`}
+        >
           <Outlet />
-        </div>
-      </div>
-    </>
+        </NavBar>
+      </MantineProvider>
+    </ColorSchemeProvider>
   );
 }
 

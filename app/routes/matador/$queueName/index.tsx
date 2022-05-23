@@ -1,8 +1,11 @@
+import { Divider, Grid, Title } from "@mantine/core";
 import { LoaderFunction } from "@remix-run/node";
-import { NavLink, useLoaderData } from "@remix-run/react";
-import React from "react";
-import { JobStatus, Stat, Table } from "~/components/Matador";
+import { useLoaderData } from "@remix-run/react";
+import React, { useState } from "react";
+import { JobsTable } from "~/lib/matador/components/jobs-table";
+import { StatCard } from "~/lib/matador/components/stat-card";
 import { BullJob, getQueueJobs, getQueues } from "~/lib/matador/index.server";
+import { JobStatus, JobStatuses } from "~/lib/matador/types/JobStatus";
 
 type LoaderData = {
   queueName: string;
@@ -54,146 +57,90 @@ export default function QueueDetail({}: QueueDetailProps) {
   const completedJobs = loaderData.jobs.filter(
     (job) => "returnvalue" in job && !("parentKey" in job)
   );
+
   const childrenJobs = loaderData.jobs.filter((job) => "parentKey" in job);
   const repeatedJobs = loaderData.jobs.filter((job) => "repeated" in job);
   const failedJobs = loaderData.jobs.filter((job) => "failedReason" in job);
-  const [currentJobs, setCurrentJobs] = React.useState(loaderData.jobs);
+
+  const [currentJobs, setCurrentJobs] = useState<BullJob[]>(loaderData.jobs);
+  const [statusesSelected, setStatusesSelected] = useState<JobStatus[]>(
+    JobStatuses as JobStatus[]
+  );
+
+  const onFilterStatuses = (statuses: JobStatus[]) => {
+    setStatusesSelected(statuses);
+
+    const jobs: BullJob[] = [];
+
+    statuses.forEach((el) => {
+      if (el === "children") {
+        jobs.push(...childrenJobs);
+      }
+
+      if (el === "completed") {
+        jobs.push(...completedJobs);
+      }
+
+      if (el === "failed") {
+        jobs.push(...failedJobs);
+      }
+
+      if (el === "repeated") {
+        jobs.push(...repeatedJobs);
+      }
+    });
+
+    setCurrentJobs(jobs);
+  };
+
   return (
     <>
-      <main>
-        <div className="mx-auto pb-6">
-          <h1 className="text-3xl font-bold leading-tight text-gray-900">
-            {`Jobs in "${loaderData.queueName}" Queue`}
-          </h1>
-        </div>
+      <Title
+        mb="sm"
+        order={2}
+        sx={(theme) => ({
+          color:
+            theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
+        })}
+      >
+        {`Jobs in "${loaderData.queueName}" Queue`}
+      </Title>
+      <Divider mb="md" />
+      <Grid columns={24} mb="md">
+        <Grid.Col sm={24} xs={24} md={6} lg={6} xl={6}>
+          <StatCard
+            title="Completed jobs"
+            value={completedJobs.length}
+            color="green"
+          />
+        </Grid.Col>
+        <Grid.Col sm={24} xs={24} md={6} lg={6} xl={6}>
+          <StatCard
+            title="Children jobs"
+            value={childrenJobs.length}
+            color="grape"
+          />
+        </Grid.Col>
+        <Grid.Col sm={24} xs={24} md={6} lg={6} xl={6}>
+          <StatCard
+            title="Repeated jobs"
+            value={repeatedJobs.length}
+            color="blue"
+          />
+        </Grid.Col>
+        <Grid.Col sm={24} xs={24} md={6} lg={6} xl={6}>
+          <StatCard title="Failed jobs" value={failedJobs.length} color="red" />
+        </Grid.Col>
+      </Grid>
 
-        <div className="mx-auto">
-          <div className="px-4 sm:px-0">
-            <div className={`grid gap-5 grid-cols-4`}>
-              <Stat
-                key="Number of completed jobs"
-                onClick={
-                  completedJobs.length === 0
-                    ? undefined
-                    : () => setCurrentJobs(completedJobs)
-                }
-              >
-                <div className="text-sm font-medium text-gray-500 truncate">
-                  {"Number of completed jobs"}
-                </div>
-                <div className="mt-1 text-3xl font-semibold text-gray-900">
-                  <p className="text-green-600 font-semibold">
-                    {completedJobs.length}
-                  </p>
-                </div>
-              </Stat>
-              <Stat
-                key="Number of children jobs"
-                onClick={
-                  childrenJobs.length === 0
-                    ? undefined
-                    : () => setCurrentJobs(childrenJobs)
-                }
-              >
-                <div className="text-sm font-medium text-gray-500 truncate">
-                  {"Number of children jobs"}
-                </div>
-                <div className="mt-1 text-3xl font-semibold text-gray-900">
-                  <p className="text-purple-600 font-semibold">
-                    {childrenJobs.length}
-                  </p>
-                </div>
-              </Stat>
-              <Stat
-                key="Number of repeated jobs"
-                onClick={
-                  repeatedJobs.length === 0
-                    ? undefined
-                    : () => setCurrentJobs(repeatedJobs)
-                }
-              >
-                <div className="text-sm font-medium text-gray-500 truncate">
-                  {"Number of repeated jobs"}
-                </div>
-                <div className="mt-1 text-3xl font-semibold text-gray-900">
-                  <p className="text-indigo-600 font-semibold">
-                    {repeatedJobs.length}
-                  </p>
-                </div>
-              </Stat>
-              <Stat
-                key="Number of failed jobs"
-                onClick={
-                  failedJobs.length === 0
-                    ? undefined
-                    : () => setCurrentJobs(failedJobs)
-                }
-              >
-                <div className="text-sm font-medium text-gray-500 truncate">
-                  {"Number of failed jobs"}
-                </div>
-                <div className="mt-1 text-3xl font-semibold text-gray-900">
-                  <p className="text-red-600 font-semibold">
-                    {failedJobs.length}
-                  </p>
-                </div>
-              </Stat>
-            </div>
-          </div>
-        </div>
-        <div className="pt-6">
-          <Table headers={["Name", "Id", "Timestamp", "Status"]}>
-            <tbody className="bg-white divide-y divide-gray-200 overflow-y-auto">
-              {currentJobs.map((job) => (
-                <JobRow
-                  queueName={loaderData.queueName}
-                  job={job}
-                  key={job.id}
-                />
-              ))}
-            </tbody>
-          </Table>
-        </div>
-      </main>
+      <Grid>
+        <JobsTable
+          jobs={currentJobs}
+          queueName={loaderData.queueName}
+          onStatusesSelected={onFilterStatuses}
+          statusSelected={statusesSelected}
+        />
+      </Grid>
     </>
-  );
-}
-
-type JobRowProps = {
-  queueName: string;
-  job: BullJob;
-};
-
-function JobRow({ queueName, job }: JobRowProps) {
-  return (
-    <tr>
-      <td className="whitespace-nowrap py-4 px-4 text-sm font-medium text-gray-900 sm:pl-6 text-center">
-        {job.id && (
-          <NavLink
-            to={`../${encodeURI(queueName)}/${
-              "repeated" in job
-                ? `repeat/${encodeURI(job.id)}`
-                : `${encodeURI(job.id)}`
-            }`}
-            className="text-indigo-600 hover:text-indigo-900"
-          >
-            {job.name}
-          </NavLink>
-        )}
-      </td>
-      <td className="whitespace-nowrap py-4 px-4 text-sm font-medium text-gray-900 sm:pl-6 text-center">
-        {job.id}
-      </td>
-      <td className="whitespace-nowrap py-4 px-4 text-sm font-medium text-gray-900 sm:pl-6 text-center">
-        {"timestamp" in job
-          ? new Date(Number(job.timestamp)).toISOString()
-          : ""}
-      </td>
-      <td className="whitespace-nowrap text-center py-4 px-4 text-sm font-medium text-gray-900 sm:pl-6">
-        <div>
-          <JobStatus job={job} />
-        </div>
-      </td>
-    </tr>
   );
 }

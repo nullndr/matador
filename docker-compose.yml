@@ -1,0 +1,8 @@
+version: "3.8"
+
+services:
+  redis:
+    image: redis:7.0.0-alpine
+    command: redis-server
+    ports:
+      - 6379:6379
