@@ -1,26 +1,25 @@
-import { useState } from "react";
 import {
-  AppShell,
-  useMantineTheme,
-  Navbar,
-  Header,
-  MediaQuery,
-  Burger,
-  ScrollArea,
-  Group,
   ActionIcon,
-  useMantineColorScheme,
-  Image,
-  Grid,
-  Divider,
-  Title,
+  AppShell,
+  Burger,
   ColorScheme,
+  Divider,
+  Grid,
+  Group,
+  Header,
+  Image,
   MantineColor,
+  MediaQuery,
+  Navbar,
+  ScrollArea,
+  Title,
+  useMantineColorScheme,
+  useMantineTheme,
 } from "@mantine/core";
-
-import { TiWeatherSunny } from "react-icons/ti";
+import { NavLink } from "@remix-run/react";
+import { useState } from "react";
 import { BiMoon } from "react-icons/bi";
-import { NavLink } from "react-router-dom";
+import { TiWeatherSunny } from "react-icons/ti";
 import { themeKeyLocalStorage } from "~/lib/matador/constants";
 import Navlink from "./Navlink";
 
@@ -41,7 +40,7 @@ export const NavBar = ({
   srcLogo,
   links,
   footerText,
-  children
+  children,
 }: NavbarProps) => {
   const theme = useMantineTheme();
   const { toggleColorScheme } = useMantineColorScheme();

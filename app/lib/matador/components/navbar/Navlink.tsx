@@ -1,12 +1,12 @@
-import React from "react";
 import {
-  UnstyledButton,
-  ThemeIcon,
   Group,
-  Text,
   MantineColor,
+  Text,
+  ThemeIcon,
+  UnstyledButton,
 } from "@mantine/core";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "@remix-run/react";
+import React from "react";
 
 export interface NavlinkProps {
   icon: React.ReactNode;

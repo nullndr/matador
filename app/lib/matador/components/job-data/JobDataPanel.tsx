@@ -1,5 +1,5 @@
 import { Divider, Title } from "@mantine/core";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "@remix-run/react";
 import { JobData } from "./JobData";
 
 export interface JobDataPanelProps {
