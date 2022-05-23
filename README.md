@@ -6,7 +6,7 @@ A bold interface that helps you monitor your [BullMQ](https://docs.bullmq.io/) q
 
 Learn more about [Remix Stacks](https://remix.run/stacks).
 
-```sh
+```bash
 $ npx create-remix@latest --template nullndr/matador
 ```
 
@@ -21,9 +21,17 @@ $ npx create-remix@latest --template nullndr/matador
 
 # Development
 
+- Start the Redis Database with [Docker](https://www.docker.com/get-started):
+
+  > ℹ️ we use the latest version of Docker that already includes compose, not docker-compose
+
+  ```bash
+  $ npm run dev:docker
+  ```
+
 - Start dev server:
 
-  ```sh
+  ```bash
   $ npm run dev
   ```
 

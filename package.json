@@ -9,6 +9,8 @@
     "dev": "concurrently -p \"[{name}]\" -n \"tailwind,remix\" -c \"yellow.bold,red.bold\" \"npm:dev:css\" \"npm:dev:remix\"",
     "dev:remix": "cross-env NODE_ENV=development remix dev",
     "dev:css": "tailwindcss -o ./app/styles/tailwind.css --watch",
+    "dev:docker": "docker compose up -d",
+    "dev:docker:stop": "docker compose down",
     "format": "prettier --write .",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "typecheck": "tsc -b"
