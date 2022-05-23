@@ -16,6 +16,7 @@ $ npx create-remix@latest --template nullndr/matador
 - A little [utility](https://github.com/nullndr/Matador/tree/main/app/queues) that helps you build your queues
 - Styling with [Tailwind](https://tailwindcss.com/)
 - Code formatting with [Prettier](https://prettier.io)
+- Linting with [ESLint](https://eslint.org)
 - Static Types with [TypeScript](https://typescriptlang.org)
 
 # Development
@@ -37,6 +38,10 @@ Set your redis connection string as the `REDIS_URL` env variable in your `.env` 
 This project uses TypeScript.
 It's recommended to get TypeScript set up for your editor to get a really great in-editor experience with type checking and auto-complete.
 To run type checking across the whole project, run `npm run typecheck`.
+
+# Linting
+
+This project uses ESLint for linting. That is configured in `.eslintrc.js`.
 
 # Formatting
 
