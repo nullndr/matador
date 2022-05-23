@@ -10,7 +10,7 @@
     "dev:remix": "cross-env NODE_ENV=development remix dev",
     "dev:css": "tailwindcss -o ./app/styles/tailwind.css --watch",
     "format": "prettier --write .",
-    "dev:docker": "docker compose -p ${npm_package_name} up",
+    "dev:docker": "docker compose -p ${npm_package_name} up -d",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "typecheck": "tsc -b"
   },
