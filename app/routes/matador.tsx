@@ -1,6 +1,17 @@
-import { LinksFunction } from "@remix-run/node";
-import { useCatch } from "@remix-run/react";
-import { App } from "./app";
+import {
+  ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider,
+} from "@mantine/core";
+import { LinksFunction, LoaderFunction } from "@remix-run/node";
+import { Outlet, useCatch, useLoaderData } from "@remix-run/react";
+import { useEffect, useState } from "react";
+import { BiInfoCircle } from "react-icons/bi";
+import { BsArrowsAngleContract } from "react-icons/bs";
+import { DiRedis } from "react-icons/di";
+import { NavBar, NavbarItem } from "~/lib/matador/components/navbar";
+import { themeKeyLocalStorage } from "~/lib/matador/constants";
+import { getMatadorVersion } from "~/lib/matador/index.server";
 
 export const links: LinksFunction = () => {
   return [
@@ -12,8 +23,62 @@ export const links: LinksFunction = () => {
   ];
 };
 
+const navigation: NavbarItem[] = [
+  {
+    label: "Queues",
+    href: "./queues",
+    color: "red",
+    icon: <DiRedis size={20} />,
+  },
+  {
+    label: "Redis",
+    href: "./redis",
+    color: "blue",
+    icon: <BiInfoCircle size={20} />,
+  },
+  {
+    label: "Clients",
+    href: "./clients",
+    color: "green",
+    icon: <BsArrowsAngleContract size={20} />,
+  },
+];
+
+export type LoaderData = string | undefined;
+
+export const loader: LoaderFunction = (): LoaderData => {
+  return getMatadorVersion();
+};
+
 export default function MatadorLayout() {
-  return <App />;
+  const loaderData = useLoaderData();
+  const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
+  const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const theme = localStorage.getItem(themeKeyLocalStorage) as ColorScheme;
+
+      setColorScheme(theme ?? "light");
+    }
+  }, [colorScheme]);
+  return (
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}
+    >
+      <MantineProvider theme={{ colorScheme: colorScheme }}>
+        <NavBar
+          links={navigation}
+          srcLogo="/assets/matador.png"
+          footerText={`Matador ${loaderData}`}
+        >
+          <Outlet />
+        </NavBar>
+      </MantineProvider>
+    </ColorSchemeProvider>
+  );
 }
 
 export function CatchBoundary() {
