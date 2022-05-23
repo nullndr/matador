@@ -51,7 +51,7 @@ To run type checking across the whole project, run `npm run typecheck`.
 
 # Linting
 
-This project uses ESLint for linting. That is configured in `.eslintrc.js`.
+This project uses ESLint for linting that is configured in `.eslintrc.js`.
 
 # Formatting
 
