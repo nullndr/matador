@@ -35,6 +35,8 @@ $ npx create-remix@latest --template nullndr/matador
   $ npm run dev
   ```
 
+If you want to stop the development Redis Database, run `npm run dev:docker:stop`
+
 # Connecting to your Redis server
 
 Matador needs a **Redis 6 instance** at least to work.

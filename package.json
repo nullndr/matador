@@ -12,7 +12,6 @@
     "dev:docker": "docker compose up -d",
     "dev:docker:stop": "docker compose down",
     "format": "prettier --write .",
-    "dev:docker": "docker compose -p ${npm_package_name} up -d",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "typecheck": "tsc -b"
   },
