@@ -13,6 +13,7 @@ $ npx create-remix@latest --template nullndr/matador
 # What's in the stack
 
 - Matador interface built with [MantineUI](https://mantine.dev/) at `/matador` route
+> there is also a pure tailwind Matador implementation that can be found [here](https://github.com/inkOfPixel/Matador)
 - A little [utility](https://github.com/nullndr/Matador/tree/main/app/queues) that helps you build your queues
 - Styling with [Tailwind](https://tailwindcss.com/)
 - Code formatting with [Prettier](https://prettier.io)
