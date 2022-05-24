@@ -1,9 +1,9 @@
+import type { MantineColor } from "@mantine/core";
 import {
   Group,
-  MantineColor,
   Text,
   ThemeIcon,
-  UnstyledButton,
+  UnstyledButton
 } from "@mantine/core";
 import { NavLink } from "@remix-run/react";
 import React from "react";

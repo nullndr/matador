@@ -1,15 +1,15 @@
 import {
-  Grid,
-  Title,
   Card as MantineCard,
   Center,
-  Divider,
+  Divider, Grid,
+  Title
 } from "@mantine/core";
-import { LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
 import { NavLink, useLoaderData } from "@remix-run/react";
-import { StatCard } from "../../lib/matador/components/stat-card";
 import { Link } from "~/lib/matador/components/ui/Link";
-import { getQueues, getRedisInfo, RedisInfo } from "~/lib/matador/index.server";
+import type { RedisInfo } from "~/lib/matador/index.server";
+import { getQueues, getRedisInfo } from "~/lib/matador/index.server";
+import { StatCard } from "../../lib/matador/components/stat-card";
 
 type LoaderData = { queues: string[]; serverInfo: RedisInfo };
 
@@ -27,9 +27,7 @@ export const loader: LoaderFunction = async ({
   return { queues, serverInfo };
 };
 
-type DashboardProps = {};
-
-export default function Dashboard({}: DashboardProps) {
+export default function Dashboard() {
   const loaderData = useLoaderData<LoaderData>();
   return (
     <>

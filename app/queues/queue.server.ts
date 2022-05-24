@@ -1,15 +1,13 @@
+import type { Processor, WorkerOptions } from "bullmq";
 import {
-  Job,
   MetricsTime,
-  Processor,
   Queue as BullQueue,
   QueueScheduler,
-  Worker,
-  WorkerOptions,
+  Worker
 } from "bullmq";
 import {
   getSchedulerConnection,
-  redis,
+  redis
 } from "~/lib/matador/helpers/redis-helpers.server";
 
 type RegisteredQueue = {
@@ -48,11 +46,11 @@ export const Queue = <JobPayload, JobResult = any>(
     connection: redis,
   });
 
-  worker.on("failed", (job: Job, error: Error) => {
+  worker.on("failed", (job, error) => {
     console.error(`Failed job "${job.name} <${job.id}>" with ${error}`);
   });
 
-  worker.on("error", (error: Error) => {
+  worker.on("error", (error) => {
     console.error(error);
   });
 

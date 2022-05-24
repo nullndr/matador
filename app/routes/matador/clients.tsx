@@ -1,8 +1,7 @@
-import { Title, Card, Grid, Box, Divider, Table, Tooltip } from "@mantine/core";
-import { LoaderFunction } from "@remix-run/node";
+import { Card, Divider, Table, Title, Tooltip } from "@mantine/core";
+import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import Dot from "~/lib/matador/components/dot";
-
 import { getRedisClients } from "~/lib/matador/index.server";
 
 type LoaderData = string;
@@ -82,7 +81,7 @@ export default function Clients() {
                   </Tooltip>
                 </td>
                 {Object.keys(el).map((key) => (
-                  <td>{el[key]}</td>
+                  <td key={el[key]}>{el[key]}</td>
                 ))}
               </tr>
             ))}

@@ -1,4 +1,4 @@
-import { LinksFunction } from "@remix-run/node";
+import type { LinksFunction } from "@remix-run/node";
 import { useCatch } from "@remix-run/react";
 
 export const links: LinksFunction = () => {

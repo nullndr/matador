@@ -1,11 +1,11 @@
 import { Table } from "@mantine/core";
-import JobsTableRow from "./JobsTableRow";
 import { useState } from "react";
-import JobStatusHeader from "./JobStatusHeader";
-import JobStatusFilterModal from "./JobStatusFilterModal";
+import type { BullJob } from "~/lib/matador/index.server";
+import type { JobStatus } from "../../types/JobStatus";
 import { JobStatuses } from "../../types/JobStatus";
-import { BullJob } from "~/lib/matador/index.server";
-import { JobStatus } from "../../types/JobStatus";
+import JobsTableRow from "./JobsTableRow";
+import JobStatusFilterModal from "./JobStatusFilterModal";
+import JobStatusHeader from "./JobStatusHeader";
 
 export interface JobsTableProps {
   jobs: BullJob[];

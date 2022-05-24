@@ -1,15 +1,16 @@
+import type { ColorScheme } from "@mantine/core";
 import {
-  ColorScheme,
   ColorSchemeProvider,
-  MantineProvider,
+  MantineProvider
 } from "@mantine/core";
-import { LinksFunction, LoaderFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import { Outlet, useCatch, useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { BiInfoCircle } from "react-icons/bi";
 import { BsArrowsAngleContract } from "react-icons/bs";
 import { DiRedis } from "react-icons/di";
-import { NavBar, NavbarItem } from "~/lib/matador/components/navbar";
+import type { NavbarItem } from "~/lib/matador/components";
+import { NavBar } from "~/lib/matador/components/navbar";
 import { themeKeyLocalStorage } from "~/lib/matador/constants";
 import { getMatadorVersion } from "~/lib/matador/index.server";
 

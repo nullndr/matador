@@ -1,5 +1,5 @@
-import { MantineColor } from "@mantine/core";
-import { JobStatus } from "../types/JobStatus";
+import type { MantineColor } from "@mantine/core";
+import type { JobStatus } from "../types/JobStatus";
 
 export const getStatusColor = (status: JobStatus): MantineColor => {
   if (status === "failed") {

@@ -1,15 +1,15 @@
 import { Divider, Grid, Title } from "@mantine/core";
-import { LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import React, { useState } from "react";
 import { JobsTable } from "~/lib/matador/components/jobs-table";
 import { StatCard } from "~/lib/matador/components/stat-card";
+import type { BullJob, Job } from "~/lib/matador/index.server";
 import {
-  BullJob,
-  getRepeatableQueueJobs,
-  Job,
+  getRepeatableQueueJobs
 } from "~/lib/matador/index.server";
-import { JobStatus, JobStatuses } from "~/lib/matador/types/JobStatus";
+import type { JobStatus} from "~/lib/matador/types/JobStatus";
+import { JobStatuses } from "~/lib/matador/types/JobStatus";
 
 type LoaderData = {
   queueName: string;
@@ -41,9 +41,7 @@ export const loader: LoaderFunction = async ({
   return { queueName, jobs };
 };
 
-type QueueDetailProps = {};
-
-export default function QueueDetail({}: QueueDetailProps) {
+export default function QueueDetail() {
   const loaderData = useLoaderData<LoaderData>();
   const completedJobs = loaderData.jobs.filter(
     (job) => "returnvalue" in job && !("parentKey" in job)

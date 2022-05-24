@@ -1,20 +1,19 @@
+import type { ColorScheme, MantineColor } from "@mantine/core";
 import {
   ActionIcon,
   AppShell,
   Burger,
-  ColorScheme,
   Divider,
   Grid,
   Group,
   Header,
   Image,
-  MantineColor,
   MediaQuery,
   Navbar,
   ScrollArea,
   Title,
   useMantineColorScheme,
-  useMantineTheme,
+  useMantineTheme
 } from "@mantine/core";
 import { NavLink } from "@remix-run/react";
 import { useState } from "react";
