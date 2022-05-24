@@ -53,7 +53,6 @@
     "react-icons": "4.3.1"
   },
   "devDependencies": {
-    "@headlessui/react": "1.6.1",
     "@remix-run/dev": "*",
     "@remix-run/eslint-config": "*",
     "@testing-library/dom": "8.13.0",
