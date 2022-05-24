@@ -70,17 +70,18 @@ async function askSetupQuestions({ rootDirectory }) {
       type: "confirm",
       default: false,
       message:
-        "Do you want to run the build/tests/etc to verify things are setup properly?",
+        "[ ❓ ] Do you want to run the build/tests/etc to verify things are setup properly? ",
     },
   ]);
 
   if (answers.validate) {
     console.log(
-      `Running the validate script to make sure everything was set up properly`
+      "[ ℹ️ ] Running the validate script to make sure everything was set up properly"
     );
-    // execSync(`npm run validate`, { stdio: "inherit", cwd: rootDirectory });
+    execSync(`npm run validate`, { stdio: "inherit", cwd: rootDirectory });
   }
-  console.log(`✅  Project is ready! Start development with "npm run dev"`);
+
+  console.log("[ ✅ ] Project is ready! Start development with \"npm run dev\"");
 }
 
 module.exports = main;
