@@ -1,4 +1,5 @@
-import { Grid, MantineColor } from "@mantine/core";
+import type { MantineColor } from "@mantine/core";
+import { Grid } from "@mantine/core";
 import { StatCard } from "../stat-card";
 
 export interface JobInfoProps {

@@ -2,7 +2,8 @@ import { Button, Center, Chip, Chips, Modal, Text } from "@mantine/core";
 import { useState } from "react";
 import { getStatusColor } from "../../helpers/ui-helpers";
 import { toFirstLetterUpperCase } from "../../helpers/utils";
-import { JobStatus, JobStatuses } from "../../types/JobStatus";
+import type { JobStatus } from "../../types/JobStatus";
+import { JobStatuses } from "../../types/JobStatus";
 
 export interface JobStatusFilterModalProps {
   opened: boolean;

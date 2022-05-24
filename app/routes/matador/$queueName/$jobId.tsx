@@ -1,9 +1,10 @@
-import { LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { JobDataPanel } from "~/lib/matador/components/job-data";
 import { JobInfoPanel } from "~/lib/matador/components/job-info";
 import { JobResultPanel } from "~/lib/matador/components/job-result";
-import { BullJob, getQueueJob } from "~/lib/matador/index.server";
+import type { BullJob } from "~/lib/matador/index.server";
+import { getQueueJob } from "~/lib/matador/index.server";
 
 type LoaderData = {
   queueName: string;

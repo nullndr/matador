@@ -1,8 +1,6 @@
-import { Center, Title, Text, Grid } from "@mantine/core";
+import { Grid, Text, Title } from "@mantine/core";
 
-type IndexProps = {};
-
-export default function Index({}: IndexProps) {
+export default function Index() {
   return (
     <>
       <Grid justify="center">
