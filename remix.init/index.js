@@ -3,7 +3,6 @@ const fs = require("fs/promises");
 const path = require("path");
 const sort = require("sort-package-json");
 const { toLogicalID } = require("@architect/utils");
-const inquirer = require("inquirer");
 
 const getRandomString = (length) => {
   return crypto.randomBytes(length).toString("hex");
@@ -53,35 +52,7 @@ async function main({ rootDirectory }) {
       path.join(rootDirectory, ".gitignore")
     ),
   ]);
-
-  await askSetupQuestions({ rootDirectory }).catch((error) => {
-    if (error.isTtyError) {
-      // Prompt couldn't be rendered in the current environment
-    } else {
-      throw error;
-    }
-  });
 }
 
-async function askSetupQuestions({ rootDirectory }) {
-  const answers = await inquirer.prompt([
-    {
-      name: "validate",
-      type: "confirm",
-      default: false,
-      message:
-        "[ ❓ ] Do you want to run the build/tests/etc to verify things are setup properly? ",
-    },
-  ]);
-
-  if (answers.validate) {
-    console.log(
-      "[ ℹ️ ] Running the validate script to make sure everything was set up properly"
-    );
-    execSync(`npm run validate`, { stdio: "inherit", cwd: rootDirectory });
-  }
-
-  console.log("[ ✅ ] Project is ready! Start development with \"npm run dev\"");
-}
 
 module.exports = main;
