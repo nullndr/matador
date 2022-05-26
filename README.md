@@ -76,4 +76,28 @@ There's also a `npm run format` script you can run to format all files in the pr
 
 # What if I already have a project with BullMQ?
 
-We're planning to give you a simple script that will copy only the route and it's library.
+No worries, we've already thought about it!
+
+An easy bash script can be found [here](https://github.com/nullndr/matadorInstaller).
+
+> ⚠️ please keep in mind that the script is not ready for production
+
+> in order to simply install Matador in your Remix.run project, type
+>
+> ```bash
+> $ curl https://raw.githubusercontent.com/nullndr/matadorInstaller/main/copy.sh | sh -s -- "/my/remix/project"
+> ```
+>
+> Matador will be copied in "/my/remix/project/app/routes/matador", "/my/remix/project/app/routes/matador.tsx" and
+> "/my/remix/project/app/lib/matador"
+>
+> ### But whait a sec, I do not use the `app` folder!!
+>
+> Not a problem, you can provide the folder as the second argument of the script
+>
+> ```bash
+> $ curl https://raw.githubusercontent.com/nullndr/matadorInstaller/main/copy.sh | sh -s -- "/my/remix/project" "root"
+> ```
+>
+> Matador will be copied in "/my/remix/project/root/routes/matador", "/my/remix/project/root/routes/matador.tsx" and
+> "/my/remix/project/root/lib/matador"
