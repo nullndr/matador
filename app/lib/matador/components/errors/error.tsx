@@ -5,15 +5,14 @@ import {
   MantineProvider,
   Text,
 } from "@mantine/core";
-import type { ThrownResponse } from "@remix-run/react";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { BiMessageError } from "react-icons/bi";
-import { themeKeyLocalStorage } from "~/lib/matador/constants";
-import { Navigations } from "~/lib/matador/helpers/ui-helpers";
-import { NavBar } from "./navbar";
+import { themeKeyLocalStorage } from "../../constants";
+import { Navigations } from "../../helpers/ui-helpers";
+import { NavBar } from "../navbar";
 
 export interface ErrorFallbackProps {
-  error: ThrownResponse<number, any>;
+  error: Error;
 }
 
 export const ErrorFallback = ({ error }: ErrorFallbackProps) => {
@@ -42,7 +41,6 @@ export const ErrorFallback = ({ error }: ErrorFallbackProps) => {
         >
           <Alert icon={<BiMessageError size={16} />} title="Error" color="red">
             <Text>Something wrong happened happened!</Text>
-            <Text>{error.status}</Text>
           </Alert>
         </NavBar>
       </MantineProvider>
