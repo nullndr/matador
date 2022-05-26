@@ -5,7 +5,6 @@ import React from "react";
 import { StatCard } from "~/lib/matador/components/stat-card";
 import type { RedisInfo } from "~/lib/matador/index.server";
 import { getRedisInfo } from "~/lib/matador/index.server";
-
 import { ErrorFallback } from "~/lib/matador/components/error";
 
 type LoaderData = RedisInfo;

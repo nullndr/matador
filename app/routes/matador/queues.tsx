@@ -11,9 +11,9 @@ import { Link } from "~/lib/matador/components/ui/Link";
 import type { RedisInfo } from "~/lib/matador/index.server";
 import { getQueues, getRedisInfo } from "~/lib/matador/index.server";
 import { StatCard } from "../../lib/matador/components/stat-card";
+import { ErrorFallback } from "~/lib/matador/components/error";
 
 type LoaderData = { queues: string[]; serverInfo: RedisInfo };
-import { ErrorFallback } from "~/lib/matador/components/error";
 
 export const loader: LoaderFunction = async ({
   request,

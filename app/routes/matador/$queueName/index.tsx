@@ -8,7 +8,6 @@ import type { BullJob } from "~/lib/matador/index.server";
 import { getQueueJobs, getQueues } from "~/lib/matador/index.server";
 import type { JobStatus } from "~/lib/matador/types/JobStatus";
 import { JobStatuses } from "~/lib/matador/types/JobStatus";
-
 import { ErrorFallback } from "~/lib/matador/components/error";
 
 type LoaderData = {

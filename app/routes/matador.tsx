@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { NavBar, ErrorFallback } from "~/lib/matador/components/index";
 import { themeKeyLocalStorage } from "~/lib/matador/constants";
 import { getMatadorVersion } from "~/lib/matador/index.server";
-import Navigations from "~/lib/matador/navigations";
+import { Navigations } from "~/lib/matador/helpers/ui-helpers";
 
 export const links: LinksFunction = () => {
   return [

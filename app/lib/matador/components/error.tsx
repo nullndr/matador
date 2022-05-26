@@ -1,15 +1,15 @@
+import type { ColorScheme } from "@mantine/core";
 import {
   Alert,
-  ColorScheme,
   ColorSchemeProvider,
   MantineProvider,
   Text,
 } from "@mantine/core";
-import { ThrownResponse } from "@remix-run/react";
+import type { ThrownResponse } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { BiMessageError } from "react-icons/bi";
 import { themeKeyLocalStorage } from "~/lib/matador/constants";
-import Navigations from "../navigations";
+import { Navigations } from "~/lib/matador/helpers/ui-helpers";
 import { NavBar } from "./navbar";
 
 export interface ErrorFallbackProps {
