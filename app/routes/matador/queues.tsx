@@ -1,17 +1,19 @@
 import {
   Card as MantineCard,
   Center,
-  Divider, Grid,
-  Title
+  Divider,
+  Grid,
+  Title,
 } from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
-import { NavLink, useLoaderData } from "@remix-run/react";
+import { NavLink, useCatch, useLoaderData } from "@remix-run/react";
 import { Link } from "~/lib/matador/components/ui/Link";
 import type { RedisInfo } from "~/lib/matador/index.server";
 import { getQueues, getRedisInfo } from "~/lib/matador/index.server";
 import { StatCard } from "../../lib/matador/components/stat-card";
 
 type LoaderData = { queues: string[]; serverInfo: RedisInfo };
+import { ErrorFallback } from "~/lib/matador/components/error";
 
 export const loader: LoaderFunction = async ({
   request,
@@ -103,4 +105,10 @@ export default function Dashboard() {
       )}
     </>
   );
+}
+
+export function ErrorBoundary() {
+  const caught = useCatch();
+
+  return <ErrorFallback error={caught} />;
 }

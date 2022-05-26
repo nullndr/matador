@@ -1,8 +1,9 @@
 import { Card, Divider, Table, Title, Tooltip } from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useCatch, useLoaderData } from "@remix-run/react";
 import Dot from "~/lib/matador/components/dot";
 import { getRedisClients } from "~/lib/matador/index.server";
+import { ErrorFallback } from "~/lib/matador/components/error";
 
 type LoaderData = string;
 
@@ -90,4 +91,10 @@ export default function Clients() {
       </Card>
     </>
   );
+}
+
+export function ErrorBoundary() {
+  const caught = useCatch();
+
+  return <ErrorFallback error={caught} />;
 }

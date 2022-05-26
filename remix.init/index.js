@@ -54,5 +54,4 @@ async function main({ rootDirectory }) {
   ]);
 }
 
-
 module.exports = main;

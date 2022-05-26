@@ -16,5 +16,4 @@ const Dot = ({ color }: DotProps) => {
   );
 };
 
-
 export default Dot;

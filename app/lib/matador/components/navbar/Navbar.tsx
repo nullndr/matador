@@ -13,7 +13,7 @@ import {
   ScrollArea,
   Title,
   useMantineColorScheme,
-  useMantineTheme
+  useMantineTheme,
 } from "@mantine/core";
 import { NavLink } from "@remix-run/react";
 import { useState } from "react";

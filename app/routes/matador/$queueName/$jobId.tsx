@@ -1,10 +1,11 @@
 import type { LoaderFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useCatch, useLoaderData } from "@remix-run/react";
 import { JobDataPanel } from "~/lib/matador/components/job-data";
 import { JobInfoPanel } from "~/lib/matador/components/job-info";
 import { JobResultPanel } from "~/lib/matador/components/job-result";
 import type { BullJob } from "~/lib/matador/index.server";
 import { getQueueJob } from "~/lib/matador/index.server";
+import { ErrorFallback } from "~/lib/matador/components/error";
 
 type LoaderData = {
   queueName: string;
@@ -74,4 +75,10 @@ export default function JobDetail() {
       />
     </>
   );
+}
+
+export function ErrorBoundary() {
+  const caught = useCatch();
+
+  return <ErrorFallback error={caught} />;
 }

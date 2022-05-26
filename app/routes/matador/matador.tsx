@@ -1,5 +1,6 @@
 import type { LinksFunction } from "@remix-run/node";
 import { useCatch } from "@remix-run/react";
+import { ErrorFallback } from "~/lib/matador/components/error";
 
 export const links: LinksFunction = () => {
   return [
@@ -29,4 +30,10 @@ export function CatchBoundary() {
       </main>
     </>
   );
+}
+
+export function ErrorBoundary() {
+  const caught = useCatch();
+
+  return <ErrorFallback error={caught} />;
 }

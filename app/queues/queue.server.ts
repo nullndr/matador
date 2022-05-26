@@ -3,11 +3,11 @@ import {
   MetricsTime,
   Queue as BullQueue,
   QueueScheduler,
-  Worker
+  Worker,
 } from "bullmq";
 import {
   getSchedulerConnection,
-  redis
+  redis,
 } from "~/lib/matador/helpers/redis-helpers.server";
 
 type RegisteredQueue = {
