@@ -5,6 +5,7 @@ import {
   MantineProvider,
   Text,
 } from "@mantine/core";
+import type { ThrownResponse } from "@remix-run/react";
 import { useState, useEffect } from "react";
 import { BiMessageError } from "react-icons/bi";
 import { themeKeyLocalStorage } from "../../constants";
@@ -12,7 +13,7 @@ import { Navigations } from "../../helpers/ui-helpers";
 import { NavBar } from "../navbar";
 
 export interface ErrorFallbackProps {
-  error: Error;
+  error: Error | ThrownResponse<number, any>;
 }
 
 export const ErrorFallback = ({ error }: ErrorFallbackProps) => {
@@ -40,7 +41,11 @@ export const ErrorFallback = ({ error }: ErrorFallbackProps) => {
           footerText={`Matador`}
         >
           <Alert icon={<BiMessageError size={16} />} title="Error" color="red">
-            <Text>Something wrong happened happened!</Text>
+            {!(error instanceof Error) ? (
+              <Text>Something wrong happened happened: {error.statusText}</Text>
+            ) : (
+              <Text>Sorry but something unexpected happened!</Text>
+            )}
           </Alert>
         </NavBar>
       </MantineProvider>

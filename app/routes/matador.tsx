@@ -3,11 +3,7 @@ import { ColorSchemeProvider, MantineProvider } from "@mantine/core";
 import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import { Outlet, useCatch, useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
-import {
-  CatchErrorFallback,
-  ErrorFallback,
-  NavBar,
-} from "~/lib/matador/components/index";
+import { ErrorFallback, NavBar } from "~/lib/matador/components/index";
 import { themeKeyLocalStorage } from "~/lib/matador/constants";
 import { getMatadorVersion } from "~/lib/matador/index.server";
 import { Navigations } from "~/lib/matador/helpers/ui-helpers";
@@ -62,7 +58,7 @@ export default function MatadorLayout() {
 export function CatchBoundary() {
   const caught = useCatch();
 
-  return <CatchErrorFallback error={caught} />;
+  return <ErrorFallback error={caught} />;
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
