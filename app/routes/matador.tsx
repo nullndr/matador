@@ -20,6 +20,10 @@ export const links: LinksFunction = () => {
 
 export type LoaderData = string | undefined;
 
+export interface ErrorBoundaryProps {
+  error: Error
+}
+
 export const loader: LoaderFunction = (): LoaderData => {
   return getMatadorVersion();
 };
@@ -61,6 +65,6 @@ export function CatchBoundary() {
   return <ErrorFallback error={caught} />;
 }
 
-export function ErrorBoundary({ error }: { error: Error }) {
+export function ErrorBoundary({ error }: ErrorBoundaryProps) {
   return <ErrorFallback error={error} />;
 }
