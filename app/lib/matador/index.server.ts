@@ -163,5 +163,5 @@ const getRedisKeys = async (redis: Redis, pattern: string) => {
 };
 
 export const getMatadorVersion = () => {
-  return process.env.MATADOR_VERSION;
+  return process.env.MATADOR_VERSION ?? "Not provided";
 };
