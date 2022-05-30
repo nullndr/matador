@@ -80,24 +80,24 @@ No worries, we've already thought about it!
 
 An easy bash script can be found [here](https://github.com/nullndr/matadorInstaller).
 
-> ⚠️ please keep in mind that the script is not ready for production
+in order to simply install Matador in your [Remix](https://remix.run) project, run:
 
-> in order to simply install Matador in your Remix.run project, type
->
-> ```bash
-> $ curl https://raw.githubusercontent.com/nullndr/matadorInstaller/main/copy.sh | sh -s -- "/my/remix/project"
-> ```
->
-> Matador will be copied in "/my/remix/project/app/routes/matador", "/my/remix/project/app/routes/matador.tsx" and
-> "/my/remix/project/app/lib/matador"
->
-> ### But whait a sec, I do not use the `app` folder!!
->
-> Not a problem, you can provide the folder as the second argument of the script
->
-> ```bash
-> $ curl https://raw.githubusercontent.com/nullndr/matadorInstaller/main/copy.sh | sh -s -- "/my/remix/project" "root"
-> ```
->
-> Matador will be copied in "/my/remix/project/root/routes/matador", "/my/remix/project/root/routes/matador.tsx" and
-> "/my/remix/project/root/lib/matador"
+```bash
+$ curl https://raw.githubusercontent.com/nullndr/matadorInstaller/main/copy.sh | \
+    sh -s -- "/my/remix/project"
+```
+
+Matador will be copied in `/my/remix/project/app/routes/matador`, `/my/remix/project/app/routes/matador.tsx` and
+`/my/remix/project/app/lib/matador`.
+
+### But wait a sec, I do not use the app folder!!
+
+Not a problem, you can provide the folder as the second argument of the script:
+
+```bash
+$ curl https://raw.githubusercontent.com/nullndr/matadorInstaller/main/copy.sh | \
+    sh -s -- "/my/remix/project" "root"
+```
+
+Matador will be copied in `/my/remix/project/root/routes/matador`, `/my/remix/project/root/routes/matador.tsx` and
+`/my/remix/project/root/lib/matador`.
