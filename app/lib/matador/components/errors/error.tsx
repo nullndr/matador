@@ -8,9 +8,9 @@ import {
 import type { ThrownResponse } from "@remix-run/react";
 import { useState, useEffect } from "react";
 import { BiMessageError } from "react-icons/bi";
-import { themeKeyLocalStorage } from "../../constants";
-import { Navigations } from "../../helpers/ui-helpers";
-import { NavBar } from "../navbar";
+import { themeKeyLocalStorage } from "~/lib/matador/constants";
+import { Navigations } from "~/lib/matador/helpers/ui-helpers";
+import { NavBar } from "~/lib/matador/components/navbar";
 
 export interface ErrorFallbackProps {
   error: Error | ThrownResponse<number, any>;

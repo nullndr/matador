@@ -10,7 +10,7 @@ import { NavLink, useLoaderData } from "@remix-run/react";
 import { Link } from "~/lib/matador/components/ui/Link";
 import type { RedisInfo } from "~/lib/matador/index.server";
 import { getQueues, getRedisInfo } from "~/lib/matador/index.server";
-import { StatCard } from "../../lib/matador/components/stat-card";
+import { StatCard } from "~/lib/matador/components/stat-card";
 
 type LoaderData = { queues: string[]; serverInfo: RedisInfo };
 
