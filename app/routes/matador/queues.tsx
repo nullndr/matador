@@ -6,12 +6,11 @@ import {
   Title,
 } from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
-import { NavLink, useCatch, useLoaderData } from "@remix-run/react";
+import { NavLink, useLoaderData } from "@remix-run/react";
 import { Link } from "~/lib/matador/components/ui/Link";
 import type { RedisInfo } from "~/lib/matador/index.server";
 import { getQueues, getRedisInfo } from "~/lib/matador/index.server";
-import { StatCard } from "../../lib/matador/components/stat-card";
-import { ErrorFallback } from "~/lib/matador/components/error";
+import { StatCard } from "~/lib/matador/components/stat-card";
 
 type LoaderData = { queues: string[]; serverInfo: RedisInfo };
 
@@ -24,8 +23,10 @@ export const loader: LoaderFunction = async ({
       statusText: "a redis connection has not been found",
     });
   }
+
   const queues = await getQueues(global.__redis);
   const serverInfo = await getRedisInfo(global.__redis);
+
   return { queues, serverInfo };
 };
 
@@ -105,10 +106,4 @@ export default function Dashboard() {
       )}
     </>
   );
-}
-
-export function ErrorBoundary() {
-  const caught = useCatch();
-
-  return <ErrorFallback error={caught} />;
 }
