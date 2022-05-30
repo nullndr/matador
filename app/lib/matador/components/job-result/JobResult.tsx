@@ -4,22 +4,13 @@ export interface JobResultProps {
   label: string;
   description: string;
   value: string;
+  color?: string;
 }
 
-const JobResult = ({ label, description, value }: JobResultProps) => {
+const JobResult = ({ label, description, value, color }: JobResultProps) => {
   return (
     <>
-      <Card
-        radius="md"
-        withBorder={true}
-        shadow="xl"
-        mb="md"
-        sx={{
-          textarea: {
-            minHeight: 130,
-          },
-        }}
-      >
+      <Card radius="md" withBorder={true} shadow="xl" mb="md">
         <Textarea
           label={label}
           required={false}
@@ -28,6 +19,12 @@ const JobResult = ({ label, description, value }: JobResultProps) => {
           size="md"
           value={value}
           readOnly
+          autosize
+          sx={{
+            textarea: {
+              color: color,
+            },
+          }}
         />
       </Card>
     </>

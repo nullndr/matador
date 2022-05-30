@@ -58,8 +58,16 @@ export default function JobDetail() {
         queueName={loaderData.queueName}
         timestamp={new Date(Number(loaderData.job.timestamp))}
         attemptsMade={loaderData.job.attemptsMade}
-        processedOn={new Date(Number(loaderData.job.processedOn))}
-        finishedOn={new Date(Number(loaderData.job.finishedOn))}
+        processedOn={
+          loaderData.job.processedOn
+            ? new Date(Number(loaderData.job.processedOn))
+            : undefined
+        }
+        finishedOn={
+          loaderData.job.finishedOn
+            ? new Date(Number(loaderData.job.finishedOn))
+            : undefined
+        }
       />
 
       <JobDataPanel

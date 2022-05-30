@@ -1,4 +1,4 @@
-import { Card, Grid, JsonInput, Text } from "@mantine/core";
+import { Card, Grid, Text, Textarea } from "@mantine/core";
 
 export interface JobDataProps {
   title: string;
@@ -12,20 +12,14 @@ export const JobData = ({ title, json }: JobDataProps) => {
         <Grid.Col span={6}>
           <Text>{title}</Text>
         </Grid.Col>
-        <Grid.Col style={{ minHeight: 200 }} span={18}>
-          <JsonInput
+        <Grid.Col span={18}>
+          <Textarea
+            required={false}
+            variant="filled"
+            size="md"
+            value={JSON.stringify(json, undefined, 4)}
             readOnly
-            size="lg"
-            sx={{
-              height: "100%",
-              div: {
-                height: "100%",
-                textarea: {
-                  height: "100%",
-                },
-              },
-            }}
-            value={JSON.stringify(json, undefined, 2)}
+            autosize
           />
         </Grid.Col>
       </Grid>
