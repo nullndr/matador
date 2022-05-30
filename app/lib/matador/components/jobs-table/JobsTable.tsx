@@ -1,8 +1,8 @@
 import { Table } from "@mantine/core";
 import { useState } from "react";
 import type { BullJob } from "~/lib/matador/index.server";
-import type { JobStatus } from "../../types/JobStatus";
-import { JobStatuses } from "../../types/JobStatus";
+import type { JobStatus } from "~/lib/matador/types/JobStatus";
+import { JobStatuses } from "~/lib/matador/types/JobStatus";
 import JobsTableRow from "./JobsTableRow";
 import JobStatusFilterModal from "./JobStatusFilterModal";
 import JobStatusHeader from "./JobStatusHeader";

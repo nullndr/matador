@@ -3,14 +3,13 @@ import {
   Alert,
   ColorSchemeProvider,
   MantineProvider,
-  Text,
+  Text
 } from "@mantine/core";
 import type { ThrownResponse } from "@remix-run/react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BiMessageError } from "react-icons/bi";
-import { themeKeyLocalStorage } from "~/lib/matador/constants";
-import { Navigations } from "~/lib/matador/helpers/ui-helpers";
 import { NavBar } from "~/lib/matador/components/navbar";
+import { Navigations, themeKeyLocalStorage } from "~/lib/matador/helpers/application-helpers.server";
 
 export interface ErrorFallbackProps {
   error: Error | ThrownResponse<number, any>;

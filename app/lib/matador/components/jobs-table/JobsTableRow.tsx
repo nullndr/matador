@@ -1,8 +1,8 @@
 import { Badge, Text } from "@mantine/core";
 import { NavLink } from "@remix-run/react";
+import { getStatusColor } from "~/lib/matador/helpers/application-helpers.server";
 import type { BullJob } from "~/lib/matador/index.server";
-import { getStatusColor } from "../../helpers/ui-helpers";
-import type { JobStatus } from "../../types/JobStatus";
+import type { JobStatus } from "~/lib/matador/types/JobStatus";
 
 export interface JobsTableRowProps {
   job: BullJob;

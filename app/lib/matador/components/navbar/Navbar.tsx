@@ -13,13 +13,13 @@ import {
   ScrollArea,
   Title,
   useMantineColorScheme,
-  useMantineTheme,
+  useMantineTheme
 } from "@mantine/core";
 import { NavLink } from "@remix-run/react";
 import { useState } from "react";
 import { BiMoon } from "react-icons/bi";
 import { TiWeatherSunny } from "react-icons/ti";
-import { themeKeyLocalStorage } from "~/lib/matador/constants";
+import { themeKeyLocalStorage } from "~/lib/matador/helpers/application-helpers.server";
 import Navlink from "./Navlink";
 
 export type NavbarProps = React.PropsWithChildren<{
