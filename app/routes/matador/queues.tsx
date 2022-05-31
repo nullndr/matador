@@ -3,14 +3,14 @@ import {
   Center,
   Divider,
   Grid,
-  Title,
+  Title
 } from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
 import { NavLink, useLoaderData } from "@remix-run/react";
-import { Link } from "~/lib/matador/components/ui/Link";
+import { StatCard } from "~/lib/matador/components/stat-card";
+import { Link } from "~/lib/matador/helpers/application-helpers.server";
 import type { RedisInfo } from "~/lib/matador/index.server";
 import { getQueues, getRedisInfo } from "~/lib/matador/index.server";
-import { StatCard } from "~/lib/matador/components/stat-card";
 
 type LoaderData = { queues: string[]; serverInfo: RedisInfo };
 

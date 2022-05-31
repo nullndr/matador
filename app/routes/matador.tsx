@@ -3,10 +3,9 @@ import { ColorSchemeProvider, MantineProvider } from "@mantine/core";
 import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import { Outlet, useCatch, useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
-import { ErrorFallback, NavBar } from "~/lib/matador/components/index";
-import { themeKeyLocalStorage } from "~/lib/matador/constants";
+import { ErrorFallback, NavBar } from "~/lib/matador/components";
+import { Navigations, themeKeyLocalStorage } from "~/lib/matador/helpers/application-helpers.server";
 import { getMatadorVersion } from "~/lib/matador/index.server";
-import { Navigations } from "~/lib/matador/helpers/ui-helpers";
 
 export const links: LinksFunction = () => {
   return [
