@@ -7,3 +7,4 @@ export * from "./job-info";
 export * from "./job-result";
 export * from "./jobs-table";
 export * from "./error";
+export * from "./section";

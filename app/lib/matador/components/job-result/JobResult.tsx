@@ -5,9 +5,18 @@ export interface JobResultProps {
   description: string;
   value: string;
   color?: string;
+  textColor?: string;
+  borderColor?: string;
 }
 
-const JobResult = ({ label, description, value, color }: JobResultProps) => {
+const JobResult = ({
+  label,
+  description,
+  value,
+  color,
+  textColor,
+  borderColor,
+}: JobResultProps) => {
   return (
     <>
       <Card radius="md" withBorder={true} shadow="xl" mb="md">
@@ -23,9 +32,12 @@ const JobResult = ({ label, description, value, color }: JobResultProps) => {
           sx={{
             textarea: {
               backgroundColor: color,
-              color: 'white'
+              color: textColor,
+              borderColor: borderColor,
+              fontWeight: 600,
             },
           }}
+          // className="text-sm text-gray-900 bg-green-50 border-2 rounded border-green-600"
         />
       </Card>
     </>

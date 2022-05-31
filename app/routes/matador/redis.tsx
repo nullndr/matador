@@ -1,11 +1,10 @@
-import { Divider, Grid, Title } from "@mantine/core";
+import { Divider, Grid, Title, Card } from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
 import { useCatch, useLoaderData } from "@remix-run/react";
 import React from "react";
-import { StatCard } from "~/lib/matador/components/stat-card";
 import type { RedisInfo } from "~/lib/matador/index.server";
 import { getRedisInfo } from "~/lib/matador/index.server";
-import { ErrorFallback } from "~/lib/matador/components/error";
+import { ErrorFallback, Section } from "~/lib/matador/components";
 
 type LoaderData = RedisInfo;
 
@@ -27,36 +26,43 @@ export default function RedisServerInfo() {
 
   return (
     <>
-      {Object.keys(loaderData).map((section, index) => (
-        <React.Fragment key={index}>
-          <Title
-            mb="sm"
-            order={2}
-            sx={(theme) => ({
-              color:
-                theme.colorScheme === "dark"
-                  ? theme.colors.dark[0]
-                  : theme.black,
-            })}
-          >
-            {section}
-          </Title>
+      {Object.keys(loaderData).map((section, index) => {
+        if (Object.keys(loaderData[section]).length === 0) {
+          return <></>;
+        }
 
-          <Divider mb="md" />
+        return (
+          <React.Fragment key={index}>
+            <Title
+              mb="sm"
+              order={2}
+              sx={(theme) => ({
+                color:
+                  theme.colorScheme === "dark"
+                    ? theme.colors.dark[0]
+                    : theme.black,
+              })}
+            >
+              {section}
+            </Title>
 
-          <Grid columns={24} mb="md">
-            {Object.keys(loaderData[section]).map((key, index) => (
-              <Grid.Col key={key} span={24}>
-                <StatCard
-                  title={key}
-                  value={loaderData[section][key]}
-                  color={index % 2 == 0 ? "blue" : "green"}
-                />
-              </Grid.Col>
-            ))}
-          </Grid>
-        </React.Fragment>
-      ))}
+            <Divider mb="md" />
+            <Card mb="md">
+              <Grid columns={24} mb="md">
+                {Object.keys(loaderData[section]).map((key, index) => (
+                  <Grid.Col key={key} span={24}>
+                    <Section
+                      title={key}
+                      color={index % 2 == 0 ? "blue" : "green"}
+                      value={loaderData[section][key]}
+                    />
+                  </Grid.Col>
+                ))}
+              </Grid>
+            </Card>
+          </React.Fragment>
+        );
+      })}
     </>
   );
 }
