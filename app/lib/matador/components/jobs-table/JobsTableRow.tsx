@@ -1,6 +1,6 @@
 import { Badge, Text } from "@mantine/core";
 import { NavLink } from "@remix-run/react";
-import { getStatusColor } from "~/lib/matador/helpers/application-helpers.server";
+import { getStatusColor } from "~/lib/matador/helpers/ui-helpers";
 import type { BullJob } from "~/lib/matador/index.server";
 import type { JobStatus } from "~/lib/matador/types/JobStatus";
 

@@ -1,8 +1,10 @@
+import type { MantineColor } from "@mantine/core";
 import { Link as RemixLink } from "@remix-run/react";
 import { BiInfoCircle } from "react-icons/bi";
 import { BsArrowsAngleContract } from "react-icons/bs";
 import { DiRedis } from "react-icons/di";
 import type { NavbarItem } from "~/lib/matador/components";
+import type { JobStatus } from "~/lib/matador/types/JobStatus";
 
 export const Navigations: NavbarItem[] = [
   {
@@ -47,3 +49,19 @@ export function Link({ children, url = "", external, ref, ...rest }: any) {
     </RemixLink>
   );
 }
+
+export const getStatusColor = (status: JobStatus): MantineColor => {
+  if (status === "failed") {
+    return "red";
+  }
+
+  if (status === "children") {
+    return "blue";
+  }
+
+  if (status === "repeated") {
+    return "indigo";
+  }
+
+  return "green";
+};
