@@ -25,7 +25,7 @@ export const getRedisInfo = async (redis: Redis): Promise<RedisInfo> => {
 };
 
 export const getQueues = async (redis: Redis): Promise<string[]> => {
-  const bullRedisKeys = await getRedisKeys(redis, "bull:*");
+  const bullRedisKeys = await getRedisKeys(redis, "bull:*:id");
 
   const queues: string[] = [];
   bullRedisKeys.forEach((key) => {
