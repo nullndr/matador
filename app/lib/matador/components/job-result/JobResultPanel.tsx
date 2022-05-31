@@ -29,7 +29,6 @@ export const JobResultPanel = ({
 
       <JobResult
         label="Result"
-        description="Job Result"
         value={
           returnvalue != null
             ? JSON.stringify(returnvalue, undefined, 2)
@@ -43,7 +42,6 @@ export const JobResultPanel = ({
       {failedReason && (
         <JobResult
           label="Failed Reason"
-          description="Job Failed Reason"
           value={failedReason.trim()}
           color="#fef2f2"
           textColor="#dc2626"
@@ -54,7 +52,6 @@ export const JobResultPanel = ({
       {stacktrace && stacktrace.length !== 0 && (
         <JobResult
           label="Stacktrace"
-          description="Job Failed Reason"
           value={stacktrace[0] ?? ""}
           color="#fef2f2"
           textColor="#dc2626"

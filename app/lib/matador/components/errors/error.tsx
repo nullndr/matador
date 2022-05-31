@@ -3,7 +3,7 @@ import {
   Alert,
   ColorSchemeProvider,
   MantineProvider,
-  Text
+  Text,
 } from "@mantine/core";
 import type { ThrownResponse } from "@remix-run/react";
 import { useEffect, useState } from "react";

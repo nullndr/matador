@@ -67,7 +67,7 @@ export const JobInfoPanel = ({
             </Grid.Col>
           )}
 
-          {attemptsMade !== undefined && (
+          {attemptsMade != null && (
             <Grid.Col span={12} mt="sm">
               <JobInfo
                 infoName="Attempts made"

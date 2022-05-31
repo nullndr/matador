@@ -32,7 +32,7 @@ export default function RedisServerInfo() {
         }
 
         return (
-          <React.Fragment key={index}>
+          <Card mb="md" withBorder radius="md" key={index}>
             <Title
               mb="sm"
               order={2}
@@ -47,20 +47,19 @@ export default function RedisServerInfo() {
             </Title>
 
             <Divider mb="md" />
-            <Card mb="md">
-              <Grid columns={24} mb="md">
-                {Object.keys(loaderData[section]).map((key, index) => (
-                  <Grid.Col key={key} span={24}>
-                    <Section
-                      title={key}
-                      color={index % 2 == 0 ? "blue" : "green"}
-                      value={loaderData[section][key]}
-                    />
-                  </Grid.Col>
-                ))}
-              </Grid>
-            </Card>
-          </React.Fragment>
+
+            <Grid columns={24} mb="md">
+              {Object.keys(loaderData[section]).map((key, index) => (
+                <Grid.Col key={key} span={24}>
+                  <Section
+                    title={key}
+                    color={index % 2 == 0 ? "blue" : "green"}
+                    value={loaderData[section][key]}
+                  />
+                </Grid.Col>
+              ))}
+            </Grid>
+          </Card>
         );
       })}
     </>

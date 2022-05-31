@@ -2,7 +2,6 @@ import { Card, Textarea } from "@mantine/core";
 
 export interface JobResultProps {
   label: string;
-  description: string;
   value: string;
   color?: string;
   textColor?: string;
@@ -11,7 +10,6 @@ export interface JobResultProps {
 
 const JobResult = ({
   label,
-  description,
   value,
   color,
   textColor,
@@ -23,7 +21,6 @@ const JobResult = ({
         <Textarea
           label={label}
           required={false}
-          description={description}
           variant="filled"
           size="md"
           value={value}
@@ -37,7 +34,6 @@ const JobResult = ({
               fontWeight: 600,
             },
           }}
-          // className="text-sm text-gray-900 bg-green-50 border-2 rounded border-green-600"
         />
       </Card>
     </>

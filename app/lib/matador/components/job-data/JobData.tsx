@@ -20,6 +20,11 @@ export const JobData = ({ title, json }: JobDataProps) => {
             value={JSON.stringify(json, undefined, 4)}
             readOnly
             autosize
+            sx={{
+              textarea: {
+                fontWeight: 600,
+              },
+            }}
           />
         </Grid.Col>
       </Grid>
