@@ -8,7 +8,7 @@ import {
 import type { LoaderFunction } from "@remix-run/node";
 import { NavLink, useLoaderData } from "@remix-run/react";
 import { StatCard } from "~/lib/matador/components/stat-card";
-import { Link } from "~/lib/matador/helpers/application-helpers.server";
+import { Link } from "~/lib/matador/helpers/ui-helpers";
 import type { RedisInfo } from "~/lib/matador/index.server";
 import { getQueues, getRedisInfo } from "~/lib/matador/index.server";
 

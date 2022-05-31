@@ -4,7 +4,8 @@ import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import { Outlet, useCatch, useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { ErrorFallback, NavBar } from "~/lib/matador/components";
-import { Navigations, themeKeyLocalStorage } from "~/lib/matador/helpers/application-helpers.server";
+import { themeKeyLocalStorage } from "~/lib/matador/helpers/application-helpers.server";
+import { Navigations } from "~/lib/matador/helpers/ui-helpers";
 import { getMatadorVersion } from "~/lib/matador/index.server";
 
 export const links: LinksFunction = () => {

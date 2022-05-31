@@ -1,26 +1,8 @@
-import type { MantineColor } from "@mantine/core";
 import { Link as RemixLink } from "@remix-run/react";
 import { BiInfoCircle } from "react-icons/bi";
 import { BsArrowsAngleContract } from "react-icons/bs";
 import { DiRedis } from "react-icons/di";
 import type { NavbarItem } from "~/lib/matador/components";
-import type { JobStatus } from "~/lib/matador/types/JobStatus";
-
-export const getStatusColor = (status: JobStatus): MantineColor => {
-  if (status === "failed") {
-    return "red";
-  }
-
-  if (status === "children") {
-    return "blue";
-  }
-
-  if (status === "repeated") {
-    return "indigo";
-  }
-
-  return "green";
-};
 
 export const Navigations: NavbarItem[] = [
   {
@@ -42,8 +24,6 @@ export const Navigations: NavbarItem[] = [
     icon: <BsArrowsAngleContract size={20} />,
   },
 ];
-
-export const capitalizeFirstLetter = (value: string) => value.charAt(0).toLocaleUpperCase() + value.slice(1);
 
 const IS_EXTERNAL_LINK_REGEX = /^(?:[a-z][a-z\d+.-]*:|\/\/)/;
 
@@ -67,5 +47,3 @@ export function Link({ children, url = "", external, ref, ...rest }: any) {
     </RemixLink>
   );
 }
-
-export const themeKeyLocalStorage = "matador_theme";
