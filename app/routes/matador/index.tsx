@@ -1,6 +1,4 @@
 import { Grid, Text, Title } from "@mantine/core";
-import { useCatch } from "@remix-run/react";
-import { ErrorFallback } from "~/lib/matador/components/error";
 
 export default function Index() {
   return (
@@ -43,10 +41,4 @@ export default function Index() {
       </Grid>
     </>
   );
-}
-
-export function ErrorBoundary() {
-  const caught = useCatch();
-
-  return <ErrorFallback error={caught} />;
 }

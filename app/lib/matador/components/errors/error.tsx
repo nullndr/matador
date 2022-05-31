@@ -3,17 +3,17 @@ import {
   Alert,
   ColorSchemeProvider,
   MantineProvider,
-  Text,
+  Text
 } from "@mantine/core";
 import type { ThrownResponse } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { BiMessageError } from "react-icons/bi";
-import { themeKeyLocalStorage } from "~/lib/matador/constants";
+import { NavBar } from "~/lib/matador/components/navbar";
+import { themeKeyLocalStorage } from "~/lib/matador/helpers/application-helpers.server";
 import { Navigations } from "~/lib/matador/helpers/ui-helpers";
-import { NavBar } from "./navbar";
 
 export interface ErrorFallbackProps {
-  error: ThrownResponse<number, any>;
+  error: Error | ThrownResponse<number, any>;
 }
 
 export const ErrorFallback = ({ error }: ErrorFallbackProps) => {
@@ -41,8 +41,11 @@ export const ErrorFallback = ({ error }: ErrorFallbackProps) => {
           footerText={`Matador`}
         >
           <Alert icon={<BiMessageError size={16} />} title="Error" color="red">
-            <Text>Something wrong happened happened!</Text>
-            <Text>{error.status}</Text>
+            {!(error instanceof Error) ? (
+              <Text>Something wrong happened: {error.statusText}</Text>
+            ) : (
+              <Text>Sorry but something unexpected happened!</Text>
+            )}
           </Alert>
         </NavBar>
       </MantineProvider>

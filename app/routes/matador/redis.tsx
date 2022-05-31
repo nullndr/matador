@@ -1,10 +1,10 @@
 import { Divider, Grid, Title, Card } from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
-import { useCatch, useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import React from "react";
 import type { RedisInfo } from "~/lib/matador/index.server";
 import { getRedisInfo } from "~/lib/matador/index.server";
-import { ErrorFallback, Section } from "~/lib/matador/components";
+import { Section } from "~/lib/matador/components";
 
 type LoaderData = RedisInfo;
 
@@ -65,10 +65,4 @@ export default function RedisServerInfo() {
       })}
     </>
   );
-}
-
-export function ErrorBoundary() {
-  const caught = useCatch();
-
-  return <ErrorFallback error={caught} />;
 }
