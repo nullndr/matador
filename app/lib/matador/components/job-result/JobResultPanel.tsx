@@ -35,7 +35,7 @@ export const JobResultPanel = ({
             ? JSON.stringify(returnvalue, undefined, 2)
             : "No Result"
         }
-        color="green"
+        color="limegreen"
       />
 
       {failedReason && (
@@ -43,7 +43,7 @@ export const JobResultPanel = ({
           label="Failed Reason"
           description="Job Failed Reason"
           value={failedReason.trim()}
-          color="red"
+          color="darkred"
         />
       )}
 

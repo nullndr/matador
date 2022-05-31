@@ -46,7 +46,7 @@ export default function RedisServerInfo() {
 
           <Grid columns={24} mb="md">
             {Object.keys(loaderData[section]).map((key, index) => (
-              <Grid.Col key={key} sm={24} xs={24} md={8} lg={6} xl={6}>
+              <Grid.Col key={key} span={24}>
                 <StatCard
                   title={key}
                   value={loaderData[section][key]}

@@ -22,7 +22,8 @@ const JobResult = ({ label, description, value, color }: JobResultProps) => {
           autosize
           sx={{
             textarea: {
-              color: color,
+              backgroundColor: color,
+              color: 'white'
             },
           }}
         />
