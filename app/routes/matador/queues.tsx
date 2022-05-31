@@ -3,7 +3,7 @@ import {
   Center,
   Divider,
   Grid,
-  Title
+  Title,
 } from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
 import { NavLink, useLoaderData } from "@remix-run/react";

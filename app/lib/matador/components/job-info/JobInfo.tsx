@@ -1,6 +1,5 @@
 import type { MantineColor } from "@mantine/core";
-import { Grid } from "@mantine/core";
-import { StatCard } from "../stat-card";
+import { Grid, Title, Group, Badge } from "@mantine/core";
 
 export interface JobInfoProps {
   infoName: string;
@@ -20,13 +19,31 @@ const JobInfo = ({ infoName, infoValue, color }: JobInfoProps) => {
   ];
 
   return (
-    <Grid.Col span={12}>
-      <StatCard
-        title={infoName}
-        value={infoValue}
-        color={color ?? colors[Math.floor(Math.random() * colors.length)]}
-      />
-    </Grid.Col>
+    <Grid>
+      <Grid.Col span={6}>
+        <Title
+          sx={{
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+          }}
+          order={4}
+        >
+          {infoName}
+        </Title>
+      </Grid.Col>
+      <Grid.Col span={6}>
+        <Group position="right">
+          <Badge
+            color={color ?? colors[Math.floor(Math.random() * colors.length)]}
+            size="lg"
+          >
+            {" "}
+            {infoValue}{" "}
+          </Badge>
+        </Group>
+      </Grid.Col>
+    </Grid>
   );
 };
 

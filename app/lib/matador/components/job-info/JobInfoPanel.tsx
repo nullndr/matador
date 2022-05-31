@@ -1,4 +1,4 @@
-import { Divider, Grid, Title } from "@mantine/core";
+import { Divider, Grid, Title, Card } from "@mantine/core";
 import JobInfo from "./JobInfo";
 
 export interface JobInfoPanelProps {
@@ -35,36 +35,48 @@ export const JobInfoPanel = ({
 
       <Divider mb="md" />
 
-      <Grid columns={24} mb="md">
-        <Grid.Col sm={24} xs={24} md={12} lg={12} xl={12}>
-          <Grid>
-            <JobInfo infoName="Queue" infoValue={queueName} />
+      <Card radius="md" withBorder={true} shadow="xl" mb="md">
+        <Grid justify="center" align="center">
+          <Grid.Col span={12} mt="xs">
             <JobInfo infoName="Job Id" infoValue={id} />
+          </Grid.Col>
+
+          <Grid.Col span={12} mt="sm">
             <JobInfo infoName="Job Name" infoValue={jobName} />
-          </Grid>
-        </Grid.Col>
-        <Grid.Col sm={24} xs={24} md={12} lg={12} xl={12}>
-          <Grid>
+          </Grid.Col>
+
+          <Grid.Col span={12} mt="sm">
             <JobInfo infoName="Timestamp" infoValue={timestamp.toISOString()} />
-            {processedOn && (
+          </Grid.Col>
+
+          {processedOn && (
+            <Grid.Col span={12} mt="sm">
               <JobInfo
                 infoName="Processed on"
                 infoValue={processedOn.toISOString()}
               />
-            )}
-            {finishedOn && (
+            </Grid.Col>
+          )}
+
+          {finishedOn && (
+            <Grid.Col span={12} mt="sm">
               <JobInfo
                 infoName="Finished on"
                 infoValue={finishedOn.toISOString()}
               />
-            )}
-            <JobInfo
-              infoName="Attempts made"
-              infoValue={attemptsMade?.toString() ?? "0"}
-            />
-          </Grid>
-        </Grid.Col>
-      </Grid>
+            </Grid.Col>
+          )}
+
+          {attemptsMade != null && (
+            <Grid.Col span={12} mt="sm">
+              <JobInfo
+                infoName="Attempts made"
+                infoValue={attemptsMade.toString()}
+              />
+            </Grid.Col>
+          )}
+        </Grid>
+      </Card>
     </>
   );
 };

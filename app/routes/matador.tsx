@@ -21,7 +21,7 @@ export const links: LinksFunction = () => {
 export type LoaderData = string | undefined;
 
 export interface ErrorBoundaryProps {
-  error: Error
+  error: Error;
 }
 
 export const loader: LoaderFunction = (): LoaderData => {

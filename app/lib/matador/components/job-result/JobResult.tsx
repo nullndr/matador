@@ -2,32 +2,38 @@ import { Card, Textarea } from "@mantine/core";
 
 export interface JobResultProps {
   label: string;
-  description: string;
   value: string;
+  color?: string;
+  textColor?: string;
+  borderColor?: string;
 }
 
-const JobResult = ({ label, description, value }: JobResultProps) => {
+const JobResult = ({
+  label,
+  value,
+  color,
+  textColor,
+  borderColor,
+}: JobResultProps) => {
   return (
     <>
-      <Card
-        radius="md"
-        withBorder={true}
-        shadow="xl"
-        mb="md"
-        sx={{
-          textarea: {
-            minHeight: 130,
-          },
-        }}
-      >
+      <Card radius="md" withBorder={true} shadow="xl" mb="md">
         <Textarea
           label={label}
           required={false}
-          description={description}
           variant="filled"
           size="md"
           value={value}
           readOnly
+          autosize
+          sx={{
+            textarea: {
+              backgroundColor: color,
+              color: textColor,
+              borderColor: borderColor,
+              fontWeight: 600,
+            },
+          }}
         />
       </Card>
     </>
