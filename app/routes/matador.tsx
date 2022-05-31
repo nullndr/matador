@@ -1,6 +1,6 @@
 import type { ColorScheme } from "@mantine/core";
 import { ColorSchemeProvider, MantineProvider } from "@mantine/core";
-import type { LinksFunction, LoaderFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import { Outlet, useCatch, useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { ErrorFallback, NavBar } from "~/lib/matador/components";
@@ -17,6 +17,10 @@ export const links: LinksFunction = () => {
     },
   ];
 };
+
+export const meta: MetaFunction = () => ({
+  title: "Matador"
+})
 
 export type LoaderData = string | undefined;
 
