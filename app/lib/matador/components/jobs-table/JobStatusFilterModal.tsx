@@ -1,6 +1,6 @@
 import { Button, Center, Chip, Chips, Modal, Text } from "@mantine/core";
 import { useState } from "react";
-import { getStatusColor } from "~/lib/matador/helpers/application-helpers.server";
+import { getStatusColor } from "~/lib/matador/helpers/ui-helpers";
 import { toFirstLetterUpperCase } from "~/lib/matador/helpers/utils";
 import type { JobStatus } from "~/lib/matador/types/JobStatus";
 import { JobStatuses } from "~/lib/matador/types/JobStatus";
