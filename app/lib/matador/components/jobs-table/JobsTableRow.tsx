@@ -1,11 +1,11 @@
 import { Badge, Text } from "@mantine/core";
 import { NavLink } from "@remix-run/react";
 import { getStatusColor } from "~/lib/matador/helpers/ui-helpers";
-import type { BullJob } from "~/lib/matador/index.server";
+import type { Job } from "~/lib/matador/index.server";
 import type { JobStatus } from "~/lib/matador/types/JobStatus";
 
 export interface JobsTableRowProps {
-  job: BullJob;
+  job: Job;
   queueName: string;
   repeatJob: boolean;
 }
@@ -57,7 +57,7 @@ const JobsTableRow = ({
   );
 };
 
-const getStatus = (job: BullJob): JobStatus => {
+const getStatus = (job: Job): JobStatus => {
   if ("failedReason" in job) {
     return "failed";
   }

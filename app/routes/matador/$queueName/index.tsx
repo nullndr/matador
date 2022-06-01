@@ -4,14 +4,18 @@ import { useLoaderData } from "@remix-run/react";
 import { useState } from "react";
 import { JobsTable } from "~/lib/matador/components/jobs-table";
 import { StatCard } from "~/lib/matador/components/stat-card";
-import type { BullJob } from "~/lib/matador/index.server";
-import { getQueueJobs, getQueues } from "~/lib/matador/index.server";
+import {
+  getQueueJobs,
+  getQueues,
+  Job,
+  RepeatableJob,
+} from "~/lib/matador/index.server";
 import type { JobStatus } from "~/lib/matador/types/JobStatus";
 import { JobStatuses } from "~/lib/matador/types/JobStatus";
 
 type LoaderData = {
   queueName: string;
-  jobs: BullJob[];
+  jobs: (Job | RepeatableJob)[];
 };
 
 export const loader: LoaderFunction = async ({
@@ -62,7 +66,7 @@ export default function QueueDetail() {
   const repeatedJobs = loaderData.jobs.filter((job) => "repeated" in job);
   const failedJobs = loaderData.jobs.filter((job) => "failedReason" in job);
 
-  const [currentJobs, setCurrentJobs] = useState<BullJob[]>(loaderData.jobs);
+  const [currentJobs, setCurrentJobs] = useState<Job[]>(loaderData.jobs);
   const [statusesSelected, setStatusesSelected] = useState<JobStatus[]>(
     JobStatuses as JobStatus[]
   );
@@ -70,7 +74,7 @@ export default function QueueDetail() {
   const onFilterStatuses = (statuses: JobStatus[]) => {
     setStatusesSelected(statuses);
 
-    const jobs: BullJob[] = [];
+    const jobs: Job[] = [];
 
     statuses.forEach((el) => {
       if (el === "children") {
