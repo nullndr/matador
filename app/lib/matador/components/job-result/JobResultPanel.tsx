@@ -1,17 +1,12 @@
 import { Title, Divider } from "@mantine/core";
+import type { BullJob } from "~/lib/matador/index.server";
 import JobResult from "./JobResult";
 
 export interface JobResultPanelProps {
-  returnvalue: any | undefined;
-  failedReason: string | undefined;
-  stacktrace: string[] | undefined;
+  job: BullJob;
 }
 
-export const JobResultPanel = ({
-  returnvalue,
-  failedReason,
-  stacktrace,
-}: JobResultPanelProps) => {
+export const JobResultPanel = ({ job }: JobResultPanelProps) => {
   return (
     <>
       <Title
@@ -27,32 +22,30 @@ export const JobResultPanel = ({
 
       <Divider mb="md" />
 
-      <JobResult
-        label="Result"
-        value={
-          returnvalue != null
-            ? JSON.stringify(returnvalue, undefined, 2)
-            : "No Result"
-        }
-        color="#f0fdf4"
-        textColor="#111827"
-        borderColor="#bbf7d0"
-      />
+      {"returnvalue" in job && (
+        <JobResult
+          label="Result"
+          value={JSON.stringify(job.returnvalue, undefined, 2)}
+          color="#f0fdf4"
+          textColor="#111827"
+          borderColor="#bbf7d0"
+        />
+      )}
 
-      {failedReason && (
+      {"failedReason" in job && (
         <JobResult
           label="Failed Reason"
-          value={failedReason.trim()}
+          value={job.failedReason}
           color="#fef2f2"
           textColor="#dc2626"
           borderColor="#fecaca"
         />
       )}
 
-      {stacktrace && stacktrace.length !== 0 && (
+      {"stacktrace" in job && job.stacktrace && job.stacktrace.length !== 0 && (
         <JobResult
           label="Stacktrace"
-          value={stacktrace[0] ?? ""}
+          value={job.stacktrace[0]}
           color="#fef2f2"
           textColor="#dc2626"
           borderColor="#fecaca"
