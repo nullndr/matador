@@ -1,11 +1,12 @@
 import {
+  Anchor,
   Breadcrumbs,
   Card,
   Divider,
   Group,
   Table,
   Title,
-  Tooltip
+  Tooltip,
 } from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
@@ -60,8 +61,12 @@ export default function Clients() {
     <>
       <Group mb="md">
         <Breadcrumbs>
-          <Link to="/matador">Home</Link>
-          <Link href="#">Clients</Link>
+          <Anchor>
+            <Link to="/matador">Home</Link>
+          </Anchor>
+          <Anchor>
+            <Link to="#">Clients</Link>
+          </Anchor>
         </Breadcrumbs>
       </Group>
       <Title

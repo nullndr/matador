@@ -4,7 +4,7 @@ import {
   Divider,
   Grid,
   Group,
-  Title
+  Title,
 } from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
@@ -86,12 +86,20 @@ export default function QueueDetail() {
     <>
       <Group mb="md">
         <Breadcrumbs>
-          <Link to="/matador">Home</Link>
-          <Link to="/matador/queues">Queues</Link>
-          <Link to={`/matador/${loaderData.queueName}`}>
-            {loaderData.queueName}
-          </Link>
-          <Anchor href="#">{loaderData.jobs[0].name}</Anchor>
+          <Anchor>
+            <Link to="/matador">Home</Link>
+          </Anchor>
+          <Anchor>
+            <Link to="/matador/queues">Queues</Link>
+          </Anchor>
+          <Anchor>
+            <Link to={`/matador/${loaderData.queueName}`}>
+              {loaderData.queueName}
+            </Link>
+          </Anchor>
+          <Anchor>
+            <Link to={"#"}>{loaderData.jobs[0].name}</Link>
+          </Anchor>
         </Breadcrumbs>
       </Group>
       <Title

@@ -1,11 +1,12 @@
 import {
+  Anchor,
   Breadcrumbs,
   Card as MantineCard,
   Center,
   Divider,
   Grid,
   Group,
-  Title
+  Title,
 } from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
 import { NavLink, useLoaderData } from "@remix-run/react";
@@ -38,8 +39,12 @@ export default function Dashboard() {
     <>
       <Group mb="md">
         <Breadcrumbs>
-          <Link to="/matador">Home</Link>
-          <Link to="#">Queues</Link>
+          <Anchor>
+            <Link to="/matador">Home</Link>
+          </Anchor>
+          <Anchor>
+            <Link to="#">Queues</Link>
+          </Anchor>
         </Breadcrumbs>
       </Group>
       <Grid columns={24} mt="sm" mb="lg">

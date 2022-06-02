@@ -1,6 +1,11 @@
 import {
-  Breadcrumbs, Card, Divider,
-  Grid, Group, Title
+  Anchor,
+  Breadcrumbs,
+  Card,
+  Divider,
+  Grid,
+  Group,
+  Title,
 } from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
@@ -32,8 +37,12 @@ export default function RedisServerInfo() {
     <>
       <Group mb="md">
         <Breadcrumbs>
-          <Link to="/matador">Home</Link>
-          <Link to="#">Redis</Link>
+          <Anchor>
+            <Link to="/matador">Home</Link>
+          </Anchor>
+          <Anchor>
+            <Link to="#">Redis</Link>
+          </Anchor>
         </Breadcrumbs>
       </Group>
       {Object.keys(loaderData).map((section, index) => {

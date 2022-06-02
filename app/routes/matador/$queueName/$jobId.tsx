@@ -1,4 +1,4 @@
-import { Breadcrumbs, Group } from "@mantine/core";
+import { Anchor, Breadcrumbs, Group } from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { JobDataPanel } from "~/lib/matador/components/job-data";
@@ -85,9 +85,9 @@ export default function JobDetail() {
       <Group mb="md">
         <Breadcrumbs>
           {navigation.map((el, index) => (
-            <Link key={index} to={el.href}>
-              {el.name}
-            </Link>
+            <Anchor key={index}>
+              <Link to={el.href}>{el.name}</Link>
+            </Anchor>
           ))}
         </Breadcrumbs>
       </Group>
