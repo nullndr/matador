@@ -5,7 +5,7 @@ import { useState } from "react";
 import { JobsTable } from "~/lib/matador/components/jobs-table";
 import { StatCard } from "~/lib/matador/components/stat-card";
 import type { BullJob, Job } from "~/lib/matador/index.server";
-import { getRepeatableQueueJobs } from "~/lib/matador/index.server";
+import { getQueueRepeatableJobs } from "~/lib/matador/index.server";
 import type { JobStatus } from "~/lib/matador/types/JobStatus";
 import { JobStatuses } from "~/lib/matador/types/JobStatus";
 
@@ -35,7 +35,7 @@ export const loader: LoaderFunction = async ({
   const queueName = decodeURI(params.queueName);
   const jobId = decodeURI(params.jobId);
 
-  const jobs = await getRepeatableQueueJobs(queueName, jobId);
+  const jobs = await getQueueRepeatableJobs(queueName, jobId);
   return { queueName, jobs };
 };
 

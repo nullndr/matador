@@ -20,7 +20,12 @@ export type RepeatableJob = {
 
 export type BullJob = __BullJob<any, any, string>;
 
-export type Job = BullJob | RepeatableJob;
+export type Jobs = {
+  nonRepeatableJobs: BullJob[];
+  repeatableJobs: {
+    [id: string]: BullJob[];
+  };
+};
 
 export const getRedisInfo = async (redis: Redis): Promise<RedisInfo> => {
   const redisInfo: RedisInfo = {};
@@ -73,18 +78,45 @@ export const getQueues = async (redis: Redis): Promise<string[]> => {
   return queues;
 };
 
-export const getQueueJobs = async (queueName: string): Promise<Job[]> => {
+export const getQueueJobs = async (queueName: string): Promise<Jobs> => {
   const queue = new Queue(queueName, { connection: redis });
-  const jobs = await queue.getJobs();
-  const repeatableJobs = await queue.getRepeatableJobs();
-  return [...jobs, ...repeatableJobs];
+  const queueJobs = await queue.getJobs();
+  const jobs: Jobs = {
+    nonRepeatableJobs: [],
+    repeatableJobs: {},
+  };
+
+  queueJobs.forEach((job) => {
+    if (job.id) {
+      const isRepetedJob = job.id.includes("repeat:");
+      if (isRepetedJob) {
+        const jobUuid = job.id.split(":")[1];
+        if (jobs.repeatableJobs[jobUuid]) {
+          jobs.repeatableJobs[jobUuid].push(job);
+        } else {
+          jobs.repeatableJobs[jobUuid] = [job];
+        }
+      } else {
+        jobs.nonRepeatableJobs.push(job);
+      }
+    }
+  });
+
+  return jobs;
 };
 
-export const getRepeatableQueueJobs = async (
-  queueName: string
-): Promise<RepeatableJob[]> => {
+export const getQueueRepeatableJob = async (
+  queueName: string,
+  id: string
+): Promise<BullJob[]> => {
   const queue = new Queue(queueName, { connection: redis });
-  return queue.getRepeatableJobs();
+  const queueJobs = await queue.getJobs();
+  return queueJobs.filter((job) => {
+    if (job.id) {
+      return job.id.includes(`repeat:${id}`);
+    }
+    return false;
+  });
 };
 
 export const getRedisClients = async (redis: Redis): Promise<string> => {
