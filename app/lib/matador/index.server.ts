@@ -1,4 +1,5 @@
-import { Job as __BullJob, Queue } from "bullmq";
+import type { Job as __BullJob } from "bullmq";
+import { Queue } from "bullmq";
 import type Redis from "ioredis";
 import { redis } from "~/lib/matador/helpers/redis-helpers.server";
 

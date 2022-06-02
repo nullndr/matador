@@ -4,12 +4,8 @@ import { useLoaderData } from "@remix-run/react";
 import { useState } from "react";
 import { JobsTable } from "~/lib/matador/components/jobs-table";
 import { StatCard } from "~/lib/matador/components/stat-card";
-import {
-  getQueueJobs,
-  getQueues,
-  Job,
-  RepeatableJob,
-} from "~/lib/matador/index.server";
+import type { Job, RepeatableJob } from "~/lib/matador/index.server";
+import { getQueueJobs, getQueues } from "~/lib/matador/index.server";
 import type { JobStatus } from "~/lib/matador/types/JobStatus";
 import { JobStatuses } from "~/lib/matador/types/JobStatus";
 
@@ -58,43 +54,48 @@ export const loader: LoaderFunction = async ({
 
 export default function QueueDetail() {
   const loaderData = useLoaderData<LoaderData>();
-  
-  
-  const jobs : Job[] = (() : Job[] => {
-    const repeated = loaderData.jobs.filter(el => el.id?.startsWith('repeat'));
-    const temp : any = {};
 
-    repeated.forEach(el => {
-      const splitted = el.id?.split(':');
+  const jobs: Job[] = ((): Job[] => {
+    const repeated = loaderData.jobs.filter((el) =>
+      el.id?.startsWith("repeat")
+    );
+    const temp: any = {};
 
-      if(!splitted) {
+    repeated.forEach((el) => {
+      const splitted = el.id?.split(":");
+
+      if (!splitted) {
         return;
       }
 
-      if(!temp[splitted[1]]) {
+      if (!temp[splitted[1]]) {
         el.id = `${splitted[0]}:${splitted[1]}`;
-        
+
         temp[splitted[1]] = el;
       }
     });
 
-    const jobs = [...loaderData.jobs.filter(el => !el.id?.startsWith('repeat'))];
-  
-    Object.keys(temp).forEach(el => {
+    const jobs = [
+      ...loaderData.jobs.filter((el) => !el.id?.startsWith("repeat")),
+    ];
+
+    Object.keys(temp).forEach((el) => {
       jobs.push(temp[el]);
     });
 
     return jobs;
   })();
-  
+
   const completedJobs = jobs.filter(
-    (job) => "returnvalue" in job && !("parentKey" in job)
+    (job) =>
+      !job.id?.includes("repeat") &&
+      "returnvalue" in job &&
+      !("parentKey" in job) &&
+      !("failedReason" in job)
   );
 
-
-
   const childrenJobs = jobs.filter((job) => "parentKey" in job);
-  const repeatedJobs = jobs.filter((job) => "repeated" in job);
+  const repeatedJobs = jobs.filter((job) => job.id?.includes("repeat"));
   const failedJobs = jobs.filter((job) => "failedReason" in job);
 
   const [currentJobs, setCurrentJobs] = useState<Job[]>(jobs);
@@ -102,32 +103,31 @@ export default function QueueDetail() {
     JobStatuses as JobStatus[]
   );
 
-  // FIXME
-  // const onFilterStatuses = (statuses: JobStatus[]) => {
-  //   setStatusesSelected(statuses);
+  const onFilterStatuses = (statuses: JobStatus[]) => {
+    setStatusesSelected(statuses);
 
-  //   const jobs: Job[] = [];
+    const jobs: Job[] = [];
 
-  //   statuses.forEach((el) => {
-  //     if (el === "children") {
-  //       jobs.push(...childrenJobs);
-  //     }
+    statuses.forEach((el) => {
+      if (el === "children") {
+        jobs.push(...childrenJobs);
+      }
 
-  //     if (el === "completed") {
-  //       jobs.push(...completedJobs);
-  //     }
+      if (el === "completed") {
+        jobs.push(...completedJobs);
+      }
 
-  //     if (el === "failed") {
-  //       jobs.push(...failedJobs);
-  //     }
+      if (el === "failed") {
+        jobs.push(...failedJobs);
+      }
 
-  //     if (el === "repeated") {
-  //       jobs.push(...repeatedJobs);
-  //     }
-  //   });
+      if (el === "repeated") {
+        jobs.push(...repeatedJobs);
+      }
+    });
 
-  //   setCurrentJobs(jobs);
-  // };
+    setCurrentJobs(jobs);
+  };
 
   return (
     <>
@@ -173,7 +173,7 @@ export default function QueueDetail() {
         <JobsTable
           jobs={currentJobs}
           queueName={loaderData.queueName}
-          // onStatusesSelected={onFilterStatuses}
+          onStatusesSelected={onFilterStatuses}
           statusSelected={statusesSelected}
         />
       </Grid>

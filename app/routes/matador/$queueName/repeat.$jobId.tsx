@@ -4,7 +4,7 @@ import { useLoaderData } from "@remix-run/react";
 import { useState } from "react";
 import { JobsTable } from "~/lib/matador/components/jobs-table";
 import { StatCard } from "~/lib/matador/components/stat-card";
-import type { BullJob, Job } from "~/lib/matador/index.server";
+import type { Job } from "~/lib/matador/index.server";
 import { getRepeatableQueueJobs } from "~/lib/matador/index.server";
 import type { JobStatus } from "~/lib/matador/types/JobStatus";
 import { JobStatuses } from "~/lib/matador/types/JobStatus";
@@ -42,38 +42,37 @@ export const loader: LoaderFunction = async ({
 export default function QueueDetail() {
   const loaderData = useLoaderData<LoaderData>();
   const completedJobs = loaderData.jobs.filter(
-    (job) => "returnvalue" in job && !("parentKey" in job)
+    (job) =>
+      "returnvalue" in job && !("parentKey" in job) && !("failedReason" in job)
   );
   const childrenJobs = loaderData.jobs.filter((job) => "parentKey" in job);
   const failedJobs = loaderData.jobs.filter((job) => "failedReason" in job);
   const [currentJobs, setCurrentJobs] = useState(loaderData.jobs);
   const [statusesSelected, setStatusesSelected] = useState<JobStatus[]>(
-    JobStatuses as JobStatus[]
+    JobStatuses.filter((el) => el != "repeated") as JobStatus[]
   );
 
-  console.log(JSON.stringify(loaderData.jobs, null, 4));
+  const onFilterStatuses = (statuses: JobStatus[]) => {
+    setStatusesSelected(statuses);
 
-  // const onFilterStatuses = (statuses: JobStatus[]) => {
-  //   setStatusesSelected(statuses);
+    const jobs: Job[] = [];
 
-  //   const jobs: Job[] = [];
+    statuses.forEach((el) => {
+      if (el === "children") {
+        jobs.push(...childrenJobs);
+      }
 
-  //   statuses.forEach((el) => {
-  //     if (el === "children") {
-  //       jobs.push(...childrenJobs);
-  //     }
+      if (el === "completed") {
+        jobs.push(...completedJobs);
+      }
 
-  //     if (el === "completed") {
-  //       jobs.push(...completedJobs);
-  //     }
+      if (el === "failed") {
+        jobs.push(...failedJobs);
+      }
+    });
 
-  //     if (el === "failed") {
-  //       jobs.push(...failedJobs);
-  //     }
-  //   });
-
-  //   setCurrentJobs(jobs);
-  // };
+    setCurrentJobs(jobs);
+  };
 
   return (
     <>
@@ -85,7 +84,7 @@ export default function QueueDetail() {
             theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
         })}
       >
-        {`Jobs repeated of "${loaderData.jobs[0].name}" in "${loaderData.queueName}" Queue`}
+        {`Repeated Jobs "${loaderData.jobs[0].name}" of "${loaderData.queueName}" Queue`}
       </Title>
       <Divider mb="md" />
       <Grid columns={24} mb="md">
@@ -112,7 +111,8 @@ export default function QueueDetail() {
         <JobsTable
           jobs={currentJobs}
           queueName={loaderData.queueName}
-          // onStatusesSelected={onFilterStatuses}
+          onStatusesSelected={onFilterStatuses}
+          repeatJobs={true}
           statusSelected={statusesSelected}
         />
       </Grid>
