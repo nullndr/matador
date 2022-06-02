@@ -4,13 +4,14 @@ import {
   Divider,
   Grid,
   Group,
-  Title,
+  Title
 } from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { useState } from "react";
 import { JobsTable } from "~/lib/matador/components/jobs-table";
 import { StatCard } from "~/lib/matador/components/stat-card";
+import { Link } from "~/lib/matador/helpers/ui-helpers";
 import type { Job } from "~/lib/matador/index.server";
 import { getRepeatableQueueJobs } from "~/lib/matador/index.server";
 import type { JobStatus } from "~/lib/matador/types/JobStatus";
@@ -85,11 +86,11 @@ export default function QueueDetail() {
     <>
       <Group mb="md">
         <Breadcrumbs>
-          <Anchor href="/matador">Home</Anchor>
-          <Anchor href="/matador/queues">Queues</Anchor>
-          <Anchor href={`/matador/${loaderData.queueName}`}>
+          <Link to="/matador">Home</Link>
+          <Link to="/matador/queues">Queues</Link>
+          <Link to={`/matador/${loaderData.queueName}`}>
             {loaderData.queueName}
-          </Anchor>
+          </Link>
           <Anchor href="#">{loaderData.jobs[0].name}</Anchor>
         </Breadcrumbs>
       </Group>

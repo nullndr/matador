@@ -1,9 +1,10 @@
-import { Group, Breadcrumbs, Anchor } from "@mantine/core";
+import { Breadcrumbs, Group } from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { JobDataPanel } from "~/lib/matador/components/job-data";
 import { JobInfoPanel } from "~/lib/matador/components/job-info";
 import { JobResultPanel } from "~/lib/matador/components/job-result";
+import { Link } from "~/lib/matador/helpers/ui-helpers";
 import type { BullJob } from "~/lib/matador/index.server";
 import { getQueueJob } from "~/lib/matador/index.server";
 
@@ -84,9 +85,9 @@ export default function JobDetail() {
       <Group mb="md">
         <Breadcrumbs>
           {navigation.map((el, index) => (
-            <Anchor key={index} href={el.href}>
+            <Link key={index} to={el.href}>
               {el.name}
-            </Anchor>
+            </Link>
           ))}
         </Breadcrumbs>
       </Group>

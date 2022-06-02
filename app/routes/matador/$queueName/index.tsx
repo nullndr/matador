@@ -1,16 +1,16 @@
 import {
-  Anchor,
   Breadcrumbs,
   Divider,
   Grid,
   Group,
-  Title,
+  Title
 } from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { useState } from "react";
 import { JobsTable } from "~/lib/matador/components/jobs-table";
 import { StatCard } from "~/lib/matador/components/stat-card";
+import { Link } from "~/lib/matador/helpers/ui-helpers";
 import type { Job, RepeatableJob } from "~/lib/matador/index.server";
 import { getQueueJobs, getQueues } from "~/lib/matador/index.server";
 import type { JobStatus } from "~/lib/matador/types/JobStatus";
@@ -140,9 +140,9 @@ export default function QueueDetail() {
     <>
       <Group mb="md">
         <Breadcrumbs>
-          <Anchor href="/matador">Home</Anchor>
-          <Anchor href="/matador/queues">Queues</Anchor>
-          <Anchor href="#">{loaderData.queueName}</Anchor>
+          <Link to="/matador">Home</Link>
+          <Link to="/matador/queues">Queues</Link>
+          <Link to="#">{loaderData.queueName}</Link>
         </Breadcrumbs>
       </Group>
       <Title
