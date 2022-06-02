@@ -51,27 +51,29 @@ export default function QueueDetail() {
     JobStatuses as JobStatus[]
   );
 
-  const onFilterStatuses = (statuses: JobStatus[]) => {
-    setStatusesSelected(statuses);
+  console.log(JSON.stringify(loaderData.jobs, null, 4));
 
-    const jobs: BullJob[] = [];
+  // const onFilterStatuses = (statuses: JobStatus[]) => {
+  //   setStatusesSelected(statuses);
 
-    statuses.forEach((el) => {
-      if (el === "children") {
-        jobs.push(...childrenJobs);
-      }
+  //   const jobs: Job[] = [];
 
-      if (el === "completed") {
-        jobs.push(...completedJobs);
-      }
+  //   statuses.forEach((el) => {
+  //     if (el === "children") {
+  //       jobs.push(...childrenJobs);
+  //     }
 
-      if (el === "failed") {
-        jobs.push(...failedJobs);
-      }
-    });
+  //     if (el === "completed") {
+  //       jobs.push(...completedJobs);
+  //     }
 
-    setCurrentJobs(jobs);
-  };
+  //     if (el === "failed") {
+  //       jobs.push(...failedJobs);
+  //     }
+  //   });
+
+  //   setCurrentJobs(jobs);
+  // };
 
   return (
     <>
@@ -83,7 +85,7 @@ export default function QueueDetail() {
             theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
         })}
       >
-        {`Jobs in "${loaderData.queueName}" Queue`}
+        {`Jobs repeated of "${loaderData.jobs[0].name}" in "${loaderData.queueName}" Queue`}
       </Title>
       <Divider mb="md" />
       <Grid columns={24} mb="md">
@@ -110,9 +112,8 @@ export default function QueueDetail() {
         <JobsTable
           jobs={currentJobs}
           queueName={loaderData.queueName}
-          onStatusesSelected={onFilterStatuses}
+          // onStatusesSelected={onFilterStatuses}
           statusSelected={statusesSelected}
-          repeatJobs
         />
       </Grid>
     </>
