@@ -3,7 +3,7 @@ import { Grid, Text, Title, Breadcrumbs, Anchor, Group } from "@mantine/core";
 export default function Index() {
   return (
     <>
-      <Group mb='md'>
+      <Group mb="md">
         <Breadcrumbs>
           <Anchor href="#">Home</Anchor>
         </Breadcrumbs>

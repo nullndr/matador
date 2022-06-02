@@ -37,7 +37,7 @@ export default function Dashboard() {
   const loaderData = useLoaderData<LoaderData>();
   return (
     <>
-      <Group mb='md'>
+      <Group mb="md">
         <Breadcrumbs>
           <Anchor href="/matador">Home</Anchor>
           <Anchor href="#">Queues</Anchor>

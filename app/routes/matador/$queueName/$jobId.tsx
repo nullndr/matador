@@ -52,40 +52,41 @@ export default function JobDetail() {
 
   const navigation = [
     {
-      name: 'Home',
-      href: '/matador'
+      name: "Home",
+      href: "/matador",
     },
     {
-      name: 'Queues',
-      href: '/matador/queues'
+      name: "Queues",
+      href: "/matador/queues",
     },
     {
       name: loaderData.queueName,
-      href: `/matador/${loaderData.queueName}`
-    }
+      href: `/matador/${loaderData.queueName}`,
+    },
   ];
 
-  if(loaderData.job.id && loaderData.job.id.includes('repeat')) {
-
-    const idSplitted = loaderData.job.id.split(':');
+  if (loaderData.job.id && loaderData.job.id.includes("repeat")) {
+    const idSplitted = loaderData.job.id.split(":");
 
     navigation.push({
       name: loaderData.job.name,
-      href: `/matador/${loaderData.queueName}/repeat/${idSplitted[1]}`
+      href: `/matador/${loaderData.queueName}/repeat/${idSplitted[1]}`,
     });
   }
 
   navigation.push({
     name: loaderData.job.id!,
-    href: '#'
+    href: "#",
   });
 
   return (
     <>
-      <Group mb='md'>
+      <Group mb="md">
         <Breadcrumbs>
           {navigation.map((el, index) => (
-            <Anchor href={el.href}>{el.name}</Anchor>
+            <Anchor key={index} href={el.href}>
+              {el.name}
+            </Anchor>
           ))}
         </Breadcrumbs>
       </Group>
