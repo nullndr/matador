@@ -115,11 +115,7 @@ export default function JobDetail() {
         opts={loaderData.job.opts}
       />
 
-      <JobResultPanel
-        returnvalue={loaderData.job.returnvalue}
-        failedReason={loaderData.job.failedReason}
-        stacktrace={loaderData.job.stacktrace}
-      />
+      <JobResultPanel job={loaderData.job} />
     </>
   );
 }
