@@ -1,10 +1,19 @@
-import { Divider, Grid, Title, Card } from "@mantine/core";
+import {
+  Anchor,
+  Breadcrumbs,
+  Card,
+  Divider,
+  Grid,
+  Group,
+  Title,
+} from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import React from "react";
+import { Section } from "~/lib/matador/components";
+import { Link } from "~/lib/matador/helpers/ui-helpers";
 import type { RedisInfo } from "~/lib/matador/index.server";
 import { getRedisInfo } from "~/lib/matador/index.server";
-import { Section } from "~/lib/matador/components";
 
 type LoaderData = RedisInfo;
 
@@ -26,6 +35,16 @@ export default function RedisServerInfo() {
 
   return (
     <>
+      <Group mb="md">
+        <Breadcrumbs>
+          <Anchor>
+            <Link to="/matador">Home</Link>
+          </Anchor>
+          <Anchor>
+            <Link to="#">Redis</Link>
+          </Anchor>
+        </Breadcrumbs>
+      </Group>
       {Object.keys(loaderData).map((section, index) => {
         if (Object.keys(loaderData[section]).length === 0) {
           return <></>;

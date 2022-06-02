@@ -1,8 +1,16 @@
-import { Grid, Text, Title } from "@mantine/core";
+import { Anchor, Breadcrumbs, Grid, Group, Text, Title } from "@mantine/core";
+import { Link } from "~/lib/matador/helpers/ui-helpers";
 
 export default function Index() {
   return (
     <>
+      <Group mb="md">
+        <Breadcrumbs>
+          <Anchor>
+            <Link to="#">Home</Link>
+          </Anchor>
+        </Breadcrumbs>
+      </Group>
       <Grid justify="center">
         <Grid.Col>
           <Title

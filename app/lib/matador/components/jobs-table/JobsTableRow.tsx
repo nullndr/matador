@@ -1,41 +1,49 @@
 import { Badge, Text } from "@mantine/core";
 import { NavLink } from "@remix-run/react";
 import { getStatusColor } from "~/lib/matador/helpers/ui-helpers";
-import type { BullJob } from "~/lib/matador/index.server";
+import type { Job } from "~/lib/matador/index.server";
 import type { JobStatus } from "~/lib/matador/types/JobStatus";
 
 export interface JobsTableRowProps {
-  job: BullJob;
+  job: Job;
   queueName: string;
-  repeatJob: boolean;
+  repeatJobs: boolean;
 }
 
-const JobsTableRow = ({
-  job,
-  queueName,
-  repeatJob = false,
-}: JobsTableRowProps) => {
-  const status = getStatus(job);
-
+const JobsTableRow = ({ job, queueName, repeatJobs }: JobsTableRowProps) => {
   const buildLink = (): string => {
     if (!job.id) {
       return "#";
     }
 
-    if (repeatJob) {
-      return `../${encodeURI(queueName)}/${encodeURI(`${job.id}`)}`;
-    }
+    let baseUri = `../${encodeURI(queueName)}`;
 
-    let baseUri = `../${encodeURI(queueName)}/`;
-
-    if (status === "repeated") {
-      baseUri += `repeat/${encodeURI(job.id)}`;
+    if (!repeatJobs && job.id.includes("repeat")) {
+      return `${baseUri}/repeat/${encodeURI(`${job.id.split(":")[1]}`)}`;
     } else {
-      baseUri += job.id;
+      baseUri += `/${job.id}`;
     }
 
     return baseUri;
   };
+
+  const getStatus = (job: Job): JobStatus => {
+    if ("failedReason" in job) {
+      return "failed";
+    }
+
+    if ("parentKey" in job) {
+      return "children";
+    }
+
+    if (!repeatJobs && job.id.includes("repeat")) {
+      return "repeated";
+    }
+
+    return "completed";
+  };
+
+  const status = getStatus(job);
 
   return (
     <tr>
@@ -46,7 +54,7 @@ const JobsTableRow = ({
       </td>
       <td>{job.id}</td>
       <td>
-        {"timestamp" in job
+        {"timestamp" in job && !job.id?.includes("repeat")
           ? new Date(Number(job.timestamp)).toISOString()
           : ""}
       </td>
@@ -55,22 +63,6 @@ const JobsTableRow = ({
       </td>
     </tr>
   );
-};
-
-const getStatus = (job: BullJob): JobStatus => {
-  if ("failedReason" in job) {
-    return "failed";
-  }
-
-  if ("parentKey" in job) {
-    return "children";
-  }
-
-  if ("repeated" in job) {
-    return "repeated";
-  }
-
-  return "completed";
 };
 
 export default JobsTableRow;
