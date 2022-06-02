@@ -1,3 +1,4 @@
+import { Group, Breadcrumbs, Anchor } from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { JobDataPanel } from "~/lib/matador/components/job-data";
@@ -49,8 +50,45 @@ export default function JobDetail() {
     throw new Error();
   }
 
+  const navigation = [
+    {
+      name: 'Home',
+      href: '/matador'
+    },
+    {
+      name: 'Queues',
+      href: '/matador/queues'
+    },
+    {
+      name: loaderData.queueName,
+      href: `/matador/${loaderData.queueName}`
+    }
+  ];
+
+  if(loaderData.job.id && loaderData.job.id.includes('repeat')) {
+
+    const idSplitted = loaderData.job.id.split(':');
+
+    navigation.push({
+      name: loaderData.job.name,
+      href: `/matador/${loaderData.queueName}/repeat/${idSplitted[1]}`
+    });
+  }
+
+  navigation.push({
+    name: loaderData.job.id!,
+    href: '#'
+  });
+
   return (
     <>
+      <Group mb='md'>
+        <Breadcrumbs>
+          {navigation.map((el, index) => (
+            <Anchor href={el.href}>{el.name}</Anchor>
+          ))}
+        </Breadcrumbs>
+      </Group>
       <JobInfoPanel
         id={loaderData.job.id ?? ""}
         jobName={loaderData.job.name ?? ""}
