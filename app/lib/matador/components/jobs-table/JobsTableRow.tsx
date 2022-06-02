@@ -7,13 +7,11 @@ import type { JobStatus } from "~/lib/matador/types/JobStatus";
 export interface JobsTableRowProps {
   job: Job;
   queueName: string;
-  repeatJob: boolean;
 }
 
 const JobsTableRow = ({
   job,
   queueName,
-  repeatJob = false,
 }: JobsTableRowProps) => {
   const status = getStatus(job);
 
@@ -22,16 +20,12 @@ const JobsTableRow = ({
       return "#";
     }
 
-    if (repeatJob) {
-      return `../${encodeURI(queueName)}/${encodeURI(`${job.id}`)}`;
-    }
+    let baseUri = `../${encodeURI(queueName)}`;
 
-    let baseUri = `../${encodeURI(queueName)}/`;
-
-    if (status === "repeated") {
-      baseUri += `repeat/${encodeURI(job.id)}`;
+    if (job.id.includes('repeat') && job.id.split(':').length === 2) {
+      return `${baseUri}/repeat/${encodeURI(`${job.id.split(':')[1]}`)}`;
     } else {
-      baseUri += job.id;
+      baseUri += `/${job.id}`;
     }
 
     return baseUri;
@@ -47,7 +41,7 @@ const JobsTableRow = ({
       <td>{job.id}</td>
       <td>
         {"timestamp" in job
-          ? new Date(Number(job.timestamp)).toISOString()
+          ? new Date(Number(job.timestamp)).toISOString() // FIXME if is repeat timestamp should be empty
           : ""}
       </td>
       <td>
@@ -57,6 +51,7 @@ const JobsTableRow = ({
   );
 };
 
+// FIXME
 const getStatus = (job: Job): JobStatus => {
   if ("failedReason" in job) {
     return "failed";

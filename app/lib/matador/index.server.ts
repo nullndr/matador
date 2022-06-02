@@ -20,12 +20,7 @@ export type RepeatableJob = {
 
 export type BullJob = __BullJob<any, any, string>;
 
-export type Jobs = {
-  nonRepeatableJobs: BullJob[];
-  repeatableJobs: {
-    [id: string]: BullJob[];
-  };
-};
+export type Job = BullJob | RepeatableJob;
 
 export const getRedisInfo = async (redis: Redis): Promise<RedisInfo> => {
   const redisInfo: RedisInfo = {};
@@ -78,34 +73,12 @@ export const getQueues = async (redis: Redis): Promise<string[]> => {
   return queues;
 };
 
-export const getQueueJobs = async (queueName: string): Promise<Jobs> => {
+export const getQueueJobs = async (queueName: string): Promise<BullJob[]> => {
   const queue = new Queue(queueName, { connection: redis });
-  const queueJobs = await queue.getJobs();
-  const jobs: Jobs = {
-    nonRepeatableJobs: [],
-    repeatableJobs: {},
-  };
-
-  queueJobs.forEach((job) => {
-    if (job.id) {
-      const isRepetedJob = job.id.includes("repeat:");
-      if (isRepetedJob) {
-        const jobUuid = job.id.split(":")[1];
-        if (jobs.repeatableJobs[jobUuid]) {
-          jobs.repeatableJobs[jobUuid].push(job);
-        } else {
-          jobs.repeatableJobs[jobUuid] = [job];
-        }
-      } else {
-        jobs.nonRepeatableJobs.push(job);
-      }
-    }
-  });
-
-  return jobs;
+  return queue.getJobs();
 };
 
-export const getQueueRepeatableJob = async (
+export const getRepeatableQueueJobs = async (
   queueName: string,
   id: string
 ): Promise<BullJob[]> => {
