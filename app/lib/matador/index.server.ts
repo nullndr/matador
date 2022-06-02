@@ -59,7 +59,7 @@ export const getQueues = async (redis: Redis): Promise<string[]> => {
     return keys;
   };
 
-  const bullRedisKeys = await getRedisKeys(redis, "bull:*");
+  const bullRedisKeys = await getRedisKeys(redis, "bull:");
 
   const queues: string[] = [];
   bullRedisKeys.forEach((key) => {
@@ -73,11 +73,9 @@ export const getQueues = async (redis: Redis): Promise<string[]> => {
   return queues;
 };
 
-export const getQueueJobs = async (queueName: string): Promise<Job[]> => {
+export const getQueueJobs = async (queueName: string): Promise<BullJob[]> => {
   const queue = new Queue(queueName, { connection: redis });
-  const jobs = await queue.getJobs();
-  const repeatableJobs = await queue.getRepeatableJobs();
-  return [...jobs, ...repeatableJobs];
+  return queue.getJobs();
 };
 
 export const getRepeatableQueueJobs = async (
