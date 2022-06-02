@@ -1,8 +1,13 @@
-import { Grid, Text, Title } from "@mantine/core";
+import { Grid, Text, Title, Breadcrumbs, Anchor, Group } from "@mantine/core";
 
 export default function Index() {
   return (
     <>
+      <Group mb="md">
+        <Breadcrumbs>
+          <Anchor href="#">Home</Anchor>
+        </Breadcrumbs>
+      </Group>
       <Grid justify="center">
         <Grid.Col>
           <Title

@@ -7,14 +7,10 @@ import type { JobStatus } from "~/lib/matador/types/JobStatus";
 export interface JobsTableRowProps {
   job: Job;
   queueName: string;
+  repeatJobs: boolean;
 }
 
-const JobsTableRow = ({
-  job,
-  queueName,
-}: JobsTableRowProps) => {
-  const status = getStatus(job);
-
+const JobsTableRow = ({ job, queueName, repeatJobs }: JobsTableRowProps) => {
   const buildLink = (): string => {
     if (!job.id) {
       return "#";
@@ -22,14 +18,32 @@ const JobsTableRow = ({
 
     let baseUri = `../${encodeURI(queueName)}`;
 
-    if (job.id.includes('repeat') && job.id.split(':').length === 2) {
-      return `${baseUri}/repeat/${encodeURI(`${job.id.split(':')[1]}`)}`;
+    if (!repeatJobs && job.id.includes("repeat")) {
+      return `${baseUri}/repeat/${encodeURI(`${job.id.split(":")[1]}`)}`;
     } else {
       baseUri += `/${job.id}`;
     }
 
     return baseUri;
   };
+
+  const getStatus = (job: Job): JobStatus => {
+    if ("failedReason" in job) {
+      return "failed";
+    }
+
+    if ("parentKey" in job) {
+      return "children";
+    }
+
+    if (!repeatJobs && job.id.includes("repeat")) {
+      return "repeated";
+    }
+
+    return "completed";
+  };
+
+  const status = getStatus(job);
 
   return (
     <tr>
@@ -40,8 +54,8 @@ const JobsTableRow = ({
       </td>
       <td>{job.id}</td>
       <td>
-        {"timestamp" in job
-          ? new Date(Number(job.timestamp)).toISOString() // FIXME if is repeat timestamp should be empty
+        {"timestamp" in job && !job.id?.includes("repeat")
+          ? new Date(Number(job.timestamp)).toISOString()
           : ""}
       </td>
       <td>
@@ -49,23 +63,6 @@ const JobsTableRow = ({
       </td>
     </tr>
   );
-};
-
-// FIXME
-const getStatus = (job: Job): JobStatus => {
-  if ("failedReason" in job) {
-    return "failed";
-  }
-
-  if ("parentKey" in job) {
-    return "children";
-  }
-
-  if ("repeated" in job) {
-    return "repeated";
-  }
-
-  return "completed";
 };
 
 export default JobsTableRow;

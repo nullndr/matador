@@ -11,20 +11,22 @@ export interface JobsTableProps {
   jobs: Job[];
   queueName: string;
   statusSelected: JobStatus[];
-  // onStatusesSelected: (statuse: JobStatus[]) => void;
+  repeatJobs?: boolean;
+  onStatusesSelected: (statuse: JobStatus[]) => void;
 }
 
 export const JobsTable = ({
   jobs,
   queueName,
   statusSelected,
-  // onStatusesSelected,
+  repeatJobs = false,
+  onStatusesSelected,
 }: JobsTableProps) => {
   const [modalOpened, setModalOpened] = useState<boolean>(false);
 
   return (
     <>
-      {/* <JobStatusFilterModal
+      <JobStatusFilterModal
         onClose={() => setModalOpened(false)}
         opened={modalOpened}
         selected={statusSelected}
@@ -32,22 +34,25 @@ export const JobsTable = ({
           onStatusesSelected(statuses);
           setModalOpened(false);
         }}
-        repeatedJobs={false} // FIXME
-      /> */}
+        repeatedJobs={repeatJobs}
+      />
       <Table>
         <thead>
           <tr>
             {["Name", "Id", "Timestamp", "Status"].map((el) => (
               <th key={el}>
-                {el}
-                {/* {el !== "Status" ? (
+                {el !== "Status" ? (
                   el
                 ) : (
                   <JobStatusHeader
-                    isFiltered={false} // FIXME
+                    isFiltered={
+                      repeatJobs
+                        ? statusSelected.length !== JobStatuses.length - 1
+                        : statusSelected.length !== JobStatuses.length
+                    }
                     onFilterClick={() => setModalOpened(true)}
                   />
-                )} */}
+                )}
               </th>
             ))}
           </tr>
@@ -58,6 +63,7 @@ export const JobsTable = ({
               job={el}
               key={el.id}
               queueName={queueName}
+              repeatJobs={repeatJobs}
             />
           ))}
         </tbody>

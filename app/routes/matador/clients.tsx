@@ -1,4 +1,13 @@
-import { Card, Divider, Table, Title, Tooltip } from "@mantine/core";
+import {
+  Anchor,
+  Breadcrumbs,
+  Card,
+  Divider,
+  Group,
+  Table,
+  Title,
+  Tooltip,
+} from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import Dot from "~/lib/matador/components/dot";
@@ -49,6 +58,12 @@ export default function Clients() {
 
   return (
     <>
+      <Group mb="md">
+        <Breadcrumbs>
+          <Anchor href="/matador">Home</Anchor>
+          <Anchor href="#">Clients</Anchor>
+        </Breadcrumbs>
+      </Group>
       <Title
         mb="sm"
         order={2}
