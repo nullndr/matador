@@ -128,7 +128,7 @@ main() {
 
   local remixRootDir=$(checkRemixDir $1)
   local remixAppDir=$(realpath "$1/$([[ $2 != "" ]] && echo $2 || echo "app")")
-  local checkAppDir $remixAppDir
+  checkAppDir $remixAppDir
 
   installMantine $remixRootDir
 
