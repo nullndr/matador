@@ -7,78 +7,60 @@ installMantine() {
   fi
 
   echo -e "\x1b[1m[ ℹ️  ] Matador needs the \x1b[36m@mantine/core\x1b[39m package, the script is gonna install it\x1b[0m"
-  echo -e -n "\x1b[1m[ ❔ ] are you okay with this? [y/n]\x1b[0m "
-  read -n 1
-  echo
+  local remixRootDir=$1
+  local currentDir=$(pwd)
+  cd $remixRootDir
 
-  case $REPLY in 
-
-    y | Y ) 
-      local remixRootDir=$1
-      local currentDir=$(pwd)
-      cd $remixRootDir
-
-      local hasMantineBeenInstalled=0
-      if [[ -f "package.json" ]]; then
-        if ! npm --version > /dev/null 2>&1; then
-          echo -e "\x1b[1m[ \x1b[31mError\x1b[39m ] I can't run \x1b[36mnpm\x1b[39m\x1b[0m"
-          exit 1
-        else
-          echo -e "\x1b[1m[ ℹ️  ] installing \x1b[36m@mantine/core\x1b[39m package with npm\x1b[0m"
-          npm install @mantine/core
-          
-          if [[ $? -ne 0 ]]; then
-            echo -e -n "\x1b[1m[ ❌ ] something went wrong while installing the package, aborting\x1b[0m "
-            exit 1
-          fi
-
-          hasMantineBeenInstalled=1
-        fi
-
-        if [[ $hasMantineBeenInstalled -eq 0 ]]; then
-          if ! yarn --version > /dev/null 2>&1; then
-            echo -e "\x1b[1m[ \x1b[31mError\x1b[39m ] I can't run \x1b[36myarn\x1b[39m\x1b[0m"
-            exit 1
-          else
-            echo -e "\x1b[1m[ ℹ️  ] installing \x1b[36m@mantine/core\x1b[39m package with yarn\x1b[0m"
-            yarn add @mantine/core
-
-            if [[ $? -ne 0 ]]; then
-              echo -e -n "\x1b[1m[ ❌ ] something went wrong while installing the package, aborting\x1b[0m "
-              exit 1
-            fi
-
-            hasMantineBeenInstalled=1
-          fi
-        fi
-
-        if [[ $hasMantineBeenInstalled -eq 0 ]]; then
-          echo -e "\x1b[1m[ \x1b[31mError\x1b[39m ] I can't install \x1b[36mMantine\x1b[39m package\x1b[0m"
-          echo -e -n "\x1b[1m[ ❌ ] aborting \x1b[36mMatador\x1b[39m installation for the above reasons\x1b[0m "
-          exit 1
-        fi
-      else
-        echo -e "\x1b[1m[ \x1b[31mError\x1b[39m ] I can't found \x1b[36mpackage.json\x1b[39m file\x1b[0m"
-        echo -e -n "\x1b[1m[ ❌ ] aborting \x1b[36mMatador\x1b[39m installation for the above reasons\x1b[0m "
+  local hasMantineBeenInstalled=0
+  if [[ -f "package.json" ]]; then
+    if ! npm --version > /dev/null 2>&1; then
+      echo -e "\x1b[1m[ \x1b[31mError\x1b[39m ] I can't run \x1b[36mnpm\x1b[39m\x1b[0m"
+      exit 1
+    else
+      echo -e "\x1b[1m[ ℹ️  ] installing \x1b[36m@mantine/core\x1b[39m package with npm\x1b[0m"
+      npm install @mantine/core
+      
+      if [[ $? -ne 0 ]]; then
+        echo -e -n "\x1b[1m[ ❌ ] something went wrong while installing the package, aborting\x1b[0m "
         exit 1
       fi
 
+      hasMantineBeenInstalled=1
+    fi
 
-      cd $currentDir
+    if [[ $hasMantineBeenInstalled -eq 0 ]]; then
+      if ! yarn --version > /dev/null 2>&1; then
+        echo -e "\x1b[1m[ \x1b[31mError\x1b[39m ] I can't run \x1b[36myarn\x1b[39m\x1b[0m"
+        exit 1
+      else
+        echo -e "\x1b[1m[ ℹ️  ] installing \x1b[36m@mantine/core\x1b[39m package with yarn\x1b[0m"
+        yarn add @mantine/core
 
-      echo 
-      echo -e "\x1b[1m[ ℹ️  ] I successfully installed the \x1b[36m@mantine/core\x1b[39m package\x1b[0m"
-    ;;
+        if [[ $? -ne 0 ]]; then
+          echo -e -n "\x1b[1m[ ❌ ] something went wrong while installing the package, aborting\x1b[0m "
+          exit 1
+        fi
 
-    n | N )
-      echo -e -n "\x1b[1m[ ❌ ] aborting \x1b[36mMatador\x1b[39m  installation on $remixRootDir dir\x1b[0m "
+        hasMantineBeenInstalled=1
+      fi
+    fi
+
+    if [[ $hasMantineBeenInstalled -eq 0 ]]; then
+      echo -e "\x1b[1m[ \x1b[31mError\x1b[39m ] I can't install \x1b[36mMantine\x1b[39m package\x1b[0m"
+      echo -e -n "\x1b[1m[ ❌ ] aborting \x1b[36mMatador\x1b[39m installation for the above reasons\x1b[0m "
       exit 1
-    ;;
+    fi
+  else
+    echo -e "\x1b[1m[ \x1b[31mError\x1b[39m ] I can't found \x1b[36mpackage.json\x1b[39m file\x1b[0m"
+    echo -e -n "\x1b[1m[ ❌ ] aborting \x1b[36mMatador\x1b[39m installation for the above reasons\x1b[0m "
+    exit 1
+  fi
 
-    * ) exit 1 ;;
-  esac
 
-  
+  cd $currentDir
+
+  echo 
+  echo -e "\x1b[1m[ ℹ️  ] I successfully installed the \x1b[36m@mantine/core\x1b[39m package\x1b[0m"
 }
 
 checkRemixDir() {
