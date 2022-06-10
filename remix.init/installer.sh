@@ -102,6 +102,23 @@ checkAppDir() {
   fi
 }
 
+checkEnvFile() {
+  local remixRootDir=$1
+
+  # if there is no .env file, create one and add env variables
+  if ! [[ -f "${remixRootDir}/.env" ]]; then 
+    echo -e "\x1b[1m[ ℹ️  ] Creating .env file with REDIS_URL variable\x1b[0m"
+    echo 'REDIS_URL=""' >> "${remixRootDir}/.env"
+    return
+  fi
+
+  # if there is a .env file, check if it has REDIS_URL env variables
+  if ! grep -q -E "REDIS_URL=*" "${remixRootDir}/.env"; then
+    echo -e "\x1b[1m[ ℹ️  ] Adding REDIS_URL variable to .env file\x1b[0m"
+    echo 'REDIS_URL=""' >> "${remixRootDir}/.env"
+  fi
+}
+
 main() {
   if [[ $# -gt 2 ]]; then 
     echo -e "\x1b[1m[ \x1b[31mError\x1b[39m ] invalid arguments, aborting\x1b[0m"
@@ -153,6 +170,8 @@ main() {
   rm "$tempDir/main.zip"
 
   rm -rf $tempDir
+
+  checkEnvFile $remixRootDir
 
   echo -e "\x1b[1m[ ✅ ] All done! Enjoy \x1b[36mMatador\x1b[39m!\x1b[0m"
 }

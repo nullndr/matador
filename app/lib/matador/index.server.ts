@@ -104,7 +104,3 @@ export const getQueueJob = async (
   const queue = new Queue(queueName, { connection: redis });
   return queue.getJob(jobId);
 };
-
-export const getMatadorVersion = () => {
-  return process.env.MATADOR_VERSION ?? "Not provided";
-};
