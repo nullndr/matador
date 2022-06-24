@@ -1,9 +1,6 @@
 import type { ColorScheme } from "@mantine/core";
 import { ColorSchemeProvider, MantineProvider } from "@mantine/core";
-import type {
-  LinksFunction,
-  MetaFunction,
-} from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import { Outlet, useCatch } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { ErrorFallback, NavBar } from "~/lib/matador/components";
@@ -27,7 +24,6 @@ export const meta: MetaFunction = () => ({
 export interface ErrorBoundaryProps {
   error: Error;
 }
-
 
 export default function MatadorLayout() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("light");

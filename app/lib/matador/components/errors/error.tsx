@@ -40,13 +40,23 @@ export const ErrorFallback = ({ error }: ErrorFallbackProps) => {
           srcLogo="/assets/matador.png"
           footerText={`Matador`}
         >
-          <Alert icon={<BiMessageError size={16} />} title="Error" color="red">
-            {!(error instanceof Error) ? (
-              <Text>Something wrong happened: {error.statusText}</Text>
-            ) : (
-              <Text>Sorry but something unexpected happened!</Text>
-            )}
-          </Alert>
+          {"name" in error ? (
+            <Alert
+              icon={<BiMessageError size={16} />}
+              title={error.name}
+              color="red"
+            >
+              <Text>{error.message}</Text>
+            </Alert>
+          ) : (
+            <Alert
+              icon={<BiMessageError size={16} />}
+              title={error.status}
+              color="red"
+            >
+              <Text>{error.statusText}</Text>
+            </Alert>
+          )}
         </NavBar>
       </MantineProvider>
     </ColorSchemeProvider>
