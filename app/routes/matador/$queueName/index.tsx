@@ -1,17 +1,25 @@
-import { Divider, Grid, Title } from "@mantine/core";
+import {
+  Anchor,
+  Breadcrumbs,
+  Divider,
+  Grid,
+  Group,
+  Title,
+} from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { useState } from "react";
 import { JobsTable } from "~/lib/matador/components/jobs-table";
 import { StatCard } from "~/lib/matador/components/stat-card";
-import type { BullJob } from "~/lib/matador/index.server";
+import { Link } from "~/lib/matador/helpers/ui-helpers";
+import type { Job, RepeatableJob } from "~/lib/matador/index.server";
 import { getQueueJobs, getQueues } from "~/lib/matador/index.server";
 import type { JobStatus } from "~/lib/matador/types/JobStatus";
 import { JobStatuses } from "~/lib/matador/types/JobStatus";
 
 type LoaderData = {
   queueName: string;
-  jobs: BullJob[];
+  jobs: (Job | RepeatableJob)[];
 };
 
 export const loader: LoaderFunction = async ({
@@ -54,15 +62,51 @@ export const loader: LoaderFunction = async ({
 
 export default function QueueDetail() {
   const loaderData = useLoaderData<LoaderData>();
-  const completedJobs = loaderData.jobs.filter(
-    (job) => "returnvalue" in job && !("parentKey" in job)
+
+  const jobs: Job[] = ((): Job[] => {
+    const repeated = loaderData.jobs.filter((el) =>
+      el.id?.startsWith("repeat")
+    );
+    const temp: any = {};
+
+    repeated.forEach((el) => {
+      const splitted = el.id?.split(":");
+
+      if (!splitted) {
+        return;
+      }
+
+      if (!temp[splitted[1]]) {
+        el.id = `${splitted[0]}:${splitted[1]}`;
+
+        temp[splitted[1]] = el;
+      }
+    });
+
+    const jobs = [
+      ...loaderData.jobs.filter((el) => !el.id?.startsWith("repeat")),
+    ];
+
+    Object.keys(temp).forEach((el) => {
+      jobs.push(temp[el]);
+    });
+
+    return jobs;
+  })();
+
+  const completedJobs = jobs.filter(
+    (job) =>
+      !job.id?.includes("repeat") &&
+      "returnvalue" in job &&
+      !("parentKey" in job) &&
+      !("failedReason" in job)
   );
 
-  const childrenJobs = loaderData.jobs.filter((job) => "parentKey" in job);
-  const repeatedJobs = loaderData.jobs.filter((job) => "repeated" in job);
-  const failedJobs = loaderData.jobs.filter((job) => "failedReason" in job);
+  const childrenJobs = jobs.filter((job) => "parentKey" in job);
+  const repeatedJobs = jobs.filter((job) => job.id?.includes("repeat"));
+  const failedJobs = jobs.filter((job) => "failedReason" in job);
 
-  const [currentJobs, setCurrentJobs] = useState<BullJob[]>(loaderData.jobs);
+  const [currentJobs, setCurrentJobs] = useState<Job[]>(jobs);
   const [statusesSelected, setStatusesSelected] = useState<JobStatus[]>(
     JobStatuses as JobStatus[]
   );
@@ -70,7 +114,7 @@ export default function QueueDetail() {
   const onFilterStatuses = (statuses: JobStatus[]) => {
     setStatusesSelected(statuses);
 
-    const jobs: BullJob[] = [];
+    const jobs: Job[] = [];
 
     statuses.forEach((el) => {
       if (el === "children") {
@@ -95,6 +139,19 @@ export default function QueueDetail() {
 
   return (
     <>
+      <Group mb="md">
+        <Breadcrumbs>
+          <Anchor>
+            <Link to="/matador">Home</Link>
+          </Anchor>
+          <Anchor>
+            <Link to="/matador/queues">Queues</Link>
+          </Anchor>
+          <Anchor>
+            <Link to="#">{loaderData.queueName}</Link>
+          </Anchor>
+        </Breadcrumbs>
+      </Group>
       <Title
         mb="sm"
         order={2}

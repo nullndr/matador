@@ -1,7 +1,17 @@
-import { Card, Divider, Table, Title, Tooltip } from "@mantine/core";
+import {
+  Anchor,
+  Breadcrumbs,
+  Card,
+  Divider,
+  Group,
+  Table,
+  Title,
+  Tooltip,
+} from "@mantine/core";
 import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import Dot from "~/lib/matador/components/dot";
+import { Link } from "~/lib/matador/helpers/ui-helpers";
 import { getRedisClients } from "~/lib/matador/index.server";
 
 type LoaderData = string;
@@ -49,6 +59,16 @@ export default function Clients() {
 
   return (
     <>
+      <Group mb="md">
+        <Breadcrumbs>
+          <Anchor>
+            <Link to="/matador">Home</Link>
+          </Anchor>
+          <Anchor>
+            <Link to="#">Clients</Link>
+          </Anchor>
+        </Breadcrumbs>
+      </Group>
       <Title
         mb="sm"
         order={2}

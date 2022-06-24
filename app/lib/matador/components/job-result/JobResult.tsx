@@ -2,7 +2,7 @@ import { Card, Textarea } from "@mantine/core";
 
 export interface JobResultProps {
   label: string;
-  value: string;
+  value?: string;
   color?: string;
   textColor?: string;
   borderColor?: string;
