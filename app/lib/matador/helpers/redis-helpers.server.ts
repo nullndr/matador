@@ -11,6 +11,7 @@ declare global {
 const redisOptions: RedisOptions = {
   maxRetriesPerRequest: null,
   enableReadyCheck: false,
+  enableOfflineQueue: false,
 };
 
 type QueueRedisScheduler = {
