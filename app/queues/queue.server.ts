@@ -19,6 +19,7 @@ type RegisteredQueue = {
 type Queues = {
   [queueName: string]: RegisteredQueue;
 };
+
 declare global {
   var __registeredQeueues: Queues | undefined;
 }
@@ -53,9 +54,11 @@ export const Queue = <JobPayload, JobResult = any>(
     ...queueOptions,
     connection: redis,
   });
+
   const scheduler = new QueueScheduler(name, {
     connection: getSchedulerConnection(name),
   });
+
   const worker = new Worker<JobPayload, JobResult>(name, handler, {
     metrics: {
       maxDataPoints: MetricsTime.ONE_WEEK * 2,
