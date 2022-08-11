@@ -42,7 +42,7 @@
   ],
   "homepage": "https://github.com/nullndr/Matador#readme",
   "dependencies": {
-    "@mantine/core": "4.2.10",
+    "@mantine/core": "5.1.1",
     "@remix-run/node": "*",
     "@remix-run/react": "*",
     "@remix-run/serve": "*",
@@ -61,7 +61,7 @@
     "@testing-library/user-event": "14.2.1",
     "@types/react": "*",
     "@types/react-dom": "*",
-    "@vitejs/plugin-react": "1.3.2",
+    "@vitejs/plugin-react": "2.0.0",
     "binode": "1.0.5",
     "concurrently": "7.2.2",
     "cross-env": "7.0.3",
