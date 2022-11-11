@@ -6,8 +6,9 @@ import {
   Group,
   Title,
 } from "@mantine/core";
-import type { LoaderFunction } from "@remix-run/node";
+import { json, LoaderArgs, LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { loadRouteModule } from "@remix-run/react/dist/routeModules";
 import { useState } from "react";
 import { JobsTable } from "~/lib/matador/components/jobs-table";
 import { StatCard } from "~/lib/matador/components/stat-card";
@@ -22,10 +23,9 @@ type LoaderData = {
   jobs: (Job | RepeatableJob)[];
 };
 
-export const loader: LoaderFunction = async ({
-  request,
+export const loader = async ({
   params,
-}): Promise<LoaderData> => {
+}: LoaderArgs) => {
   if (!global.__redis) {
     throw new Response("Redis connection not found", {
       status: 503,
@@ -57,11 +57,11 @@ export const loader: LoaderFunction = async ({
   }
 
   const jobs = await getQueueJobs(queueName);
-  return { queueName, jobs };
+  return json<LoaderData>({ queueName, jobs });
 };
 
 export default function QueueDetail() {
-  const loaderData = useLoaderData<LoaderData>();
+  const loaderData = useLoaderData<typeof loader>();
 
   const jobs: Job[] = ((): Job[] => {
     const repeated = loaderData.jobs.filter((el) =>

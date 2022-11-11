@@ -8,18 +8,12 @@ import {
   Group,
   Title,
 } from "@mantine/core";
-import type { LoaderFunction } from "@remix-run/node";
 import { NavLink, useLoaderData } from "@remix-run/react";
 import { StatCard } from "~/lib/matador/components/stat-card";
 import { Link } from "~/lib/matador/helpers/ui-helpers";
-import type { RedisInfo } from "~/lib/matador/index.server";
 import { getQueues, getRedisInfo } from "~/lib/matador/index.server";
 
-type LoaderData = { queues: string[]; serverInfo: RedisInfo };
-
-export const loader: LoaderFunction = async ({
-  request,
-}): Promise<LoaderData> => {
+export const loader = async () => {
   if (!global.__redis) {
     throw new Response("Redis connection not found", {
       status: 503,
@@ -34,7 +28,7 @@ export const loader: LoaderFunction = async ({
 };
 
 export default function Dashboard() {
-  const loaderData = useLoaderData<LoaderData>();
+  const { queues, serverInfo } = useLoaderData<typeof loader>();
   return (
     <>
       <Group mb="md">
@@ -52,7 +46,7 @@ export default function Dashboard() {
           <NavLink to="../redis">
             <StatCard
               title="Redis version"
-              value={loaderData.serverInfo.Server.redis_version}
+              value={serverInfo.Server.redis_version}
               color="red"
             />
           </NavLink>
@@ -61,7 +55,7 @@ export default function Dashboard() {
           <NavLink to="../redis">
             <StatCard
               title="Redis Mode"
-              value={loaderData.serverInfo.Server.redis_mode}
+              value={serverInfo.Server.redis_mode}
               color="grape"
             />
           </NavLink>
@@ -70,7 +64,7 @@ export default function Dashboard() {
           <NavLink to="../clients">
             <StatCard
               title="Connected Clients"
-              value={loaderData.serverInfo.Clients.connected_clients}
+              value={serverInfo.Clients.connected_clients}
               color="green"
             />
           </NavLink>
@@ -90,7 +84,7 @@ export default function Dashboard() {
 
       <Divider mb="md" />
 
-      {loaderData.queues.length === 0 ? (
+      {queues.length === 0 ? (
         <Center>
           <Title
             order={3}
@@ -106,7 +100,7 @@ export default function Dashboard() {
         </Center>
       ) : (
         <Grid columns={24} mt="sm">
-          {loaderData.queues.map((queue, index) => (
+          {queues.map((queue, index) => (
             <Grid.Col key={index} sm={24} xs={24} md={8} lg={8} xl={8}>
               <Link to={`../${encodeURI(queue)}`}>
                 <MantineCard radius="md" withBorder={true} shadow="xl">
