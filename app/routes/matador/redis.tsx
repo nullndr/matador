@@ -7,19 +7,12 @@ import {
   Group,
   Title,
 } from "@mantine/core";
-import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import React from "react";
 import { Section } from "~/lib/matador/components";
 import { Link } from "~/lib/matador/helpers/ui-helpers";
-import type { RedisInfo } from "~/lib/matador/index.server";
 import { getRedisInfo } from "~/lib/matador/index.server";
 
-type LoaderData = RedisInfo;
-
-export const loader: LoaderFunction = async ({
-  request,
-}): Promise<LoaderData> => {
+export const loader = async () => {
   if (!global.__redis) {
     throw new Response("Redis connection not found", {
       status: 503,
@@ -27,11 +20,11 @@ export const loader: LoaderFunction = async ({
     });
   }
 
-  return await getRedisInfo(global.__redis);
+  return getRedisInfo(global.__redis);
 };
 
 export default function RedisServerInfo() {
-  const loaderData = useLoaderData<LoaderData>();
+  const loaderData = useLoaderData<typeof loader>();
 
   return (
     <>

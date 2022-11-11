@@ -1,22 +1,13 @@
 import { Anchor, Breadcrumbs, Group } from "@mantine/core";
-import type { LoaderFunction } from "@remix-run/node";
+import type { LoaderArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { JobDataPanel } from "~/lib/matador/components/job-data";
 import { JobInfoPanel } from "~/lib/matador/components/job-info";
 import { JobResultPanel } from "~/lib/matador/components/job-result";
 import { Link } from "~/lib/matador/helpers/ui-helpers";
-import type { BullJob } from "~/lib/matador/index.server";
 import { getQueueJob } from "~/lib/matador/index.server";
 
-type LoaderData = {
-  queueName: string;
-  job: BullJob;
-};
-
-export const loader: LoaderFunction = async ({
-  request,
-  params,
-}): Promise<LoaderData> => {
+export const loader = async ({ params }: LoaderArgs) => {
   if (!global.__redis) {
     throw new Response("Redis connection not found", {
       status: 503,
@@ -46,8 +37,8 @@ export const loader: LoaderFunction = async ({
 };
 
 export default function JobDetail() {
-  const loaderData = useLoaderData<LoaderData>();
-  if (!("timestamp" in loaderData.job)) {
+  const { queueName, job } = useLoaderData<typeof loader>();
+  if (!("timestamp" in job)) {
     throw new Error();
   }
 
@@ -61,22 +52,22 @@ export default function JobDetail() {
       href: "/matador/queues",
     },
     {
-      name: loaderData.queueName,
-      href: `/matador/${loaderData.queueName}`,
+      name: queueName,
+      href: `/matador/${queueName}`,
     },
   ];
 
-  if (loaderData.job.id && loaderData.job.id.includes("repeat")) {
-    const idSplitted = loaderData.job.id.split(":");
+  if (job.id && job.id.includes("repeat")) {
+    const idSplitted = job.id.split(":");
 
     navigation.push({
-      name: loaderData.job.name,
-      href: `/matador/${loaderData.queueName}/repeat/${idSplitted[1]}`,
+      name: job.name,
+      href: `/matador/${queueName}/repeat/${idSplitted[1]}`,
     });
   }
 
   navigation.push({
-    name: loaderData.job.id!,
+    name: job.id!,
     href: "#",
   });
 
@@ -92,30 +83,30 @@ export default function JobDetail() {
         </Breadcrumbs>
       </Group>
       <JobInfoPanel
-        id={loaderData.job.id ?? ""}
-        jobName={loaderData.job.name ?? ""}
-        queueName={loaderData.queueName}
-        timestamp={new Date(Number(loaderData.job.timestamp))}
-        attemptsMade={loaderData.job.attemptsMade}
+        id={job.id ?? ""}
+        jobName={job.name ?? ""}
+        queueName={queueName}
+        timestamp={new Date(Number(job.timestamp))}
+        attemptsMade={job.attemptsMade}
         processedOn={
-          loaderData.job.processedOn
-            ? new Date(Number(loaderData.job.processedOn))
+          job.processedOn
+            ? new Date(Number(job.processedOn))
             : undefined
         }
         finishedOn={
-          loaderData.job.finishedOn
-            ? new Date(Number(loaderData.job.finishedOn))
+          job.finishedOn
+            ? new Date(Number(job.finishedOn))
             : undefined
         }
       />
 
       <JobDataPanel
-        parent={loaderData.job.parent}
-        data={loaderData.job.data}
-        opts={loaderData.job.opts}
+        parent={job.parent}
+        data={job.data}
+        opts={job.opts}
       />
 
-      <JobResultPanel job={loaderData.job} />
+      <JobResultPanel job={job} />
     </>
   );
 }

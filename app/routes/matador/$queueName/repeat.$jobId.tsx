@@ -6,7 +6,7 @@ import {
   Group,
   Title,
 } from "@mantine/core";
-import type { LoaderFunction } from "@remix-run/node";
+import { LoaderArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { useState } from "react";
 import { JobsTable } from "~/lib/matador/components/jobs-table";
@@ -17,15 +17,7 @@ import { getRepeatableQueueJobs } from "~/lib/matador/index.server";
 import type { JobStatus } from "~/lib/matador/types/JobStatus";
 import { JobStatuses } from "~/lib/matador/types/JobStatus";
 
-type LoaderData = {
-  queueName: string;
-  jobs: Job[];
-};
-
-export const loader: LoaderFunction = async ({
-  request,
-  params,
-}): Promise<LoaderData> => {
+export const loader = async ({ params }: LoaderArgs) => {
   if (!global.__redis) {
     throw new Response("Redis connection not found", {
       status: 503,
@@ -48,14 +40,14 @@ export const loader: LoaderFunction = async ({
 };
 
 export default function QueueDetail() {
-  const loaderData = useLoaderData<LoaderData>();
-  const completedJobs = loaderData.jobs.filter(
+  const { jobs, queueName } = useLoaderData<typeof loader>();
+  const completedJobs = jobs.filter(
     (job) =>
       "returnvalue" in job && !("parentKey" in job) && !("failedReason" in job)
   );
-  const childrenJobs = loaderData.jobs.filter((job) => "parentKey" in job);
-  const failedJobs = loaderData.jobs.filter((job) => "failedReason" in job);
-  const [currentJobs, setCurrentJobs] = useState(loaderData.jobs);
+  const childrenJobs = jobs.filter((job) => "parentKey" in job);
+  const failedJobs = jobs.filter((job) => "failedReason" in job);
+  const [currentJobs, setCurrentJobs] = useState(jobs);
   const [statusesSelected, setStatusesSelected] = useState<JobStatus[]>(
     JobStatuses.filter((el) => el != "repeated") as JobStatus[]
   );
@@ -93,12 +85,12 @@ export default function QueueDetail() {
             <Link to="/matador/queues">Queues</Link>
           </Anchor>
           <Anchor>
-            <Link to={`/matador/${loaderData.queueName}`}>
-              {loaderData.queueName}
+            <Link to={`/matador/${queueName}`}>
+              {queueName}
             </Link>
           </Anchor>
           <Anchor>
-            <Link to={"#"}>{loaderData.jobs[0].name}</Link>
+            <Link to={"#"}>{jobs[0].name}</Link>
           </Anchor>
         </Breadcrumbs>
       </Group>
@@ -110,7 +102,7 @@ export default function QueueDetail() {
             theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
         })}
       >
-        {`Repeated Jobs "${loaderData.jobs[0].name}" of "${loaderData.queueName}" Queue`}
+        {`Repeated Jobs "${jobs[0].name}" of "${queueName}" Queue`}
       </Title>
       <Divider mb="md" />
       <Grid columns={24} mb="md">
@@ -136,7 +128,7 @@ export default function QueueDetail() {
       <Grid>
         <JobsTable
           jobs={currentJobs}
-          queueName={loaderData.queueName}
+          queueName={queueName}
           onStatusesSelected={onFilterStatuses}
           repeatJobs={true}
           statusSelected={statusesSelected}
