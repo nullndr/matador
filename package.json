@@ -50,7 +50,7 @@
     "ioredis": "*",
     "react": "*",
     "react-dom": "*",
-    "react-icons": "4.4.0"
+    "react-icons": "4.6.0"
   },
   "devDependencies": {
     "@remix-run/dev": "*",
