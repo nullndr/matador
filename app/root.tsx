@@ -1,3 +1,4 @@
+import { StylesPlaceholder } from "@mantine/remix";
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import {
   Links,
@@ -7,7 +8,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import styles from "./styles/app.css";
+import styles from "./styles/tailwind.css";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
@@ -22,6 +23,7 @@ export default function App() {
     <html lang="en">
       <head>
         <Meta />
+        <StylesPlaceholder />
         <Links />
       </head>
       <body>
