@@ -1,75 +1,60 @@
-# queues folder
+## Queues folder
 
-This folder should be used to write your queues with the `queue.server.ts` utility.
+Put all your bullmq queues inside this folder in order to keep your project
+organized.
 
-Here an example:
+## registerQueue
 
-```typescript
-// file myqueue.server.ts
-import { Queue } from "./queue.server";
+The `registerQueue` function can help you to easily create a queue and a worker
+for it:
 
-export type JobPayload = {
-  name: string;
+```ts
+type JobData = {
+  foo: string;
 };
 
-export type JobResult = string;
+type JobResult = {
+  bar: number;
+};
 
-const name = "myQueue";
-
-export const myQueue = Queue<JobPayload, JobResult>(name, async (job) => {
-  const { name } = job.data;
-  return `Hello, ${name}`;
-});
-```
-
-The utility takes care of both the redis connection and the `QueueScheduler`,
-that are defined inside `app/lib/matador/helpers/redis-helpers.server.ts` with the env variable `REDIS_URL`.
-
-You can add also all `QueueOptions` options to your queue, except for `connection`.
-
-```typescript
-export const myQueue = Queue<JobPayload, JobResult>(
-  name,
+const { queue, worker } = registerQueue<JobData, JobResult>(
+  "my new queue",
   async (job) => {
-    const { name } = job.data;
-    return `Hello, ${name}`;
+    console.log(job.data.foo);
+    return {
+      bar: 0,
+    };
   },
-  {
-    defaultJobOptions: {
-      removeOnComplete: {
-        count: 2500,
-      },
-      removeOnFail: {
-        count: 2500,
-      },
-    },
-  }
 );
 ```
 
-If you want to add also `WorkerOptions` options to the worker, provide the object as forth argument of the function:
+You can also pass options to the queue and the worker:
 
-```typescript
-export const myQueue = Queue<JobPayload, JobResult>(
-  name,
+```ts
+type JobData = {
+  foo: string;
+};
+
+type JobResult = {
+  bar: number;
+};
+
+const { queue, worker } = registerQueue<JobData, JobResult>(
+  "my new queue",
   async (job) => {
-    const { name } = job.data;
-    return `Hello, ${name}`;
+    console.log(job.data.foo);
+    return {
+      bar: 0,
+    };
   },
-  {
-    defaultJobOptions: {
-      removeOnComplete: {
-        count: 2500,
-      },
-      removeOnFail: {
-        count: 2500,
-      },
+  { // options for the queue
+    prefix: "matador", 
+  },
+  { // options for the worker
+    limiter: {
+      max: 50,
+      duration: 1,
     },
   },
-  {
-    autorun: true,
-  }
 );
 ```
-
-Keep in mind that the utility also use two weeks of metrics as described [here](https://docs.bullmq.io/guide/metrics), but this can be overridden by the worker options.

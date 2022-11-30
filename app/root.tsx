@@ -7,7 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import styles from "./styles/tailwind.css";
+import styles from "./styles/app.css";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
@@ -28,7 +28,7 @@ export default function App() {
         <Outlet />
         <ScrollRestoration />
         <Scripts />
-        {process.env.NODE_ENV === "development" && <LiveReload />}
+        <LiveReload />
       </body>
     </html>
   );

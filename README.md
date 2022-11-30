@@ -13,7 +13,6 @@ $ npx create-remix@latest --template nullndr/matador
 # What's in the stack
 
 - Matador interface built with [MantineUI](https://mantine.dev/) at `/matador` route
-  > there is also a pure tailwind Matador implementation that can be found [here](https://github.com/inkOfPixel/Matador)
 - A little [utility](https://github.com/nullndr/Matador/tree/main/app/queues) that helps you build your queues
 - Styling with [Tailwind](https://tailwindcss.com/)
 - Code formatting with [Prettier](https://prettier.io)
@@ -43,20 +42,6 @@ If you want to stop the development Redis Database, run `npm run dev:docker:stop
 Matador needs a **Redis 6 instance** at least to work.
 
 Set your redis connection string as the `REDIS_URL` env variable in your `.env` file.
-
-# Testing
-
-## Cypress
-
-We use Cypress for our End-to-End tests in this project. You'll find those in the `cypress` directory. As you make changes, add to an existing file or create a new file in the `cypress/e2e` directory to test your changes.
-
-We use [`@testing-library/cypress`](https://testing-library.com/cypress) for selecting elements on the page semantically.
-
-To run these tests in development, run `npm run test:e2e:dev` which will start the dev server for the app as well as the Cypress client.
-
-## Vitest
-
-For lower level tests of utilities and individual components, we use `vitest`. We have DOM-specific assertion helpers via [`@testing-library/jest-dom`](https://testing-library.com/jest-dom).
 
 ## Type Checking
 

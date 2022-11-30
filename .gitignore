@@ -7,11 +7,9 @@ pnpm-lock.yml
 
 node_modules
 
-/app/styles/tailwind.css
-
 /.cache
 /build
 /public/build
-/server/index.js
 .env
 
+/app/styles/tailwind.css
